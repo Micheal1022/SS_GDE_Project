@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ViewWidget</class>
+ <widget class="QWidget" name="ViewWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1350</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget#ViewWidget{
+background-color: rgb(255, 255, 255);
+}
+
+QToolButton{
+font: 14pt &quot;楷体&quot;;
+color: rgb(255, 255, 255);
+border:2px solid  rgb(0, 125, 165);
+border-radius:10px;
+background-color: rgb(0, 125, 165);
+}
+
+QTabWidget::pane { /* The tab widget frame */
+border-top: 2px solid  rgb(64, 87, 97);
+border: 2px solid  rgb(64, 87, 97);
+background-color: rgb(255, 255, 255);
+}
+
+QTabWidget::tab-bar {
+left: 10px; /* move to the right by 5px */
+}
+
+QTabBar::tab {
+font: 18pt &quot;楷体&quot;;
+border:2px solid rgb(64, 87, 97);
+border-bottom-color: #C2C7CB; /* same as the pane color */
+border-top-left-radius: 5px;
+border-top-right-radius: 5px;
+width: 390px;
+height: 30px;
+padding: 2px;
+}
+
+QTabBar::tab:selected {
+color: rgb(255, 255, 255);
+background-color:rgb(64, 87, 97);
+}
+
+QTabBar::tab:selected {
+border-color: #9B9B9B;
+border-bottom-color: #C2C7CB; /* same as pane color */
+}
+QTabBar::tab:!selected {
+margin-top: 2px; /* make non-selected tabs look smaller */
+background-color: rgb(255, 255, 255);
+}
+Line{
+border:1px solid  rgb(0, 125, 165);
+}
+
+</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="spacing">
+    <number>5</number>
+   </property>
+   <property name="leftMargin">
+    <number>5</number>
+   </property>
+   <property name="topMargin">
+    <number>5</number>
+   </property>
+   <property name="rightMargin">
+    <number>5</number>
+   </property>
+   <property name="bottomMargin">
+    <number>5</number>
+   </property>
+   <item>
+    <widget class="QTreeWidget" name="treeWidget">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>220</width>
+       <height>690</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>220</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QTreeWidget{
+font: 20pt &quot;楷体&quot;;
+border:2px solid rgb(0,125,165);
+border-radius:10px;
+}
+</string>
+     </property>
+     <attribute name="headerCascadingSectionResizes">
+      <bool>false</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>项目索引</string>
+      </property>
+      <property name="font">
+       <font>
+        <family>楷体</family>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="textAlignment">
+       <set>AlignCenter</set>
+      </property>
+     </column>
+     <item>
+      <property name="text">
+       <string>1#主机</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2#主机</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>3#主机</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item>
+    <widget class="QStackedWidget" name="stackedWidgetBuild">
+     <property name="minimumSize">
+      <size>
+       <width>1115</width>
+       <height>690</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QStackedWidget{
+font: 20pt &quot;楷体&quot;;
+border:2px solid rgb(0,125,165);
+border-radius:10px;
+}</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
