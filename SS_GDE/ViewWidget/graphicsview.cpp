@@ -204,7 +204,6 @@ void GraphicsView::slotBtnSave()
 
     QList<QGraphicsItem *> itemList = m_scene->items();
     foreach (QGraphicsItem *item, itemList) {
-        //qDebug()<<item->pos();
         item->setFlag(QGraphicsItem::ItemIsMovable,false);
         item->setFlag(QGraphicsItem::ItemIsFocusable,false);
         item->setFlag(QGraphicsItem::ItemIsSelectable,false);
