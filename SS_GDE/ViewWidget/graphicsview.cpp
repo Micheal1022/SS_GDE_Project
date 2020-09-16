@@ -26,6 +26,16 @@ void GraphicsView::initWidget()
     initTabelWidget(ui->tableWidgetAlarm);
     initTabelWidget(ui->tableWidgetError);
 
+//    QPoint pSendMenuEventPos;
+//    QGraphicsItem *pFocusItem = m_scene->focusItem();
+
+//    if (m_scene->views().first() != NULL) {
+//        QGraphicsView *v = m_scene->views().first();
+//        QPointF sceneP = pFocusItem->mapToScene(pFocusItem->boundingRect().bottomRight());
+//        QPoint viewP = v->mapFromScene(sceneP);
+//        pSendMenuEventPos = v->viewport()->mapToGlobal(viewP);
+//    }
+
 
 //    ui->tBtnEdit->setEnabled(true);
 //    ui->tBtnSave->setEnabled(false);

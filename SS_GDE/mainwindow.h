@@ -41,6 +41,7 @@ private slots:
     void slotSystemConf();
     void slotRecordInfo();
     void slotUserLogin();
+    void slotAppQuit();
     void slotSystemTime();
 };
 

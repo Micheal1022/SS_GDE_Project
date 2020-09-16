@@ -83,6 +83,7 @@ QMenu *MainWindow::createSystemMenu()
     pMainMenu->addAction(tr("系统设置"), this, SLOT(slotSystemConf()));
     pMainMenu->addAction(tr("历史记录"), this, SLOT(slotRecordInfo()));
     pMainMenu->addAction(tr("用户登录"), this, SLOT(slotUserLogin()));
+    pMainMenu->addAction(tr("程序退出"), this, SLOT(slotAppQuit()));
 #endif
     return pMainMenu;
 }
@@ -98,7 +99,7 @@ void MainWindow::slotSystemMenu()
         if(m_sysMainMenu != NULL) {
             QPoint nPos;
             nPos.setX(5);
-            nPos.setY(m_sysMainMenu->sizeHint().height()-120);
+            nPos.setY(m_sysMainMenu->sizeHint().height()-150);
             nPos = ui->menutBtn->mapToGlobal(nPos);
             m_sysMainMenu->popup(nPos);
         }
@@ -133,6 +134,11 @@ void MainWindow::slotUserLogin()
     int y_pos = pos().y();
     m_userLogin->move(x_pos+w,y_pos+h);
 
+}
+
+void MainWindow::slotAppQuit()
+{
+    QApplication::quit();
 }
 void MainWindow::slotSystemTime()
 {
