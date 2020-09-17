@@ -18,13 +18,8 @@ public:
 private:
     Ui::SystemConf *ui;
 
-    enum TableWidgetType{
-        IP = 1,
-        DATA= 2
-    };
-
 private:
-    void initTableWidget(QTableWidget *tableWidget,SystemConf::TableWidgetType type);
+    void initTableWidget(QTableWidget *tableWidget);
 };
 
 #endif // SYSTEMCONF_H
