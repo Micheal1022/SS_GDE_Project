@@ -312,7 +312,7 @@ left: 5px;
          </property>
          <property name="icon">
           <iconset resource="../image.qrc">
-           <normaloff>:/Image/saveConf.png</normaloff>:/Image/saveConf.png</iconset>
+           <normaloff>:/Image/save.png</normaloff>:/Image/save.png</iconset>
          </property>
          <property name="iconSize">
           <size>

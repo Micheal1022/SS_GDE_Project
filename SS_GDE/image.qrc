@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file>Image/Bevone.png</file>
         <file>Image/reset.png</file>
-        <file>Image/speaker.png</file>
         <file>Image/errorInfo.png</file>
         <file>Image/alarmInfo.png</file>
         <file>Image/arrow-up.png</file>
@@ -18,14 +17,10 @@
         <file>Image/checked.png</file>
         <file>Image/uncheck.png</file>
         <file>Image/print.png</file>
-        <file>Image/datafilter.png</file>
-        <file>Image/run.png</file>
         <file>Image/time.png</file>
         <file>Image/pwd.png</file>
-        <file>Image/node.png</file>
         <file>Image/dataDel.png</file>
         <file>Image/dataExport.png</file>
-        <file>Image/dataRubish.png</file>
         <file>Image/dataSearch.png</file>
         <file>Image/Sensor.png</file>
         <file>Image/enable.png</file>
@@ -34,15 +29,12 @@
         <file>Image/login.png</file>
         <file>Image/close.png</file>
         <file>Image/offLineInfo.png</file>
-        <file>Image/title.png</file>
         <file>Image/zoomin.png</file>
         <file>Image/zoomout.png</file>
         <file>Image/alarm.png</file>
         <file>Image/error.png</file>
         <file>Image/normal.png</file>
         <file>Image/offLine.png</file>
-        <file>Image/logo_11.bmp</file>
-        <file>Image/logo_44.png</file>
         <file>Image/detector.png</file>
         <file>Image/restore.png</file>
         <file>Image/plan.svg</file>
@@ -51,7 +43,6 @@
         <file>Image/plan-Model.png</file>
         <file>Image/addDev.png</file>
         <file>Image/delDev.png</file>
-        <file>Image/saveConf.png</file>
         <file>Image/app.ico</file>
     </qresource>
 </RCC>

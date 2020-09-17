@@ -3,7 +3,7 @@
 
 #include <QDateTime>
 #include <QMenu>
-
+#include <QDebug>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -34,12 +34,18 @@ void MainWindow::initVariable()
     m_systemTimer = new QTimer;
     m_systemTimer->start(1000);
     ui->lbSystemTime->setText(QDateTime::currentDateTime().toString("yyyy/MM/dd hh:mm:ss "));
+
+    m_color = 165;
+    m_flag  = false;
+    m_colorTimer = new QTimer;
+    m_colorTimer->start(40);
 }
 
 void MainWindow::initConnect()
 {
     connect(ui->menutBtn,SIGNAL(clicked(bool)),this,SLOT(slotSystemMenu()));
     connect(m_systemTimer,SIGNAL(timeout()),this,SLOT(slotSystemTime()));
+    connect(m_colorTimer,SIGNAL(timeout()),this,SLOT(slotColorTime()));
 }
 
 void MainWindow::initWidegt()
@@ -144,4 +150,21 @@ void MainWindow::slotSystemTime()
 {
     QDate::currentDate().dayOfWeek();
     ui->lbSystemTime->setText(QDateTime::currentDateTime().toString("yyyy/MM/dd hh:mm:ss "));
+}
+
+void MainWindow::slotColorTime()
+{
+    if (m_flag == false) {
+        m_color += 5;
+        if (m_color == 250) {
+            m_flag = true;
+        }
+    } else {
+        m_color -= 5;
+        if (m_color == 165) {
+            m_flag = false;
+        }
+    }
+    QString styleSheetStr = QString("background-color: rgb(0, 125, %1);").arg(m_color);
+    ui->centralWidget->setStyleSheet(styleSheetStr);
 }

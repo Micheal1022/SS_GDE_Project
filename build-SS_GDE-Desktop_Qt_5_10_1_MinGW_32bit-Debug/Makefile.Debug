@@ -171,23 +171,16 @@ debug/qrc_image.cpp: ../SS_GDE/image.qrc \
 		../SS_GDE/Image/save.png \
 		../SS_GDE/Image/edit.png \
 		../SS_GDE/Image/volume.png \
-		../SS_GDE/Image/run.png \
-		../SS_GDE/Image/saveConf.png \
-		../SS_GDE/Image/errorInfo.png \
 		../SS_GDE/Image/offLine.png \
+		../SS_GDE/Image/errorInfo.png \
 		../SS_GDE/Image/enable.png \
 		../SS_GDE/Image/plan.svg \
 		../SS_GDE/Image/delDev.png \
 		../SS_GDE/Image/arrow-down.png \
-		../SS_GDE/Image/datafilter.png \
-		../SS_GDE/Image/logo_11.bmp \
-		../SS_GDE/Image/uncheck.png \
 		../SS_GDE/Image/normal.png \
-		../SS_GDE/Image/node.png \
+		../SS_GDE/Image/uncheck.png \
 		../SS_GDE/Image/alarm.png \
 		../SS_GDE/Image/connect.png \
-		../SS_GDE/Image/title.png \
-		../SS_GDE/Image/logo_44.png \
 		../SS_GDE/Image/print.png \
 		../SS_GDE/Image/error.png \
 		../SS_GDE/Image/time.png \
@@ -195,24 +188,22 @@ debug/qrc_image.cpp: ../SS_GDE/image.qrc \
 		../SS_GDE/Image/dataSearch.png \
 		../SS_GDE/Image/app.ico \
 		../SS_GDE/Image/login.png \
-		../SS_GDE/Image/disenable.png \
-		../SS_GDE/Image/speaker.png \
 		../SS_GDE/Image/restore.png \
+		../SS_GDE/Image/disenable.png \
 		../SS_GDE/Image/key.png \
 		../SS_GDE/Image/plan-Model.png \
 		../SS_GDE/Image/Sensor.png \
 		../SS_GDE/Image/alarmInfo.png \
 		../SS_GDE/Image/ok.png \
 		../SS_GDE/Image/selfCheck.png \
-		../SS_GDE/Image/dataRubish.png \
 		../SS_GDE/Image/dataExport.png \
 		../SS_GDE/Image/addDev.png \
 		../SS_GDE/Image/offLineInfo.png \
 		../SS_GDE/Image/reset.png \
 		../SS_GDE/Image/close.png \
 		../SS_GDE/Image/tools.png \
-		../SS_GDE/Image/zoomout.png \
 		../SS_GDE/Image/detector.png \
+		../SS_GDE/Image/zoomout.png \
 		../SS_GDE/Image/Bevone.png \
 		../SS_GDE/Image/arrow-up.png \
 		../SS_GDE/Image/quit.png
@@ -364,7 +355,7 @@ debug/moc_mainwindow.cpp: C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QMa
 		../SS_GDE/mainwindow.h \
 		debug/moc_predefs.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/bin/moc.exe
-	C:\Qt\Qt5.10.1\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g++ -IE:/CODE/SS_GDE_Project/SS_GDE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSvg -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore -I. -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\SS_GDE\mainwindow.h -o debug\moc_mainwindow.cpp
+	C:\Qt\Qt5.10.1\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g++ -IE:/CODE/QtCode/SS_GDE_Project/SS_GDE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSvg -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore -I. -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\SS_GDE\mainwindow.h -o debug\moc_mainwindow.cpp
 
 debug/moc_recordinfo.cpp: C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QWidget \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qwidget.h \
@@ -492,7 +483,7 @@ debug/moc_recordinfo.cpp: C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QWi
 		../SS_GDE/RecordInfo/recordinfo.h \
 		debug/moc_predefs.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/bin/moc.exe
-	C:\Qt\Qt5.10.1\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g++ -IE:/CODE/SS_GDE_Project/SS_GDE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSvg -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore -I. -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\SS_GDE\RecordInfo\recordinfo.h -o debug\moc_recordinfo.cpp
+	C:\Qt\Qt5.10.1\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g++ -IE:/CODE/QtCode/SS_GDE_Project/SS_GDE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSvg -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore -I. -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\SS_GDE\RecordInfo\recordinfo.h -o debug\moc_recordinfo.cpp
 
 debug/moc_systemconf.cpp: C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QWidget \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qwidget.h \
@@ -620,7 +611,7 @@ debug/moc_systemconf.cpp: C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QWi
 		../SS_GDE/SystemConf/systemconf.h \
 		debug/moc_predefs.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/bin/moc.exe
-	C:\Qt\Qt5.10.1\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g++ -IE:/CODE/SS_GDE_Project/SS_GDE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSvg -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore -I. -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\SS_GDE\SystemConf\systemconf.h -o debug\moc_systemconf.cpp
+	C:\Qt\Qt5.10.1\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g++ -IE:/CODE/QtCode/SS_GDE_Project/SS_GDE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSvg -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore -I. -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\SS_GDE\SystemConf\systemconf.h -o debug\moc_systemconf.cpp
 
 debug/moc_userlgoin.cpp: C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QDialog \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qdialog.h \
@@ -729,7 +720,7 @@ debug/moc_userlgoin.cpp: C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QDia
 		../SS_GDE/UserLgoin/userlgoin.h \
 		debug/moc_predefs.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/bin/moc.exe
-	C:\Qt\Qt5.10.1\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g++ -IE:/CODE/SS_GDE_Project/SS_GDE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSvg -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore -I. -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\SS_GDE\UserLgoin\userlgoin.h -o debug\moc_userlgoin.cpp
+	C:\Qt\Qt5.10.1\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g++ -IE:/CODE/QtCode/SS_GDE_Project/SS_GDE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSvg -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore -I. -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\SS_GDE\UserLgoin\userlgoin.h -o debug\moc_userlgoin.cpp
 
 debug/moc_viewwidget.cpp: C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QWidget \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qwidget.h \
@@ -837,7 +828,7 @@ debug/moc_viewwidget.cpp: C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QWi
 		../SS_GDE/ViewWidget/viewwidget.h \
 		debug/moc_predefs.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/bin/moc.exe
-	C:\Qt\Qt5.10.1\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g++ -IE:/CODE/SS_GDE_Project/SS_GDE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSvg -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore -I. -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\SS_GDE\ViewWidget\viewwidget.h -o debug\moc_viewwidget.cpp
+	C:\Qt\Qt5.10.1\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g++ -IE:/CODE/QtCode/SS_GDE_Project/SS_GDE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSvg -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore -I. -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\SS_GDE\ViewWidget\viewwidget.h -o debug\moc_viewwidget.cpp
 
 debug/moc_qwgraphicsview.cpp: C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QPoint \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qpoint.h \
@@ -956,7 +947,7 @@ debug/moc_qwgraphicsview.cpp: C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QP
 		../SS_GDE/ViewWidget/qwgraphicsview.h \
 		debug/moc_predefs.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/bin/moc.exe
-	C:\Qt\Qt5.10.1\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g++ -IE:/CODE/SS_GDE_Project/SS_GDE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSvg -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore -I. -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\SS_GDE\ViewWidget\qwgraphicsview.h -o debug\moc_qwgraphicsview.cpp
+	C:\Qt\Qt5.10.1\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g++ -IE:/CODE/QtCode/SS_GDE_Project/SS_GDE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSvg -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore -I. -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\SS_GDE\ViewWidget\qwgraphicsview.h -o debug\moc_qwgraphicsview.cpp
 
 debug/moc_graphicsview.cpp: C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QWidget \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qwidget.h \
@@ -1098,7 +1089,7 @@ debug/moc_graphicsview.cpp: C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/Q
 		../SS_GDE/ViewWidget/graphicsview.h \
 		debug/moc_predefs.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/bin/moc.exe
-	C:\Qt\Qt5.10.1\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g++ -IE:/CODE/SS_GDE_Project/SS_GDE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSvg -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore -I. -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\SS_GDE\ViewWidget\graphicsview.h -o debug\moc_graphicsview.cpp
+	C:\Qt\Qt5.10.1\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g++ -IE:/CODE/QtCode/SS_GDE_Project/SS_GDE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSvg -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore -I. -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\SS_GDE\ViewWidget\graphicsview.h -o debug\moc_graphicsview.cpp
 
 debug/moc_infobox.cpp: C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QDialog \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qdialog.h \
@@ -1207,7 +1198,7 @@ debug/moc_infobox.cpp: C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QDialo
 		../SS_GDE/MsgBox/infobox.h \
 		debug/moc_predefs.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/bin/moc.exe
-	C:\Qt\Qt5.10.1\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g++ -IE:/CODE/SS_GDE_Project/SS_GDE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSvg -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore -I. -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\SS_GDE\MsgBox\infobox.h -o debug\moc_infobox.cpp
+	C:\Qt\Qt5.10.1\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g++ -IE:/CODE/QtCode/SS_GDE_Project/SS_GDE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSvg -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore -I. -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\SS_GDE\MsgBox\infobox.h -o debug\moc_infobox.cpp
 
 debug/moc_questbox.cpp: C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QDialog \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qdialog.h \
@@ -1318,7 +1309,7 @@ debug/moc_questbox.cpp: C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QDial
 		../SS_GDE/MsgBox/questbox.h \
 		debug/moc_predefs.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/bin/moc.exe
-	C:\Qt\Qt5.10.1\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g++ -IE:/CODE/SS_GDE_Project/SS_GDE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSvg -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore -I. -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\SS_GDE\MsgBox\questbox.h -o debug\moc_questbox.cpp
+	C:\Qt\Qt5.10.1\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g++ -IE:/CODE/QtCode/SS_GDE_Project/SS_GDE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSvg -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql -IC:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore -I. -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.10.1/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\SS_GDE\MsgBox\questbox.h -o debug\moc_questbox.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1766,39 +1757,12 @@ debug/mainwindow.o: ../SS_GDE/mainwindow.cpp ../SS_GDE/mainwindow.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QDialog \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qdialog.h \
 		ui_mainwindow.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QVariant \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QAction \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qaction.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qactiongroup.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QApplication \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qapplication.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qcoreapplication.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qeventloop.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qdesktopwidget.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qguiapplication.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qinputmethod.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QButtonGroup \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qbuttongroup.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QHBoxLayout \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qboxlayout.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qlayout.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qlayoutitem.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qgridlayout.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QHeaderView \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qheaderview.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QLabel \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qlabel.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QSpacerItem \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QStackedWidget \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qstackedwidget.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QToolButton \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtoolbutton.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractbutton.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QVBoxLayout \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QDateTime \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qdatetime.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QMenu \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qmenu.h
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qmenu.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qaction.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qactiongroup.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mainwindow.o ..\SS_GDE\mainwindow.cpp
 
 debug/recordinfo.o: ../SS_GDE/RecordInfo/recordinfo.cpp ../SS_GDE/RecordInfo/recordinfo.h \
@@ -1926,44 +1890,15 @@ debug/recordinfo.o: ../SS_GDE/RecordInfo/recordinfo.cpp ../SS_GDE/RecordInfo/rec
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtabwidget.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qrubberband.h \
 		ui_recordinfo.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QDate \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qdatetime.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QVariant \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QAction \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qaction.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qactiongroup.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QApplication \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qapplication.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qcoreapplication.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qeventloop.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qdesktopwidget.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qguiapplication.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qinputmethod.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QButtonGroup \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qbuttongroup.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QDateEdit \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qdatetimeedit.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QHBoxLayout \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qboxlayout.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qlayout.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qlayoutitem.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qgridlayout.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QHeaderView \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qheaderview.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QLabel \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qlabel.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QSpacerItem \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QToolButton \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtoolbutton.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractbutton.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QVBoxLayout \
 		../SS_GDE/SqlManager/sqlmanager.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QDebug \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QMutex \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QQueue \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qqueue.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QString \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QVariant \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QDateTime \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qdatetime.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql/QSql \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql/qtsqlglobal.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QMutexLocker \
@@ -1977,13 +1912,17 @@ debug/recordinfo.o: ../SS_GDE/RecordInfo/recordinfo.cpp ../SS_GDE/RecordInfo/rec
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql/QSqlDatabase \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql/QSqlQueryModel \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSql/qsqlquerymodel.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QScrollBar \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qscrollbar.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QMessageBox \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qmessagebox.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qdialog.h \
 		../SS_GDE/MsgBox/msgbox.h \
 		../SS_GDE/MsgBox/infobox.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QDialog \
-		../SS_GDE/MsgBox/questbox.h
+		../SS_GDE/MsgBox/questbox.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QButtonGroup \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qbuttongroup.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\recordinfo.o ..\SS_GDE\RecordInfo\recordinfo.cpp
 
 debug/systemconf.o: ../SS_GDE/SystemConf/systemconf.cpp ../SS_GDE/SystemConf/systemconf.h \
@@ -2110,40 +2049,7 @@ debug/systemconf.o: ../SS_GDE/SystemConf/systemconf.cpp ../SS_GDE/SystemConf/sys
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtabbar.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtabwidget.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qrubberband.h \
-		ui_systemconf.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QVariant \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QAction \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qaction.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qactiongroup.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QApplication \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qapplication.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qcoreapplication.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qeventloop.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qdesktopwidget.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qguiapplication.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qinputmethod.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QButtonGroup \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qbuttongroup.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QHBoxLayout \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qboxlayout.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qlayout.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qlayoutitem.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qgridlayout.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QHeaderView \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qheaderview.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QLabel \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qlabel.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QLineEdit \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qlineedit.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qtextcursor.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qtextformat.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qpen.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qtextoption.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QSpacerItem \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QToolButton \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtoolbutton.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractbutton.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QVBoxLayout
+		ui_systemconf.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\systemconf.o ..\SS_GDE\SystemConf\systemconf.cpp
 
 debug/userlgoin.o: ../SS_GDE/UserLgoin/userlgoin.cpp ../SS_GDE/UserLgoin/userlgoin.h \
@@ -2251,50 +2157,7 @@ debug/userlgoin.o: ../SS_GDE/UserLgoin/userlgoin.cpp ../SS_GDE/UserLgoin/userlgo
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qfiledevice.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qtouchdevice.h \
-		ui_userlgoin.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QVariant \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QAction \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qaction.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qicon.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qactiongroup.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QApplication \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qapplication.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qcoreapplication.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qeventloop.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qdesktopwidget.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qguiapplication.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qinputmethod.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QButtonGroup \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qbuttongroup.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QHeaderView \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qheaderview.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractitemview.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qframe.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qabstractitemmodel.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qitemselectionmodel.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractitemdelegate.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qstyleoption.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractspinbox.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qvalidator.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qregularexpression.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qslider.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractslider.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qstyle.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtabbar.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtabwidget.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qrubberband.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QLabel \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qlabel.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QLineEdit \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qlineedit.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qtextcursor.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qtextformat.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qpen.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qtextoption.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QToolButton \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtoolbutton.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractbutton.h
+		ui_userlgoin.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\userlgoin.o ..\SS_GDE\UserLgoin\userlgoin.cpp
 
 debug/viewwidget.o: ../SS_GDE/ViewWidget/viewwidget.cpp ../SS_GDE/ViewWidget/viewwidget.h \
@@ -2402,49 +2265,6 @@ debug/viewwidget.o: ../SS_GDE/ViewWidget/viewwidget.cpp ../SS_GDE/ViewWidget/vie
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qtouchdevice.h \
 		ui_viewwidget.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QVariant \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QAction \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qaction.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qicon.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qactiongroup.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QApplication \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qapplication.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qcoreapplication.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qeventloop.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qdesktopwidget.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qguiapplication.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qinputmethod.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QButtonGroup \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qbuttongroup.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QHBoxLayout \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qboxlayout.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qlayout.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qlayoutitem.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qgridlayout.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QHeaderView \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qheaderview.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractitemview.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qframe.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qabstractitemmodel.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qitemselectionmodel.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractitemdelegate.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qstyleoption.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractspinbox.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qvalidator.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qregularexpression.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qslider.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractslider.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qstyle.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtabbar.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtabwidget.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qrubberband.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QStackedWidget \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qstackedwidget.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QTreeWidget \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtreewidget.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtreeview.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtreewidgetitemiterator.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QGraphicsScene \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qpen.h \
@@ -2453,6 +2273,8 @@ debug/viewwidget.o: ../SS_GDE/ViewWidget/viewwidget.cpp ../SS_GDE/ViewWidget/vie
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qpainter.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qtextoption.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qscrollarea.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qframe.h \
 		../SS_GDE/ViewWidget/sensoritem.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QGraphicsItem \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qgraphicsitem.h \
@@ -2468,7 +2290,22 @@ debug/viewwidget.o: ../SS_GDE/ViewWidget/viewwidget.cpp ../SS_GDE/ViewWidget/vie
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QEvent \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QTableWidget \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtablewidget.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtableview.h
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtableview.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qabstractitemmodel.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qitemselectionmodel.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qstyleoption.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qvalidator.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qregularexpression.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qicon.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qslider.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractslider.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qstyle.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtabbar.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtabwidget.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qrubberband.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\viewwidget.o ..\SS_GDE\ViewWidget\viewwidget.cpp
 
 debug/sensoritem.o: ../SS_GDE/ViewWidget/sensoritem.cpp ../SS_GDE/ViewWidget/sensoritem.h \
@@ -2864,35 +2701,6 @@ debug/graphicsview.o: ../SS_GDE/ViewWidget/graphicsview.cpp ../SS_GDE/ViewWidget
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QDebug \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QObject \
 		ui_graphicsview.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QVariant \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QAction \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qaction.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qactiongroup.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QApplication \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qapplication.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qcoreapplication.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qeventloop.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qdesktopwidget.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qguiapplication.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qinputmethod.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QButtonGroup \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qbuttongroup.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QGroupBox \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qgroupbox.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QHBoxLayout \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qboxlayout.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qlayout.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qlayoutitem.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qgridlayout.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QHeaderView \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qheaderview.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QLabel \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qlabel.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QSpacerItem \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QToolButton \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtoolbutton.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractbutton.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QVBoxLayout \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSvg/QGraphicsSvgItem \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSvg/qgraphicssvgitem.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtSvg/qtsvgglobal.h

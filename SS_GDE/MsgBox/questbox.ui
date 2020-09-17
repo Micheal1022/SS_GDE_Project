@@ -30,14 +30,14 @@ background-color: rgb(255, 255, 255);
 }
 
 QToolButton{
-font: 16pt &quot;文泉驿等宽微米黑&quot;;
+font: 16pt &quot;楷体&quot;;
 color:rgb(0, 122, 165);
 border:2px solid rgb(0, 122, 165);
 border-radius:10px;
 background-color: rgb(255, 255, 255);
 }
 QLabel{
-font: 14pt &quot;文泉驿等宽微米黑&quot;;
+font: 14pt &quot;楷体&quot;;
 color: rgb(0, 122, 165);
 }
 </string>

@@ -447,7 +447,7 @@ left: 5px;
          </property>
          <property name="icon">
           <iconset resource="../image.qrc">
-           <normaloff>:/Image/restore.png</normaloff>:/Image/restore.png</iconset>
+           <normaloff>:/Image/reset.png</normaloff>:/Image/reset.png</iconset>
          </property>
          <property name="iconSize">
           <size>

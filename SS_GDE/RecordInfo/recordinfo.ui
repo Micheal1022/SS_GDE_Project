@@ -254,18 +254,31 @@ border-radius:10px;
         <widget class="QToolButton" name="tBtnCheck">
          <property name="minimumSize">
           <size>
-           <width>120</width>
+           <width>170</width>
            <height>60</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>120</width>
-           <height>120</height>
+           <width>170</width>
+           <height>60</height>
           </size>
          </property>
          <property name="text">
           <string>查询记录</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../image.qrc">
+           <normaloff>:/Image/dataSearch.png</normaloff>:/Image/dataSearch.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextBesideIcon</enum>
          </property>
         </widget>
        </item>
@@ -273,18 +286,31 @@ border-radius:10px;
         <widget class="QToolButton" name="tBtnAllDel">
          <property name="minimumSize">
           <size>
-           <width>120</width>
+           <width>170</width>
            <height>60</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>120</width>
+           <width>170</width>
            <height>120</height>
           </size>
          </property>
          <property name="text">
           <string>全部删除</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../image.qrc">
+           <normaloff>:/Image/dataDel.png</normaloff>:/Image/dataDel.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextBesideIcon</enum>
          </property>
         </widget>
        </item>
@@ -292,18 +318,31 @@ border-radius:10px;
         <widget class="QToolButton" name="tBtnExport">
          <property name="minimumSize">
           <size>
-           <width>120</width>
+           <width>170</width>
            <height>60</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>120</width>
+           <width>170</width>
            <height>120</height>
           </size>
          </property>
          <property name="text">
           <string>导出记录</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../image.qrc">
+           <normaloff>:/Image/dataExport.png</normaloff>:/Image/dataExport.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextBesideIcon</enum>
          </property>
         </widget>
        </item>
@@ -311,18 +350,31 @@ border-radius:10px;
         <widget class="QToolButton" name="tBtnPageUp">
          <property name="minimumSize">
           <size>
-           <width>120</width>
+           <width>170</width>
            <height>60</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>120</width>
+           <width>170</width>
            <height>60</height>
           </size>
          </property>
          <property name="text">
           <string>向上翻页</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../image.qrc">
+           <normaloff>:/Image/arrow-up.png</normaloff>:/Image/arrow-up.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextBesideIcon</enum>
          </property>
         </widget>
        </item>
@@ -330,18 +382,31 @@ border-radius:10px;
         <widget class="QToolButton" name="tBtnPageDown">
          <property name="minimumSize">
           <size>
-           <width>120</width>
+           <width>170</width>
            <height>60</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>120</width>
+           <width>170</width>
            <height>60</height>
           </size>
          </property>
          <property name="text">
           <string>向下翻页</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../image.qrc">
+           <normaloff>:/Image/arrow-down.png</normaloff>:/Image/arrow-down.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextBesideIcon</enum>
          </property>
         </widget>
        </item>
@@ -351,6 +416,8 @@ border-radius:10px;
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../image.qrc"/>
+ </resources>
  <connections/>
 </ui>

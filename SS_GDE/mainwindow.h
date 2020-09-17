@@ -27,6 +27,9 @@ private:
     SystemConf *m_systemConf;
     UserLgoin  *m_userLogin;
     QTimer *m_systemTimer;
+    QTimer *m_colorTimer;
+    int m_color;
+    int m_flag;
 
     QMenu  *m_sysMainMenu;
     void initVariable();
@@ -43,6 +46,7 @@ private slots:
     void slotUserLogin();
     void slotAppQuit();
     void slotSystemTime();
+    void slotColorTime();
 };
 
 #endif // MAINWINDOW_H
