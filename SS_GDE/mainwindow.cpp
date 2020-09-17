@@ -44,7 +44,7 @@ void MainWindow::initConnect()
 
 void MainWindow::initWidegt()
 {
-    showFullScreen();
+    //showFullScreen();
     //setWindowFlags(Qt::FramelessWindowHint);
 #ifdef BEVONE
     ui->lbLogoBevone->setStyleSheet("border-image: url(:/Image/Bevone.png);");

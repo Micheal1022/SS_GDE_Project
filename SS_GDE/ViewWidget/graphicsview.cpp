@@ -81,10 +81,8 @@ void GraphicsView::initTabelWidget(QTableWidget *tableWidget)
     tableWidget->setHorizontalHeaderLabels(headList);
     tableWidget->horizontalHeader()->setFixedHeight(25);
     //tableWidget->horizontalHeader()->setDefaultSectionSize(140);
-    QString hstyleStr ="QHeaderView::section{font: 14pt '楷体'; background-color: rgb(0, 125, 165);"
-                       "color: white;}";
-    QString vstyleStr ="QHeaderView::section{font: 12pt '楷体'; background-color: rgb(0, 125, 165);"
-                       "color: white;}";
+    QString hstyleStr ="QHeaderView::section{font: 14pt '楷体'; background-color: rgb(0, 125, 165);color: white;}";
+    QString vstyleStr ="QHeaderView::section{font: 12pt '楷体'; background-color: rgb(0, 125, 165);color: white;}";
     //tableWidget->setFocusPolicy(Qt::NoFocus);
     tableWidget->verticalHeader()->setStyleSheet(vstyleStr);
     tableWidget->verticalHeader()->setFixedWidth(35);

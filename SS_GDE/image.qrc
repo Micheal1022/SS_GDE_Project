@@ -49,5 +49,9 @@
         <file>Image/edit.png</file>
         <file>Image/save.png</file>
         <file>Image/plan-Model.png</file>
+        <file>Image/addDev.png</file>
+        <file>Image/delDev.png</file>
+        <file>Image/saveConf.png</file>
+        <file>Image/app.ico</file>
     </qresource>
 </RCC>

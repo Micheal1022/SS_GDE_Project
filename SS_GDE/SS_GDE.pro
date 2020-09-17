@@ -8,9 +8,23 @@
 #DEFINES += BEVONE
 DEFINES += SENSOR
 
-QT       += core gui svg
+
+
+
+QT       += core gui svg sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+
+
+VERSION = 1.0.0
+RC_ICONS = Image/app.ico
+QMAKE_TARGET_COMPANY = "CHEN"
+QMAKE_TARGET_PRODUCT = "GDE"
+QMAKE_TARGET_DESCRIPTION = "Qt Creator based on Qt 5.10.0"
+QMAKE_TARGET_COPYRIGHT = "Copyright 2018-2020 The Qt Company Ltd. All rights reserved."
+RC_LANG = 0x0004
+
 
 TARGET = SS_GDE
 TEMPLATE = app
@@ -36,7 +50,11 @@ SOURCES += \
     ViewWidget/viewwidget.cpp \
     ViewWidget/sensoritem.cpp \
     ViewWidget/qwgraphicsview.cpp \
-    ViewWidget/graphicsview.cpp
+    ViewWidget/graphicsview.cpp \
+    SqlManager/sqlmanager.cpp \
+    MsgBox/infobox.cpp \
+    MsgBox/msgbox.cpp \
+    MsgBox/questbox.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -46,7 +64,11 @@ HEADERS += \
     ViewWidget/viewwidget.h \
     ViewWidget/sensoritem.h \
     ViewWidget/qwgraphicsview.h \
-    ViewWidget/graphicsview.h
+    ViewWidget/graphicsview.h \
+    SqlManager/sqlmanager.h \
+    MsgBox/infobox.h \
+    MsgBox/msgbox.h \
+    MsgBox/questbox.h
 
 FORMS += \
         mainwindow.ui \
@@ -54,7 +76,9 @@ FORMS += \
     SystemConf/systemconf.ui \
     UserLgoin/userlgoin.ui \
     ViewWidget/viewwidget.ui \
-    ViewWidget/graphicsview.ui
+    ViewWidget/graphicsview.ui \
+    MsgBox/infobox.ui \
+    MsgBox/questbox.ui
 
 RESOURCES += \
     image.qrc
