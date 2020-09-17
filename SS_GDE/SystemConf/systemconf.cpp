@@ -6,7 +6,7 @@ SystemConf::SystemConf(QWidget *parent) :
     ui(new Ui::SystemConf)
 {
     ui->setupUi(this);
-    initTableWidget(ui->tableWidgetIP,SystemConf::IP);
+    initTableWidget(ui->tableWidgetIP);
 }
 
 SystemConf::~SystemConf()
