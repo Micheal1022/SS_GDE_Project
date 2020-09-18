@@ -19,7 +19,16 @@ private:
     Ui::SystemConf *ui;
 
 private:
+    void initWidget();
+    void initConnect();
+    void initVariable();
+    void confHostList(QTableWidget *tableWidget);
     void initTableWidget(QTableWidget *tableWidget);
+private slots:
+    void slotBtnAddHost();
+    void slotBtnDelHost();
+    void slotBtnSaveHost();
+    void slotCellCheckClick(int row,int column);
 };
 
 #endif // SYSTEMCONF_H

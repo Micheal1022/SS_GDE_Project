@@ -39,12 +39,12 @@ public:
 
 
     //hostList
-    static QList<QStringList> getHostList(QSqlDatabase db, const QString sqlQuery, SqlManager::ListMode listMode);
+    static QList<QStringList> getHostList(QSqlDatabase db, const QString sqlQuery, int columnCount);
     //
     static bool insertHostList(QSqlDatabase db, QStringList stringList);
-    static bool delelteHostItem(QSqlDatabase db, QString host);
+    static bool delelteHostItem(QSqlDatabase db, QString name, QString host);
     //record
-    static QList<QStringList> getRecordList(QSqlDatabase db, QString sqlQuery);
+    static QList<QStringList> getRecordList(QSqlDatabase db, QString sqlQuery, int columnCount);
     static bool delAllData(QSqlDatabase db,const QString &sqlQuery);
     static bool delelteRecordItem(QSqlDatabase db, QStringList stringList);
     static bool insertAlarmRecord(QSqlDatabase db, QStringList stringList);

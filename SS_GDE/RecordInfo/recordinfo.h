@@ -30,7 +30,12 @@ private:
         QString host;
         QString addr;
     };
+    int m_rowCount;
+    int m_pageCount;
+    int m_pageNumber;
+    void initWidget();
     void initConnect();
+    void initVariable();
     void initTableWidget(QTableWidget *tableWidget);
     QString confQuerySql();
     void showRecordList(QTableWidget *tableWidget, QString querySql);

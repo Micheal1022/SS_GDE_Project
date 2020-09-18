@@ -169,41 +169,40 @@ SqlManager &SqlManager::getInstance()
 bool SqlManager::insertHostList(QSqlDatabase db, QStringList stringList)
 {
 
-    QString pHost    = stringList.value(0);
-    QString pPort_1  = stringList.value(1);
-    QString pSheet_1 = stringList.value(2);
-    QString pPort_2  = stringList.value(3);
-    QString pSheet_2 = stringList.value(4);
-    QString pPort_3  = stringList.value(5);
-    QString pSheet_3 = stringList.value(6);
-    QString pPort_4  = stringList.value(7);
-    QString pSheet_4 = stringList.value(8);
-    QString pPort_5  = stringList.value(9);
-    QString pSheet_5 = stringList.value(10);
-    QString pPort_6  = stringList.value(11);
-    QString pSheet_6 = stringList.value(12);
-    QString pPort_7  = stringList.value(13);
-    QString pSheet_7 = stringList.value(14);
-    QString pPort_8  = stringList.value(15);
-    QString pSheet_8 = stringList.value(16);
-    QString pDbPath  = stringList.value(17);
-    QString pAble    = stringList.value(18);
-    QString pAdrress = stringList.value(19);
+    QString pName    = stringList.value(0);
+    QString pHost    = stringList.value(1);
+    QString pAble    = stringList.value(2);
+    QString pDbPath  = stringList.value(3);
+    QString pPort_1  = stringList.value(4);
+    QString pSheet_1 = stringList.value(5);
+    QString pPort_2  = stringList.value(6);
+    QString pSheet_2 = stringList.value(7);
+    QString pPort_3  = stringList.value(8);
+    QString pSheet_3 = stringList.value(9);
+    QString pPort_4  = stringList.value(10);
+    QString pSheet_4 = stringList.value(11);
+    QString pPort_5  = stringList.value(12);
+    QString pSheet_5 = stringList.value(13);
+    QString pPort_6  = stringList.value(14);
+    QString pSheet_6 = stringList.value(15);
+    QString pPort_7  = stringList.value(16);
+    QString pSheet_7 = stringList.value(17);
+    QString pPort_8  = stringList.value(18);
+    QString pSheet_8 = stringList.value(19);
+
 
     QString sqlQuery = QString("insert into HOSTINFO values('%1',%2,'%3',%4,"
                                "'%5',%6,'%7',%8,'%9',%10,"
                                "'%11',%12,'%13',%14,'%15',"
                                "%16,'%17','%18',%19,'%20');").\
-            arg(pHost).arg(pPort_1).arg(pSheet_1).\
-            arg(pPort_2).arg(pSheet_2).arg(pPort_3).\
-            arg(pSheet_3).arg(pPort_4).arg(pSheet_4).\
-            arg(pPort_5).arg(pSheet_5).arg(pPort_6).\
-            arg(pSheet_6).arg(pPort_7).arg(pSheet_7).\
-            arg(pPort_8).arg(pSheet_8).arg(pDbPath).arg(pAble).arg(pAdrress);
+            arg(pName).arg(pHost).arg(pDbPath).arg(pAble).\
+            arg(pPort_1).arg(pSheet_1).arg(pPort_2).arg(pSheet_2).\
+            arg(pPort_3).arg(pSheet_3).arg(pPort_4).arg(pSheet_4).\
+            arg(pPort_5).arg(pSheet_5).arg(pPort_6).arg(pSheet_6).\
+            arg(pPort_7).arg(pSheet_7).arg(pPort_8).arg(pSheet_8);
 
     QSqlQuery query(db);
-    if(!query.exec(sqlQuery))
-    {
+    if (!query.exec(sqlQuery)) {
         return false;
     }
     query.finish();
@@ -211,28 +210,26 @@ bool SqlManager::insertHostList(QSqlDatabase db, QStringList stringList)
     return true;
 }
 
-bool SqlManager::delelteHostItem(QSqlDatabase db, QString host)
+bool SqlManager::delelteHostItem(QSqlDatabase db, QString name, QString host)
 {
-    QString pSqlQuery = "delete from HOSTINFO where HOST = '"+host+"';";
-
+    QString pSqlQuery = QString("delete from HOSTINFO where NAME = '%1' and HOST = '%2';").arg(name).arg(host);
     QSqlQuery query(db);
-    if(!query.exec(pSqlQuery)) {
+    if (!query.exec(pSqlQuery)) {
         return false;
     }
     query.finish();
     query.clear();
-
     return true;
 }
 
-QList<QStringList> SqlManager::getRecordList(QSqlDatabase db, QString sqlQuery)
+QList<QStringList> SqlManager::getRecordList(QSqlDatabase db, QString sqlQuery, int columnCount)
 {
     QList<QStringList> pRecordList;
     QSqlQuery pQuery(db);
     if (pQuery.exec(sqlQuery)) {
         while(pQuery.next()) {
             QStringList pNodeList;
-            for(int index = 0;index < 6;index++) {
+            for(int index = 0;index < columnCount; index++) {
                 pNodeList.append(pQuery.value(index).toString());
             }
             pRecordList.append(pNodeList);
@@ -258,14 +255,15 @@ bool SqlManager::delAllData(QSqlDatabase db,const QString &sqlQuery)
 
 bool SqlManager::delelteRecordItem(QSqlDatabase db, QStringList stringList)
 {
-    QString pHost = stringList.value(0);
-    QString pLoop = stringList.value(1);
-    QString pID   = stringList.value(2);
-    QString pSts  = stringList.value(3);
-    QString pTime = stringList.value(4);
+    QString pName = stringList.value(0);
+    QString pHost = stringList.value(1);
+    QString pLoop = stringList.value(2);
+    QString pID   = stringList.value(3);
+    QString pSts  = stringList.value(4);
+    QString pTime = stringList.value(5);
     QString sqlQuery = QString("delete from RECORD where "
-                               "HOST = '%1' and LOOP = %2 and ID = %3 and STS = '%4' and TIME = %5;").arg(pHost).arg(pLoop).arg(pID).arg(pSts).arg(pTime);
-
+                               "NAME = '%1' and HOST = '%2' and "
+                               "LOOP = %3 and ID = '%4' and STS = '%5' and TIME = %5;").arg(pName).arg(pHost).arg(pLoop).arg(pID).arg(pSts).arg(pTime);
     QSqlQuery query(db);
     if (!query.exec(sqlQuery)) {
         return false;
@@ -276,14 +274,14 @@ bool SqlManager::delelteRecordItem(QSqlDatabase db, QStringList stringList)
     return true;
 }
 
-QList<QStringList> SqlManager::getHostList(QSqlDatabase db, const QString sqlQuery, ListMode listMode)
+QList<QStringList> SqlManager::getHostList(QSqlDatabase db, const QString sqlQuery, int columnCount)
 {
     QList<QStringList> list;
     QSqlQuery query(db);
     if (query.exec(sqlQuery)) {
         while(query.next()) {
             QStringList nodeList;
-            for(int index = 0;index < listMode;index++) {
+            for(int index = 0;index < columnCount;index++) {
                 nodeList.append(query.value(index).toString());
             }
             list.append(nodeList);

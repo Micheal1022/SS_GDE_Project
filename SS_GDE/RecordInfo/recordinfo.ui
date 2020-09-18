@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1350</width>
+    <width>1422</width>
     <height>707</height>
    </rect>
   </property>
@@ -83,6 +83,9 @@ bottom:2px;
 border:1px solid rgb(0,125,165);
 border-radius:10px;
 }</string>
+     </property>
+     <property name="verticalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
      </property>
     </widget>
    </item>
@@ -254,13 +257,13 @@ border-radius:10px;
         <widget class="QToolButton" name="tBtnCheck">
          <property name="minimumSize">
           <size>
-           <width>170</width>
+           <width>150</width>
            <height>60</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>170</width>
+           <width>150</width>
            <height>60</height>
           </size>
          </property>
@@ -273,8 +276,8 @@ border-radius:10px;
          </property>
          <property name="iconSize">
           <size>
-           <width>50</width>
-           <height>50</height>
+           <width>40</width>
+           <height>40</height>
           </size>
          </property>
          <property name="toolButtonStyle">
@@ -286,13 +289,13 @@ border-radius:10px;
         <widget class="QToolButton" name="tBtnAllDel">
          <property name="minimumSize">
           <size>
-           <width>170</width>
+           <width>150</width>
            <height>60</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>170</width>
+           <width>150</width>
            <height>120</height>
           </size>
          </property>
@@ -305,8 +308,8 @@ border-radius:10px;
          </property>
          <property name="iconSize">
           <size>
-           <width>50</width>
-           <height>50</height>
+           <width>40</width>
+           <height>40</height>
           </size>
          </property>
          <property name="toolButtonStyle">
@@ -318,13 +321,13 @@ border-radius:10px;
         <widget class="QToolButton" name="tBtnExport">
          <property name="minimumSize">
           <size>
-           <width>170</width>
+           <width>150</width>
            <height>60</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>170</width>
+           <width>150</width>
            <height>120</height>
           </size>
          </property>
@@ -337,8 +340,8 @@ border-radius:10px;
          </property>
          <property name="iconSize">
           <size>
-           <width>50</width>
-           <height>50</height>
+           <width>40</width>
+           <height>40</height>
           </size>
          </property>
          <property name="toolButtonStyle">
@@ -350,13 +353,13 @@ border-radius:10px;
         <widget class="QToolButton" name="tBtnPageUp">
          <property name="minimumSize">
           <size>
-           <width>170</width>
+           <width>150</width>
            <height>60</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>170</width>
+           <width>150</width>
            <height>60</height>
           </size>
          </property>
@@ -369,8 +372,8 @@ border-radius:10px;
          </property>
          <property name="iconSize">
           <size>
-           <width>50</width>
-           <height>50</height>
+           <width>40</width>
+           <height>40</height>
           </size>
          </property>
          <property name="toolButtonStyle">
@@ -380,15 +383,18 @@ border-radius:10px;
        </item>
        <item>
         <widget class="QToolButton" name="tBtnPageDown">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="minimumSize">
           <size>
-           <width>170</width>
+           <width>150</width>
            <height>60</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>170</width>
+           <width>150</width>
            <height>60</height>
           </size>
          </property>
@@ -401,8 +407,8 @@ border-radius:10px;
          </property>
          <property name="iconSize">
           <size>
-           <width>50</width>
-           <height>50</height>
+           <width>40</width>
+           <height>40</height>
           </size>
          </property>
          <property name="toolButtonStyle">

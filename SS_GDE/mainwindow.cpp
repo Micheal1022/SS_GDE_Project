@@ -38,7 +38,7 @@ void MainWindow::initVariable()
     m_color = 165;
     m_flag  = false;
     m_colorTimer = new QTimer;
-    m_colorTimer->start(40);
+    //m_colorTimer->start(40);
 }
 
 void MainWindow::initConnect()

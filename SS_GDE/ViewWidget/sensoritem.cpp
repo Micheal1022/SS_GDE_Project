@@ -80,8 +80,6 @@ void SensorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
         painter->setBrush(Qt::NoBrush);
         painter->drawRect(boundingRect());
     }
-    update();
-
 }
 
 void SensorItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
