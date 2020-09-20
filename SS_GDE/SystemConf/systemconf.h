@@ -17,8 +17,10 @@ public:
 
 private:
     Ui::SystemConf *ui;
-
+signals:
+    void sigSaveOk();
 private:
+    void delAllConf();
     void initWidget();
     void initConnect();
     void initVariable();

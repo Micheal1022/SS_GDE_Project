@@ -168,7 +168,6 @@ SqlManager &SqlManager::getInstance()
 
 bool SqlManager::insertHostList(QSqlDatabase db, QStringList stringList)
 {
-
     QString pName    = stringList.value(0);
     QString pHost    = stringList.value(1);
     QString pAble    = stringList.value(2);
@@ -191,16 +190,17 @@ bool SqlManager::insertHostList(QSqlDatabase db, QStringList stringList)
     QString pSheet_8 = stringList.value(19);
 
 
-    QString sqlQuery = QString("insert into HOSTINFO values('%1',%2,'%3',%4,"
-                               "'%5',%6,'%7',%8,'%9',%10,"
-                               "'%11',%12,'%13',%14,'%15',"
-                               "%16,'%17','%18',%19,'%20');").\
+    QString sqlQuery = QString("insert into HOSTINFO values('%1','%2',%3,'%4',"
+                               "%5, '%6' , %7,'%8' ,"
+                               "%9, '%10',%11,'%12',"
+                               "%13,'%14',%15,'%16',"
+                               "%17,'%18',%19,'%20');").\
             arg(pName).arg(pHost).arg(pDbPath).arg(pAble).\
             arg(pPort_1).arg(pSheet_1).arg(pPort_2).arg(pSheet_2).\
             arg(pPort_3).arg(pSheet_3).arg(pPort_4).arg(pSheet_4).\
             arg(pPort_5).arg(pSheet_5).arg(pPort_6).arg(pSheet_6).\
             arg(pPort_7).arg(pSheet_7).arg(pPort_8).arg(pSheet_8);
-
+    //qDebug()<<"sqlQuery --->"<<sqlQuery;
     QSqlQuery query(db);
     if (!query.exec(sqlQuery)) {
         return false;
@@ -263,7 +263,7 @@ bool SqlManager::delelteRecordItem(QSqlDatabase db, QStringList stringList)
     QString pTime = stringList.value(5);
     QString sqlQuery = QString("delete from RECORD where "
                                "NAME = '%1' and HOST = '%2' and "
-                               "LOOP = %3 and ID = '%4' and STS = '%5' and TIME = %5;").arg(pName).arg(pHost).arg(pLoop).arg(pID).arg(pSts).arg(pTime);
+                               "LOOP = %3 and ID = '%4' and STS = '%5' and TIME = %6;").arg(pName).arg(pHost).arg(pLoop).arg(pID).arg(pSts).arg(pTime);
     QSqlQuery query(db);
     if (!query.exec(sqlQuery)) {
         return false;

@@ -40,9 +40,18 @@ SystemConf::~SystemConf()
     delete ui;
 }
 
+void SystemConf::delAllConf()
+{
+    QString pSqlQuery = "delete from HOSTINFO;";
+    QSqlDatabase db = SqlManager::openConnection();
+    SqlManager::delAllData(db,pSqlQuery);
+    SqlManager::closeConnection(db);
+}
+
 void SystemConf::initWidget()
 {
     initTableWidget(ui->tableWidget);
+    confHostList(ui->tableWidget);
 }
 
 void SystemConf::initConnect()
@@ -111,6 +120,7 @@ void SystemConf::confHostList(QTableWidget *tableWidget)
                 item->setText(pPath);
                 break;
             case S_ABLE:
+                item->setFlags(Qt::NoItemFlags);
                 if (pAble.toInt() == 1) {
                     item->setText("启用");
                     item->setCheckState(Qt::Checked);
@@ -245,52 +255,52 @@ void SystemConf::slotBtnAddHost()
             item->setFlags(Qt::NoItemFlags);
             break;
         case S_PORT_1:
-            item->setText(tr("端口号"));
+            item->setText(tr("0"));
             break;
         case S_PATH_1:
-            item->setText(tr("图片路径"));
+            item->setText(tr("0"));
             break;
         case S_PORT_2:
-            item->setText(tr("端口号"));
+            item->setText(tr("0"));
             break;
         case S_PATH_2:
-            item->setText(tr("图片路径"));
+            item->setText(tr("0"));
             break;
         case S_PORT_3:
-            item->setText(tr("端口号"));
+            item->setText(tr("0"));
             break;
         case S_PATH_3:
-            item->setText(tr("图片路径"));
+            item->setText(tr("0"));
             break;
         case S_PORT_4:
-            item->setText(tr("端口号"));
+            item->setText(tr("0"));
             break;
         case S_PATH_4:
-            item->setText(tr("图片路径"));
+            item->setText(tr("0"));
             break;
         case S_PORT_5:
-            item->setText(tr("端口号"));
+            item->setText(tr("0"));
             break;
         case S_PATH_5:
-            item->setText(tr("图片路径"));
+            item->setText(tr("0"));
             break;
         case S_PORT_6:
-            item->setText(tr("端口号"));
+            item->setText(tr("0"));
             break;
         case S_PATH_6:
-            item->setText(tr("图片路径"));
+            item->setText(tr("0"));
             break;
         case S_PORT_7:
-            item->setText(tr("端口号"));
+            item->setText(tr("0"));
             break;
         case S_PATH_7:
-            item->setText(tr("图片路径"));
+            item->setText(tr("0"));
             break;
         case S_PORT_8:
-            item->setText(tr("端口号"));
+            item->setText(tr("0"));
             break;
         case S_PATH_8:
-            item->setText(tr("图片路径"));
+            item->setText(tr("0"));
             break;
         }
         ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,column,item);
@@ -317,7 +327,66 @@ void SystemConf::slotBtnDelHost()
 
 void SystemConf::slotBtnSaveHost()
 {
-
+    int pRowCount = ui->tableWidget->rowCount();
+    if (pRowCount > 0) {
+        delAllConf();
+        QStringList pStringList;
+        for (int row = 0; row < pRowCount; row++) {
+            QString pName   = ui->tableWidget->item(row,S_NAME)->text();
+            QString pHost   = ui->tableWidget->item(row,S_HOST)->text();
+            QString pPath   = ui->tableWidget->item(row,S_PATH)->text();
+            QString pAble   = ui->tableWidget->item(row,S_ABLE)->text();
+            QString pPort_1 = ui->tableWidget->item(row,S_PORT_1)->text();
+            QString pPath_1 = ui->tableWidget->item(row,S_PATH_1)->text();
+            QString pPort_2 = ui->tableWidget->item(row,S_PORT_2)->text();
+            QString pPath_2 = ui->tableWidget->item(row,S_PATH_2)->text();
+            QString pPort_3 = ui->tableWidget->item(row,S_PORT_3)->text();
+            QString pPath_3 = ui->tableWidget->item(row,S_PATH_3)->text();
+            QString pPort_4 = ui->tableWidget->item(row,S_PORT_4)->text();
+            QString pPath_4 = ui->tableWidget->item(row,S_PATH_4)->text();
+            QString pPort_5 = ui->tableWidget->item(row,S_PORT_5)->text();
+            QString pPath_5 = ui->tableWidget->item(row,S_PATH_5)->text();
+            QString pPort_6 = ui->tableWidget->item(row,S_PORT_6)->text();
+            QString pPath_6 = ui->tableWidget->item(row,S_PATH_6)->text();
+            QString pPort_7 = ui->tableWidget->item(row,S_PORT_7)->text();
+            QString pPath_7 = ui->tableWidget->item(row,S_PATH_7)->text();
+            QString pPort_8 = ui->tableWidget->item(row,S_PORT_8)->text();
+            QString pPath_8 = ui->tableWidget->item(row,S_PATH_8)->text();
+            pStringList.append(pName);
+            pStringList.append(pHost);
+            pStringList.append(pPath);
+            if (pAble == QString("启用")) {
+                pStringList.append(QString("1"));
+            } else {
+                pStringList.append(QString("0"));
+            }
+            pStringList.append(pPort_1);
+            pStringList.append(pPath_1);
+            pStringList.append(pPort_2);
+            pStringList.append(pPath_2);
+            pStringList.append(pPort_3);
+            pStringList.append(pPath_3);
+            pStringList.append(pPort_4);
+            pStringList.append(pPath_4);
+            pStringList.append(pPort_5);
+            pStringList.append(pPath_5);
+            pStringList.append(pPort_6);
+            pStringList.append(pPath_6);
+            pStringList.append(pPort_7);
+            pStringList.append(pPath_7);
+            pStringList.append(pPort_8);
+            pStringList.append(pPath_8);
+            QSqlDatabase db = SqlManager::openConnection();
+            bool pFlag = SqlManager::insertHostList(db,pStringList);
+            SqlManager::closeConnection(db);
+            if (!pFlag) {
+                MsgBox::showInformation(this,tr("保存提示"),tr("信息保存失败！"),tr("关闭"));
+                return;
+            }
+        }
+        MsgBox::showInformation(this,tr("保存提示"),tr("信息保存成功！"),tr("关闭"));
+        emit sigSaveOk();
+    }
 }
 
 void SystemConf::slotCellCheckClick(int row, int column)
