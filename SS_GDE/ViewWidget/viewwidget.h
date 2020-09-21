@@ -14,6 +14,7 @@ class ViewWidget : public QWidget
 public:
     explicit ViewWidget(QWidget *parent = 0);
     ~ViewWidget();
+    QList<QStringList> getNodeInfoList(QString loop, QString path);
 
 private:
     Ui::ViewWidget *ui;

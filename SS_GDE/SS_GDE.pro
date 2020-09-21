@@ -9,7 +9,7 @@
 DEFINES += SENSOR
 
 
-QT       += core gui svg sql
+QT       += core gui svg sql network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -52,7 +52,9 @@ SOURCES += \
     SqlManager/sqlmanager.cpp \
     MsgBox/infobox.cpp \
     MsgBox/msgbox.cpp \
-    MsgBox/questbox.cpp
+    MsgBox/questbox.cpp \
+    ViewWidget/udpthread.cpp \
+    ViewWidget/sensoriteminfo.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -66,7 +68,9 @@ HEADERS += \
     SqlManager/sqlmanager.h \
     MsgBox/infobox.h \
     MsgBox/msgbox.h \
-    MsgBox/questbox.h
+    MsgBox/questbox.h \
+    ViewWidget/udpthread.h \
+    ViewWidget/sensoriteminfo.h
 
 FORMS += \
         mainwindow.ui \

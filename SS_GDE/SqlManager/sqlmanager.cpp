@@ -1,6 +1,8 @@
 #include "sqlmanager.h"
 
 
+
+
 QMutex SqlManager::mutex;
 QWaitCondition SqlManager::waitConnection;
 SqlManager* SqlManager::instance = NULL;
@@ -25,8 +27,7 @@ QSqlDatabase SqlManager::createConnection(const QString &connectionName)
             //返回连接前访问数据库，如果连接断开，重新建立连接
             //qDebug() << "Test connection on borrow, execute:" << testOnBorrowSql << ", for" << connectionName;
             QSqlQuery query(dbPre);
-            if (query.lastError().type() != QSqlError::NoError && !dbPre.open())
-            {
+            if (query.lastError().type() != QSqlError::NoError && !dbPre.open()) {
                 //qDebug() << "Open datatabase error:" << dbPre.lastError().text();
                 return QSqlDatabase();
             }
@@ -170,8 +171,8 @@ bool SqlManager::insertHostList(QSqlDatabase db, QStringList stringList)
 {
     QString pName    = stringList.value(0);
     QString pHost    = stringList.value(1);
-    QString pAble    = stringList.value(2);
-    QString pDbPath  = stringList.value(3);
+    QString pDbPath  = stringList.value(2);
+    QString pAble    = stringList.value(3);
     QString pPort_1  = stringList.value(4);
     QString pSheet_1 = stringList.value(5);
     QString pPort_2  = stringList.value(6);
@@ -190,7 +191,7 @@ bool SqlManager::insertHostList(QSqlDatabase db, QStringList stringList)
     QString pSheet_8 = stringList.value(19);
 
 
-    QString sqlQuery = QString("insert into HOSTINFO values('%1','%2',%3,'%4',"
+    QString sqlQuery = QString("insert into HOSTINFO values('%1','%2','%3',%4,"
                                "%5, '%6' , %7,'%8' ,"
                                "%9, '%10',%11,'%12',"
                                "%13,'%14',%15,'%16',"
@@ -290,5 +291,26 @@ QList<QStringList> SqlManager::getHostList(QSqlDatabase db, const QString sqlQue
     query.finish();
     query.clear();
 
+    return list;
+}
+
+QList<QStringList> SqlManager::getEnableHostList(QSqlDatabase db)
+{
+    QString pSqlQuery = "select NAME,HOST,PATH,ABLE,PORT_1,PATH_1,PORT_2,PATH_2,PORT_3,PATH_3,PORT_4,PATH_4,"
+                        "PORT_5,PATH_5,PORT_6,PATH_6,PORT_7,PATH_7,PORT_8,PATH_8 from HOSTINFO where ABLE = 1;";
+    qDebug()<<"pSqlQuery --->"<<pSqlQuery;
+    QList<QStringList> list;
+    QSqlQuery query(db);
+    if (query.exec(pSqlQuery)) {
+        while(query.next()) {
+            QStringList nodeList;
+            for(int index = 0;index < 20;index++) {
+                nodeList.append(query.value(index).toString());
+            }
+            list.append(nodeList);
+        }
+    }
+    query.finish();
+    query.clear();
     return list;
 }

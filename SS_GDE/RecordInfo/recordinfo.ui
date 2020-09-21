@@ -28,7 +28,12 @@ border:2px solid rgb(0, 125, 165);
 border-radius:10px;
 background-color: rgb(0, 125, 165);
 }
-
+QToolButton:disabled{
+font: 18pt &quot;楷体&quot;;
+color: rgb(180, 180, 180);
+border:2px solid rgb(180, 180, 180);
+border-radius:10px;
+}
 QTableWidget{
 font: 14pt &quot;楷体&quot;;
 gridline-color: rgb(0, 0, 0);

@@ -16,6 +16,38 @@
 #include <QtSql/QSqlQueryModel>
 
 
+
+
+#define S_NAME      0
+#define S_HOST      1
+#define S_PATH      2
+#define S_ABLE      3
+#define S_PORT_1    4
+#define S_PATH_1    5
+#define S_PORT_2    6
+#define S_PATH_2    7
+#define S_PORT_3    8
+#define S_PATH_3    9
+#define S_PORT_4    10
+#define S_PATH_4    11
+#define S_PORT_5    12
+#define S_PATH_5    13
+#define S_PORT_6    14
+#define S_PATH_6    15
+#define S_PORT_7    16
+#define S_PATH_7    17
+#define S_PORT_8    18
+#define S_PATH_8    19
+
+
+#define N_LOOP  0
+#define N_ID    1
+#define N_ABLE  2
+#define N_AREA  3
+#define N_ZOOM  4
+#define N_POSX  5
+#define N_POSY  6
+
 class SqlManager
 {
 
@@ -40,6 +72,7 @@ public:
 
     //hostList
     static QList<QStringList> getHostList(QSqlDatabase db, const QString sqlQuery, int columnCount);
+    static QList<QStringList> getEnableHostList(QSqlDatabase db);
     //
     static bool insertHostList(QSqlDatabase db, QStringList stringList);
     static bool delelteHostItem(QSqlDatabase db, QString name, QString host);

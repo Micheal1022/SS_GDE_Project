@@ -20,10 +20,10 @@ private:
     struct NodeInfo
     {
         NodeInfo() {
-         host.clear();
-         addr.clear();
-         loop = 0;
-         id   = 0;
+            host.clear();
+            addr.clear();
+            loop = 0;
+            id   = 0;
         }
         int id;
         int loop;

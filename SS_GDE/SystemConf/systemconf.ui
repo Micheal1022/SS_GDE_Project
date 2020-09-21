@@ -120,14 +120,14 @@ left: 5px;
       <widget class="QToolButton" name="tBtnAdd">
        <property name="minimumSize">
         <size>
-         <width>100</width>
-         <height>50</height>
+         <width>110</width>
+         <height>60</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>50</height>
+         <width>110</width>
+         <height>60</height>
         </size>
        </property>
        <property name="font">
@@ -151,8 +151,8 @@ left: 5px;
        </property>
        <property name="iconSize">
         <size>
-         <width>30</width>
-         <height>30</height>
+         <width>40</width>
+         <height>40</height>
         </size>
        </property>
        <property name="toolButtonStyle">
@@ -164,14 +164,14 @@ left: 5px;
       <widget class="QToolButton" name="tBtnDel">
        <property name="minimumSize">
         <size>
-         <width>100</width>
-         <height>50</height>
+         <width>110</width>
+         <height>60</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>50</height>
+         <width>110</width>
+         <height>60</height>
         </size>
        </property>
        <property name="font">
@@ -195,8 +195,8 @@ left: 5px;
        </property>
        <property name="iconSize">
         <size>
-         <width>30</width>
-         <height>30</height>
+         <width>40</width>
+         <height>40</height>
         </size>
        </property>
        <property name="toolButtonStyle">
@@ -208,14 +208,14 @@ left: 5px;
       <widget class="QToolButton" name="tBtnSave">
        <property name="minimumSize">
         <size>
-         <width>100</width>
-         <height>50</height>
+         <width>110</width>
+         <height>60</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>50</height>
+         <width>110</width>
+         <height>60</height>
         </size>
        </property>
        <property name="focusPolicy">
@@ -230,8 +230,8 @@ left: 5px;
        </property>
        <property name="iconSize">
         <size>
-         <width>30</width>
-         <height>30</height>
+         <width>40</width>
+         <height>40</height>
         </size>
        </property>
        <property name="checked">
