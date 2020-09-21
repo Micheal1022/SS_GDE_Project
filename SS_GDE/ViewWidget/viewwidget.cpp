@@ -5,13 +5,16 @@
 #include "sensoritem.h"
 #include "graphicsview.h"
 #include "SqlManager/sqlmanager.h"
+#include <QTreeWidget>
 
 ViewWidget::ViewWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ViewWidget)
 {
     ui->setupUi(this);
-
+    //默认展开的状态
+    ui->treeWidget->setItemsExpandable(true);
+    ui->treeWidget->expandAll();
     /* 1.打开系统配置，查看那些IP的回路是可用的；
      * 2.创建目录树结构；
      * 3.打开数据,获取节点的地、缩放、安装位置、初始化ItemInfo内容；
@@ -22,7 +25,6 @@ ViewWidget::ViewWidget(QWidget *parent) :
     qDebug()<<"pHostList ---> "<<pHostList;
     SqlManager::closeConnection(db);
     for (int ind = 0 ; ind < pHostList.count(); ind++) {
-
         QStringList pItemStr = pHostList.value(ind);
         QString pName   = pItemStr.at(S_NAME);
         QString pHost   = pItemStr.at(S_HOST);
@@ -44,7 +46,11 @@ ViewWidget::ViewWidget(QWidget *parent) :
         QString pPath_7 = pItemStr.at(S_PATH_7);
         QString pPort_8 = pItemStr.at(S_PORT_8);
         QString pPath_8 = pItemStr.at(S_PATH_8);
-        //if (pHost.toInt() != 0 || pPath.toInt() != 0) {
+        if (false == pHost.isEmpty() && false == pPath.isEmpty()) {
+            QStringList pHostName;
+            pHostName.append(pName);
+            QTreeWidgetItem *pTreeItem = new QTreeWidgetItem(ui->treeWidget,pHostName);
+
             QStringList pPortPathList;
             pPortPathList.append(pPort_1);     pPortPathList.append(pPath_1);
             pPortPathList.append(pPort_2);     pPortPathList.append(pPath_2);
@@ -56,13 +62,18 @@ ViewWidget::ViewWidget(QWidget *parent) :
             pPortPathList.append(pPort_8);     pPortPathList.append(pPath_8);
 
             for (int index = 0; index < pPortPathList.count(); index+=2) {
-                QString port = pPortPathList.at(index % 2);
-                QString path = pPortPathList.at((1+index) % 2);
+                QString port = pPortPathList.at(index);
+                QString path = pPortPathList.at(1+index);
+                QString loop = QString::number(index/2+1);
+
                 if (false == port.isEmpty() && false == path.isEmpty()) {
+                    QStringList pLoopString;
+                    pLoopString.append(QString("回路-%1").arg(loop));
+                    QTreeWidgetItem *pLoopItem =  new QTreeWidgetItem(pTreeItem,pLoopString);
+                    pTreeItem->addChild(pLoopItem);
 
                     QList<SensorItemInfo> itemInfoList;
-                    QList<QStringList> pNodeList = getNodeInfoList(QString::number(index/2+1),pPath);
-                    qDebug()<<"pNodeList ---> "<<pNodeList;
+                    QList<QStringList> pNodeList = getNodeInfoList(loop,pPath);
                     for (int i = 0; i < pNodeList.count(); i++) {
                         SensorItemInfo itemInfo;
                         itemInfo.m_loopStr = pNodeList.value(i).value(N_LOOP);
@@ -83,8 +94,10 @@ ViewWidget::ViewWidget(QWidget *parent) :
                     ui->stackedWidgetBuild->addWidget(pView);
                 }
             }
-        //}
+        }
     }
+
+    connect(ui->treeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(slotItemClicked(QTreeWidgetItem*,int)));
 }
 
 ViewWidget::~ViewWidget()
@@ -99,7 +112,7 @@ QList<QStringList> ViewWidget::getNodeInfoList(QString loop, QString path)
         database = QSqlDatabase::database("qt_sql_default_connection");
     } else {
         database = QSqlDatabase::addDatabase("QSQLITE");
-        qDebug()<<"path ---> "<<path;
+        //qDebug()<<"path ---> "<<path;
         database.setDatabaseName(path);
     }
 
@@ -112,7 +125,7 @@ QList<QStringList> ViewWidget::getNodeInfoList(QString loop, QString path)
     QList<QStringList> nodeInfoStringList;
     QString sqlQuery = QString("select LOOP,ID,ABLE,AREA,ZOOM,POS_X,POS_Y from NODELIST where LOOP = %1 and ABLE = 1 order by ID asc;").arg(loop);
     QSqlQuery query(database);
-    qDebug()<<"sqlQuery ---> "<<sqlQuery;
+    //qDebug()<<"sqlQuery ---> "<<sqlQuery;
     if (query.exec(sqlQuery)) {
         while (query.next()) {
             QStringList nodeStringList;
@@ -132,6 +145,13 @@ QList<QStringList> ViewWidget::getNodeInfoList(QString loop, QString path)
     //QT数据库移除
     QSqlDatabase::removeDatabase("QSQLITE");
     return nodeInfoStringList;
+}
+
+void ViewWidget::slotItemClicked(QTreeWidgetItem *item, int index)
+{
+    qDebug()<<"<------------->";
+    qDebug()<<"item : "<<item;
+    qDebug()<<"index: "<<index;
 }
 
 

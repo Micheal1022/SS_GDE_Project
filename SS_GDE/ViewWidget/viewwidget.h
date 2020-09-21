@@ -1,6 +1,7 @@
 #ifndef VIEWWIDGET_H
 #define VIEWWIDGET_H
 
+#include <QTreeWidget>
 #include <QWidget>
 
 namespace Ui {
@@ -18,6 +19,9 @@ public:
 
 private:
     Ui::ViewWidget *ui;
+
+private slots:
+    void slotItemClicked(QTreeWidgetItem* item, int index);
 };
 
 #endif // VIEWWIDGET_H

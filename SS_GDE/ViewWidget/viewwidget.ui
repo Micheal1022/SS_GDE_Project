@@ -127,21 +127,6 @@ border-radius:10px;
        <set>AlignCenter</set>
       </property>
      </column>
-     <item>
-      <property name="text">
-       <string>1#主机</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>2#主机</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>3#主机</string>
-      </property>
-     </item>
     </widget>
    </item>
    <item>
