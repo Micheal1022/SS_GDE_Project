@@ -82,7 +82,9 @@ public:
     static bool delelteRecordItem(QSqlDatabase db, QStringList stringList);
     static bool insertAlarmRecord(QSqlDatabase db, QStringList stringList);
     //
-    static qreal getPngZoom(QSqlDatabase db, QString host, int index);
+    static qreal getZoomLevel(QSqlDatabase db, QString host, int index);
+    static bool setZoomLevel(QSqlDatabase db, QString host, QString loop, QString level);
+    static bool insertZoomLevel(QSqlDatabase db, QString host);
 
 
 private:

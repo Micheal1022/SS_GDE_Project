@@ -3,8 +3,8 @@
 #include "ui_graphicsview.h"
 #include <QGraphicsSvgItem>
 #include <QThread>
-
-
+#define POS 150
+#define SET 100
 GraphicsView::GraphicsView(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::GraphicsView)
@@ -65,15 +65,41 @@ void GraphicsView::confView(QList<SensorItemInfo> itemInfoList, QString IP, QStr
     m_scene = new QGraphicsScene;
     //m_scene->setSceneRect(0,0,1600,680);
     m_scene->addPixmap(QPixmap(backGroundPath));
-
     ui->graphicsView->setScene(m_scene);
     ui->graphicsView->setMouseTracking(true);
     ui->graphicsView->setDragMode(QGraphicsView::RubberBandDrag);
 
     //初始化ItemInfo
+    int pRowNum,pColumnNum;
+    pRowNum = pColumnNum = 0;
     for (int ind = 0; ind < itemInfoList.count();ind++) {
         SensorItem *pItem = new SensorItem(itemInfoList.value(ind));
+
+        pColumnNum = ind % 10;
+        if (ind % 11 == 10) {
+            pRowNum += 1;
+        }
+        //配置位置
+        qreal pPosX = itemInfoList.value(ind).m_posX;
+        qreal pPosY = itemInfoList.value(ind).m_posY;
+        if (0 == pPosX && 0 == pPosY) {
+            pItem->setPos(POS + SET * pColumnNum, POS + SET * pRowNum );
+        } else {
+            pItem->setPos(pPosX, pPosY);
+            qDebug("<------------------>");
+            qDebug()<<"PosX ---> "<<pPosX;
+            qDebug()<<"PosY ---> "<<pPosY;
+            qDebug()<<"Scene---> "<<pItem->mapToScene(QPointF(pPosX,pPosY));
+        }
+        //配置缩放
+        qreal pZoom = itemInfoList.value(ind).m_zoom;
+        if (1.0 == pZoom) {
+            pItem->setScale(1.0);
+        } else {
+            pItem->setScale(itemInfoList.value(ind).m_zoom);
+        }
         m_scene->addItem(pItem);
+
     }
 
     UdpThread *udpThread = new UdpThread(QHostAddress(IP) ,port.toUInt());
@@ -218,11 +244,22 @@ void GraphicsView::slotBtnSave()
     ui->tBtnZoomOut->setEnabled(false);
 
     QList<QGraphicsItem *> itemList = m_scene->items();
-    foreach (QGraphicsItem *item, itemList) {
-        item->setFlag(QGraphicsItem::ItemIsMovable,false);
-        item->setFlag(QGraphicsItem::ItemIsFocusable,false);
-        item->setFlag(QGraphicsItem::ItemIsSelectable,false);
+
+    for (int i = 0; i < itemList.count(); i++) {
+
+        if (0 == i) {
+            qDebug()<<"item pos   ---> "<<itemList.value(i);
+        } else {
+            itemList.value(i)->setFlag(QGraphicsItem::ItemIsMovable,   false);
+            itemList.value(i)->setFlag(QGraphicsItem::ItemIsFocusable, false);
+            itemList.value(i)->setFlag(QGraphicsItem::ItemIsSelectable,false);
+            qDebug()<<"item pos   ---> "<<itemList.value(i);
+        }
+        qDebug()<<"item pos   ---> "<<itemList.value(i)->pos();
+        qDebug()<<"item scale ---> "<<itemList.value(i)->scale();
     }
+
+
 }
 
 void GraphicsView::slotHostData(QByteArray hostData)

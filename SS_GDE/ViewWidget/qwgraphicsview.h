@@ -3,6 +3,7 @@
 
 #include <QPoint>
 #include <QEvent>
+#include <QDebug>
 #include <QMouseEvent>
 #include <QGraphicsView>
 class QWGraphicsView : public QGraphicsView

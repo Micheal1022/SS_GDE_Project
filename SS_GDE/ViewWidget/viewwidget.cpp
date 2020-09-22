@@ -112,7 +112,6 @@ QList<QStringList> ViewWidget::getNodeInfoList(QString loop, QString path)
         database = QSqlDatabase::database("qt_sql_default_connection");
     } else {
         database = QSqlDatabase::addDatabase("QSQLITE");
-        //qDebug()<<"path ---> "<<path;
         database.setDatabaseName(path);
     }
 
@@ -145,6 +144,12 @@ QList<QStringList> ViewWidget::getNodeInfoList(QString loop, QString path)
     //QT数据库移除
     QSqlDatabase::removeDatabase("QSQLITE");
     return nodeInfoStringList;
+}
+
+
+void ViewWidget::setNodeInfoZoom(QString loop, QList<QPair<qreal, qreal> >, QString path)
+{
+
 }
 
 void ViewWidget::slotItemClicked(QTreeWidgetItem *item, int index)

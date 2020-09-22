@@ -16,6 +16,7 @@ public:
     explicit ViewWidget(QWidget *parent = 0);
     ~ViewWidget();
     QList<QStringList> getNodeInfoList(QString loop, QString path);
+    void setNodeInfoZoom(QString loop, QList<QPair<qreal,qreal>>, QString path);
 
 private:
     Ui::ViewWidget *ui;

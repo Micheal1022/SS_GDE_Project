@@ -141,7 +141,7 @@ bool SqlManager::insertAlarmRecord(QSqlDatabase db, QStringList stringList)
     return true;
 }
 //返回图片的缩放倍数
-qreal SqlManager::getPngZoom(QSqlDatabase db, QString host, int index)
+qreal SqlManager::getZoomLevel(QSqlDatabase db, QString host, int index)
 {
     qreal pZoom = 1.0;
     QString pSqlQuery = QString("select PNG_%1 from ZOOMLEVEL where HOST = %2;").arg(index).arg(host);
@@ -154,6 +154,31 @@ qreal SqlManager::getPngZoom(QSqlDatabase db, QString host, int index)
     pQuery.finish();
     pQuery.clear();
     return pZoom;
+}
+
+bool SqlManager::setZoomLevel(QSqlDatabase db, QString host, QString loop, QString level)
+{
+    QString pSqlQuery = QString("update ZOOMLEVEL set ZOOM_%1 = %2 where HOST = %3;").arg(loop).arg(level).arg(host);
+    QSqlQuery pQuery(db);
+    if (!pQuery.exec(pSqlQuery)) {
+        return false;
+    }
+    pQuery.finish();
+    pQuery.clear();
+    return true;
+}
+
+bool SqlManager::insertZoomLevel(QSqlDatabase db, QString host)
+{
+    QString sqlQuery = QString("insert into ZOOMLEVEL values('%1',1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0);").arg(host);
+    qDebug()<<"sqlQuery --->"<<sqlQuery;
+    QSqlQuery query(db);
+    if (!query.exec(sqlQuery)) {
+        return false;
+    }
+    query.finish();
+    query.clear();
+    return true;
 }
 
 SqlManager &SqlManager::getInstance()
@@ -169,26 +194,26 @@ SqlManager &SqlManager::getInstance()
 
 bool SqlManager::insertHostList(QSqlDatabase db, QStringList stringList)
 {
-    QString pName    = stringList.value(0);
-    QString pHost    = stringList.value(1);
-    QString pDbPath  = stringList.value(2);
-    QString pAble    = stringList.value(3);
-    QString pPort_1  = stringList.value(4);
-    QString pSheet_1 = stringList.value(5);
-    QString pPort_2  = stringList.value(6);
-    QString pSheet_2 = stringList.value(7);
-    QString pPort_3  = stringList.value(8);
-    QString pSheet_3 = stringList.value(9);
-    QString pPort_4  = stringList.value(10);
-    QString pSheet_4 = stringList.value(11);
-    QString pPort_5  = stringList.value(12);
-    QString pSheet_5 = stringList.value(13);
-    QString pPort_6  = stringList.value(14);
-    QString pSheet_6 = stringList.value(15);
-    QString pPort_7  = stringList.value(16);
-    QString pSheet_7 = stringList.value(17);
-    QString pPort_8  = stringList.value(18);
-    QString pSheet_8 = stringList.value(19);
+    QString pName   = stringList.value(0);
+    QString pHost   = stringList.value(1);
+    QString pPath   = stringList.value(2);
+    QString pAble   = stringList.value(3);
+    QString pPort_1 = stringList.value(4);
+    QString pPath_1 = stringList.value(5);
+    QString pPort_2 = stringList.value(6);
+    QString pPath_2 = stringList.value(7);
+    QString pPort_3 = stringList.value(8);
+    QString pPaht_3 = stringList.value(9);
+    QString pPort_4 = stringList.value(10);
+    QString pPath_4 = stringList.value(11);
+    QString pPort_5 = stringList.value(12);
+    QString pPath_5 = stringList.value(13);
+    QString pPort_6 = stringList.value(14);
+    QString pPath_6 = stringList.value(15);
+    QString pPort_7 = stringList.value(16);
+    QString pPath_7 = stringList.value(17);
+    QString pPort_8 = stringList.value(18);
+    QString pPath_8 = stringList.value(19);
 
 
     QString sqlQuery = QString("insert into HOSTINFO values('%1','%2','%3',%4,"
@@ -196,12 +221,12 @@ bool SqlManager::insertHostList(QSqlDatabase db, QStringList stringList)
                                "%9, '%10',%11,'%12',"
                                "%13,'%14',%15,'%16',"
                                "%17,'%18',%19,'%20');").\
-            arg(pName).arg(pHost).arg(pDbPath).arg(pAble).\
-            arg(pPort_1).arg(pSheet_1).arg(pPort_2).arg(pSheet_2).\
-            arg(pPort_3).arg(pSheet_3).arg(pPort_4).arg(pSheet_4).\
-            arg(pPort_5).arg(pSheet_5).arg(pPort_6).arg(pSheet_6).\
-            arg(pPort_7).arg(pSheet_7).arg(pPort_8).arg(pSheet_8);
-    //qDebug()<<"sqlQuery --->"<<sqlQuery;
+            arg(pName).arg(pHost).arg(pPath).arg(pAble).\
+            arg(pPort_1).arg(pPath_1).arg(pPort_2).arg(pPath_2).\
+            arg(pPort_3).arg(pPaht_3).arg(pPort_4).arg(pPath_4).\
+            arg(pPort_5).arg(pPath_5).arg(pPort_6).arg(pPath_6).\
+            arg(pPort_7).arg(pPath_7).arg(pPort_8).arg(pPath_8);
+    qDebug()<<"sqlQuery --->"<<sqlQuery;
     QSqlQuery query(db);
     if (!query.exec(sqlQuery)) {
         return false;
