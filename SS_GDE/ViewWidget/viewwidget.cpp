@@ -90,7 +90,7 @@ ViewWidget::ViewWidget(QWidget *parent) :
                     }
 
                     GraphicsView *pView = new GraphicsView;
-                    pView->confView(itemInfoList,pHost,port,path);
+                    pView->confView(itemInfoList,pHost,port,path,pPath);
                     ui->stackedWidgetBuild->addWidget(pView);
                 }
             }
@@ -116,9 +116,9 @@ QList<QStringList> ViewWidget::getNodeInfoList(QString loop, QString path)
     }
 
     if (!database.open()) {
-        qDebug() << "Error: Failed to connect database."<< database.lastError();
+        qDebug()<< "Error: Failed to connect database."<<database.lastError();
     } else {
-        qDebug() << "Succeed to connect database : loop "<< loop;
+        qDebug()<< "Succeed to connect database : loop "<<loop;
     }
 
     QList<QStringList> nodeInfoStringList;
@@ -147,17 +147,13 @@ QList<QStringList> ViewWidget::getNodeInfoList(QString loop, QString path)
 }
 
 
-void ViewWidget::setNodeInfoZoom(QString loop, QList<QPair<qreal, qreal> >, QString path)
-{
-
-}
-
 void ViewWidget::slotItemClicked(QTreeWidgetItem *item, int index)
 {
     qDebug()<<"<------------->";
     qDebug()<<"item : "<<item;
     qDebug()<<"index: "<<index;
 }
+
 
 
 

@@ -2,7 +2,10 @@
 #include "sensoritem.h"
 #include "ui_graphicsview.h"
 #include <QGraphicsSvgItem>
+#include <QSqlDatabase>
+#include <QSqlQuery>
 #include <QThread>
+#include <QSqlError>
 #define POS 150
 #define SET 100
 GraphicsView::GraphicsView(QWidget *parent) :
@@ -38,14 +41,10 @@ void GraphicsView::initWidget()
     initTabelWidget(ui->tableWidgetError);
 
 
-    //QPoint pSendMenuEventPos;
-    //QGraphicsItem *pFocusItem = m_scene->focusItem();
-    //if (m_scene->views().first() != NULL) {
-    //    QGraphicsView *v = m_scene->views().first();
-    //    QPointF sceneP = pFocusItem->mapToScene(pFocusItem->boundingRect().bottomRight());
-    //    QPoint viewP = v->mapFromScene(sceneP);
-    //    pSendMenuEventPos = v->viewport()->mapToGlobal(viewP);
-    //}
+    ui->tBtnSave->setEnabled(false);
+    ui->tBtnZoomIn->setEnabled(false);
+    ui->tBtnRestore->setEnabled(false);
+    ui->tBtnZoomOut->setEnabled(false);
 
     connect(ui->tBtnEdit,   SIGNAL(clicked(bool)),this,SLOT(slotBtnEdit()));
     connect(ui->tBtnSave,   SIGNAL(clicked(bool)),this,SLOT(slotBtnSave()));
@@ -56,14 +55,15 @@ void GraphicsView::initWidget()
 
 }
 
-void GraphicsView::confView(QList<SensorItemInfo> itemInfoList, QString IP, QString port, QString &backGroundPath)
+void GraphicsView::confView(QList<SensorItemInfo> itemInfoList, QString IP, QString port, QString &backGroundPath, QString dbPath)
 {
-    /* 1.打开数据,获取节点的地、缩放、安装位置、初始化ItemInfo内容；
+    /*
+     * 1.打开数据,获取节点的地、缩放、安装位置、初始化ItemInfo内容；
      * 2.创建场景,添加图元信息；
      * 3.添加背景图片；
      */
+    m_dbPaht = dbPath;
     m_scene = new QGraphicsScene;
-    //m_scene->setSceneRect(0,0,1600,680);
     m_scene->addPixmap(QPixmap(backGroundPath));
     ui->graphicsView->setScene(m_scene);
     ui->graphicsView->setMouseTracking(true);
@@ -72,6 +72,7 @@ void GraphicsView::confView(QList<SensorItemInfo> itemInfoList, QString IP, QStr
     //初始化ItemInfo
     int pRowNum,pColumnNum;
     pRowNum = pColumnNum = 0;
+
     for (int ind = 0; ind < itemInfoList.count();ind++) {
         SensorItem *pItem = new SensorItem(itemInfoList.value(ind));
 
@@ -86,10 +87,6 @@ void GraphicsView::confView(QList<SensorItemInfo> itemInfoList, QString IP, QStr
             pItem->setPos(POS + SET * pColumnNum, POS + SET * pRowNum );
         } else {
             pItem->setPos(pPosX, pPosY);
-            qDebug("<------------------>");
-            qDebug()<<"PosX ---> "<<pPosX;
-            qDebug()<<"PosY ---> "<<pPosY;
-            qDebug()<<"Scene---> "<<pItem->mapToScene(QPointF(pPosX,pPosY));
         }
         //配置缩放
         qreal pZoom = itemInfoList.value(ind).m_zoom;
@@ -161,6 +158,35 @@ void GraphicsView::setItem(QGraphicsScene *scene, QString loopStr, QString idStr
     }
 }
 
+void GraphicsView::setNodeInfoZoom(QString loop, QString id, QPair<qreal, qreal> pox, QString scale, QString path)
+{
+    QSqlDatabase database;
+    if (QSqlDatabase::contains("qt_sql_default_connection")) {
+        database = QSqlDatabase::database("qt_sql_default_connection");
+    } else {
+        database = QSqlDatabase::addDatabase("QSQLITE");
+        database.setDatabaseName(path);
+    }
+
+    if (!database.open()) {
+        qDebug() << "Error: Failed to connect database."<<database.lastError();
+    } else {
+        qDebug() << "Succeed to connect database : loop "<<loop;
+    }
+
+    QSqlQuery query(database);
+
+    QString sqlQuery = QString("update NODELIST set ZOOM = %1,POS_X = %2,POS_Y = %3 where LOOP = %4 and ID = %5;").\
+            arg(scale).arg(QString::number(pox.first)).arg(QString::number(pox.second)).arg(loop).arg(id);
+    qDebug()<<sqlQuery;
+    query.exec(sqlQuery);
+    query.finish();
+    query.clear();
+    database.close();
+    //QT数据库移除
+    QSqlDatabase::removeDatabase("QSQLITE");
+}
+
 #define ZOOMSCENE
 
 void GraphicsView::slotBtnZoomIn()
@@ -172,6 +198,7 @@ void GraphicsView::slotBtnZoomIn()
         QGraphicsItem *item = m_scene->selectedItems().at(0);
         item->setScale(0.1+item->scale());
     } else {
+        m_zoomLevel += 1.1;
         ui->graphicsView->scale(1.1,1.1);
     }
 #else
@@ -190,6 +217,7 @@ void GraphicsView::slotBtnZoomOut()
         item->setScale(item->scale()-0.1);
     } else {
         ui->graphicsView->scale(0.9,0.9);
+        m_zoomLevel -= 0.9;
     }
 #else
     m_zoomLevel -= 0.9;
@@ -207,6 +235,7 @@ void GraphicsView::slotBtnRestore()
         item->setRotation(0);
         item->setScale(1.0);
     } else {
+        m_zoomLevel = 1;
         ui->graphicsView->resetTransform();
     }
 #else
@@ -244,22 +273,24 @@ void GraphicsView::slotBtnSave()
     ui->tBtnZoomOut->setEnabled(false);
 
     QList<QGraphicsItem *> itemList = m_scene->items();
-
     for (int i = 0; i < itemList.count(); i++) {
 
-        if (0 == i) {
+        if (128 == i) {
             qDebug()<<"item pos   ---> "<<itemList.value(i);
         } else {
-            itemList.value(i)->setFlag(QGraphicsItem::ItemIsMovable,   false);
-            itemList.value(i)->setFlag(QGraphicsItem::ItemIsFocusable, false);
-            itemList.value(i)->setFlag(QGraphicsItem::ItemIsSelectable,false);
-            qDebug()<<"item pos   ---> "<<itemList.value(i);
+            SensorItem* pItem = qgraphicsitem_cast<SensorItem*>(itemList.value(i));
+            pItem->setFlag(QGraphicsItem::ItemIsMovable,   false);
+            pItem->setFlag(QGraphicsItem::ItemIsFocusable, false);
+            pItem->setFlag(QGraphicsItem::ItemIsSelectable,false);
+            //获取相对于场景的位置
+            QPointF pScenePos = pItem->scenePos();
+            qreal pScale = pItem->scale();
+            QPair<qreal,qreal> pPairPos;
+            pPairPos.first = pScenePos.x();
+            pPairPos.second= pScenePos.y();
+            setNodeInfoZoom(pItem->m_loopStr,pItem->m_idStr,pPairPos,QString::number(pScale),m_dbPaht);
         }
-        qDebug()<<"item pos   ---> "<<itemList.value(i)->pos();
-        qDebug()<<"item scale ---> "<<itemList.value(i)->scale();
     }
-
-
 }
 
 void GraphicsView::slotHostData(QByteArray hostData)

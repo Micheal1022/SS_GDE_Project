@@ -3,6 +3,7 @@
 #include <QPainter>
 #include <QCursor>
 #include <QBrush>
+#include <QDebug>
 #include <QStyleOptionGraphicsItem>
 #include <QGraphicsSceneMouseEvent>
 #define SIZE_WIDTH  60
@@ -125,10 +126,7 @@ void SensorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 
 void SensorItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    //QPointF point = this->pos();
-    //qDebug()<<"this  "<<this;
-    //qDebug()<<"point "<<point;
-    //emit mouseMovePiont(point);
+    qDebug()<<"point "<<this->pos();
     QGraphicsItem::mouseMoveEvent(event);
 }
 

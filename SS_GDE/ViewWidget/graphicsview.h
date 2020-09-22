@@ -19,7 +19,7 @@ class GraphicsView : public QWidget
 public:
     explicit GraphicsView(QWidget *parent = 0);
     ~GraphicsView();
-    void confView(QList<SensorItemInfo> itemInfoList, QString IP, QString port, QString &backGroundPath);
+    void confView(QList<SensorItemInfo> itemInfoList, QString IP, QString port, QString &backGroundPath,QString dbPath);
 
 private:
     Ui::GraphicsView *ui;
@@ -27,8 +27,11 @@ private:
     void initWidget();
     void initTabelWidget(QTableWidget *tableWidget);
     qreal m_zoomLevel;
+    QString m_dbPaht;
+    QString m_loop;
     QList<QThread *> m_threadList;
     void setItem(QGraphicsScene *scene, QString loopStr, QString idStr, QString typeStr,QString stateStr);
+    void setNodeInfoZoom(QString loop, QString id, QPair<qreal, qreal> pox, QString scale, QString path);
 
 protected:
 
