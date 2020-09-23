@@ -54,7 +54,8 @@ SOURCES += \
     MsgBox/msgbox.cpp \
     MsgBox/questbox.cpp \
     ViewWidget/udpthread.cpp \
-    ViewWidget/sensoriteminfo.cpp
+    ViewWidget/sensoriteminfo.cpp \
+    ViewWidget/dbthead.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -70,7 +71,8 @@ HEADERS += \
     MsgBox/msgbox.h \
     MsgBox/questbox.h \
     ViewWidget/udpthread.h \
-    ViewWidget/sensoriteminfo.h
+    ViewWidget/sensoriteminfo.h \
+    ViewWidget/dbthead.h
 
 FORMS += \
         mainwindow.ui \

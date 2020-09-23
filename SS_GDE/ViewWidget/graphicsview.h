@@ -8,6 +8,7 @@
 #include "sensoriteminfo.h"
 #include "udpthread.h"
 #include "sensoritem.h"
+#include "SqlManager/sqlmanager.h"
 namespace Ui {
 class GraphicsView;
 }
@@ -19,20 +20,32 @@ class GraphicsView : public QWidget
 public:
     explicit GraphicsView(QWidget *parent = 0);
     ~GraphicsView();
-    void confView(QList<SensorItemInfo> itemInfoList, QString IP, QString port, QString &backGroundPath,QString dbPath);
+    void confView(QList<SensorItemInfo> itemInfoList, QString loop, QString hostName, QString hostIP, QString port, QString &backGroundPath, QString dbPath);
 
 private:
     Ui::GraphicsView *ui;
     QGraphicsScene *m_scene;
     void initWidget();
-    void initTabelWidget(QTableWidget *tableWidget);
-    qreal m_zoomLevel;
+    void initTableWidget(QTableWidget *tableWidget);
+    qreal m_viewScale;
     QString m_dbPaht;
     QString m_loop;
+    QString m_hostIP;
+    QString m_hostName;
+    QTimer *m_infoTimer;
+    QList<QStringList> m_errorInfoList;//故障列表
+    QList<QStringList> m_alarmInfoList;//报警列表
     QList<QThread *> m_threadList;
+    QList<SensorItemInfo> m_itemInfoList;
+    void analysisData(QByteArray hostData);
     void setItem(QGraphicsScene *scene, QString loopStr, QString idStr, QString typeStr,QString stateStr);
     void setNodeInfoZoom(QString loop, QString id, QPair<qreal, qreal> pox, QString scale, QString path);
-
+    void showInfoList(QTableWidget *tableWidget, QList<QStringList> infoList);
+    void delStringList(QList<QStringList> infoList, int loop, int Id, int state);
+    int findItemIndex(QList<SensorItemInfo> itemInfoList, QString loop,QString id);
+signals:
+    void sigNodeInfoZoom(QString loop, QString id, QPair<qreal, qreal> pox, QString scale, QString path);
+    void sigNodeInfoZoom(QList<SensorItemInfo> itemInfoList, QList<QPair<qreal, qreal>> poxList, QStringList scale, QString path);
 protected:
 
 private slots:
@@ -40,10 +53,11 @@ private slots:
     void slotBtnZoomIn();
     void slotBtnZoomOut();
     void slotBtnRestore();
-    void slotBtnRotate();
     void slotBtnEdit();
     void slotBtnSave();
     void slotHostData(QByteArray hostData);
+
+    void slotInfoTimeOut();
 };
 
 #endif // GRAPHICSVIEW_H

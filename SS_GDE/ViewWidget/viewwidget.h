@@ -20,6 +20,7 @@ public:
 
 private:
     Ui::ViewWidget *ui;
+    QList<QTreeWidgetItem *> m_LoopItemList;
 
 private slots:
     void slotItemClicked(QTreeWidgetItem* item, int index);

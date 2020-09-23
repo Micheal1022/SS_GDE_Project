@@ -20,9 +20,10 @@ ViewWidget::ViewWidget(QWidget *parent) :
      * 3.打开数据,获取节点的地、缩放、安装位置、初始化ItemInfo内容；
      * 4.创建场景,添加图元信息；
      */
+    m_LoopItemList.clear();
     QSqlDatabase db = SqlManager::openConnection();
     QList<QStringList> pHostList = SqlManager::getEnableHostList(db);
-    qDebug()<<"pHostList ---> "<<pHostList;
+    //qDebug()<<"pHostList ---> "<<pHostList;
     SqlManager::closeConnection(db);
     for (int ind = 0 ; ind < pHostList.count(); ind++) {
         QStringList pItemStr = pHostList.value(ind);
@@ -49,8 +50,9 @@ ViewWidget::ViewWidget(QWidget *parent) :
         if (false == pHost.isEmpty() && false == pPath.isEmpty()) {
             QStringList pHostName;
             pHostName.append(pName);
-            QTreeWidgetItem *pTreeItem = new QTreeWidgetItem(ui->treeWidget,pHostName);
-
+            //根节点
+            QTreeWidgetItem *pTreeRootItem = new QTreeWidgetItem(ui->treeWidget,pHostName);
+            pTreeRootItem->setExpanded(true);
             QStringList pPortPathList;
             pPortPathList.append(pPort_1);     pPortPathList.append(pPath_1);
             pPortPathList.append(pPort_2);     pPortPathList.append(pPath_2);
@@ -66,12 +68,13 @@ ViewWidget::ViewWidget(QWidget *parent) :
                 QString path = pPortPathList.at(1+index);
                 QString loop = QString::number(index/2+1);
 
-                if (false == port.isEmpty() && false == path.isEmpty()) {
+                if (0 != port.toInt() && false == path.isEmpty()) {
                     QStringList pLoopString;
                     pLoopString.append(QString("回路-%1").arg(loop));
-                    QTreeWidgetItem *pLoopItem =  new QTreeWidgetItem(pTreeItem,pLoopString);
-                    pTreeItem->addChild(pLoopItem);
-
+                    QTreeWidgetItem *pLoopItem =  new QTreeWidgetItem(pTreeRootItem,pLoopString);
+                    pTreeRootItem->addChild(pLoopItem);
+                    m_LoopItemList.append(pLoopItem);
+                    //qDebug()<<"m_LoopItemList : "<<m_LoopItemList;
                     QList<SensorItemInfo> itemInfoList;
                     QList<QStringList> pNodeList = getNodeInfoList(loop,pPath);
                     for (int i = 0; i < pNodeList.count(); i++) {
@@ -90,7 +93,7 @@ ViewWidget::ViewWidget(QWidget *parent) :
                     }
 
                     GraphicsView *pView = new GraphicsView;
-                    pView->confView(itemInfoList,pHost,port,path,pPath);
+                    pView->confView(itemInfoList,loop,pName,pHost,port,path,pPath);
                     ui->stackedWidgetBuild->addWidget(pView);
                 }
             }
@@ -116,9 +119,9 @@ QList<QStringList> ViewWidget::getNodeInfoList(QString loop, QString path)
     }
 
     if (!database.open()) {
-        qDebug()<< "Error: Failed to connect database."<<database.lastError();
+        qDebug()<<"Error: Failed to connect database."<<database.lastError();
     } else {
-        qDebug()<< "Succeed to connect database : loop "<<loop;
+        qDebug()<<"Succeed to connect database : loop "<<loop;
     }
 
     QList<QStringList> nodeInfoStringList;
@@ -149,9 +152,12 @@ QList<QStringList> ViewWidget::getNodeInfoList(QString loop, QString path)
 
 void ViewWidget::slotItemClicked(QTreeWidgetItem *item, int index)
 {
-    qDebug()<<"<------------->";
-    qDebug()<<"item : "<<item;
-    qDebug()<<"index: "<<index;
+    Q_UNUSED(index)
+    for (int ind = 0; ind < m_LoopItemList.count(); ind++) {
+        if (item == m_LoopItemList.value(ind)) {
+            ui->stackedWidgetBuild->setCurrentIndex(ind);
+        }
+    }
 }
 
 

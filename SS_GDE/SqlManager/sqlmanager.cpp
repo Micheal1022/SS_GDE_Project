@@ -25,10 +25,8 @@ QSqlDatabase SqlManager::createConnection(const QString &connectionName)
 
         if (testOnBorrow) {
             //返回连接前访问数据库，如果连接断开，重新建立连接
-            //qDebug() << "Test connection on borrow, execute:" << testOnBorrowSql << ", for" << connectionName;
             QSqlQuery query(dbPre);
             if (query.lastError().type() != QSqlError::NoError && !dbPre.open()) {
-                //qDebug() << "Open datatabase error:" << dbPre.lastError().text();
                 return QSqlDatabase();
             }
         }
@@ -39,7 +37,6 @@ QSqlDatabase SqlManager::createConnection(const QString &connectionName)
     QSqlDatabase db = QSqlDatabase::addDatabase(dataBaseType, connectionName);
     db.setDatabaseName(dataBaseName);
     if (!db.open()){
-        //qDebug() << "Open datatabase error:" << db.lastError().text();
         return QSqlDatabase();
     }
 
@@ -62,25 +59,19 @@ QSqlDatabase SqlManager::openConnection()
     int conntCount = pool.unusedConntNames.size() + pool.usedConntNames.size();
 
     // 如果连接已经用完,等待 waitInterval 毫秒看看是否有可用连接,最长等待 maxWaitTime 毫秒
-    for(int i=0;i<pool.maxWaitTime&&pool.unusedConntNames.size()==0&&conntCount==pool.maxConntCount;i+=pool.waitInterval)
-    {
+    for (int i=0;i<pool.maxWaitTime&&pool.unusedConntNames.size()==0&&conntCount==pool.maxConntCount;i+=pool.waitInterval) {
         waitConnection.wait(&mutex,pool.waitInterval);
         // 重新计算已创建连接数
         conntCount = pool.unusedConntNames.size() + pool.usedConntNames.size();
     }
     QString connectionName;
-    if(pool.unusedConntNames.size() > 0)
-    {
+    if(pool.unusedConntNames.size() > 0) {
         // 有已经回收的连接，复用它们
         connectionName = pool.unusedConntNames.dequeue();
-    }
-    else if(conntCount < pool.maxConntCount)
-    {
+    } else if(conntCount < pool.maxConntCount) {
         // 没有已经回收的连接，但是没有达到最大连接数，则创建新的连接
         connectionName = QString("Connection-%1").arg(conntCount + 1);
-    }
-    else
-    {
+    } else {
         // 已经达到最大连接数
         //qDebug() << "Cannot create more connections.";
         return QSqlDatabase();
@@ -90,8 +81,7 @@ QSqlDatabase SqlManager::openConnection()
     QSqlDatabase db = pool.createConnection(connectionName);
 
     // 有效的连接才放入 usedConnectionNames
-    if (db.isOpen())
-    {
+    if (db.isOpen()) {
         pool.usedConntNames.enqueue(connectionName);
     }
 
@@ -104,8 +94,7 @@ void SqlManager::closeConnection(QSqlDatabase connection)
     QString connectionName = connection.connectionName();
 
     // 如果是我们创建的连接，从 used 里删除,放入 unused 里
-    if (pool.usedConntNames.contains(connectionName))
-    {
+    if (pool.usedConntNames.contains(connectionName)) {
         QMutexLocker locker(&mutex);
         pool.usedConntNames.removeOne(connectionName);
         pool.unusedConntNames.enqueue(connectionName);
@@ -116,8 +105,7 @@ void SqlManager::closeConnection(QSqlDatabase connection)
 SqlManager::~SqlManager()
 {
     // 销毁连接池的时候删除所有的连接
-    foreach(QString connectionName, usedConntNames)
-    {
+    foreach (QString connectionName, usedConntNames) {
         QSqlDatabase::removeDatabase(connectionName);
     }
 }
@@ -131,7 +119,7 @@ bool SqlManager::insertAlarmRecord(QSqlDatabase db, QStringList stringList)
     QString pSts  = stringList.value(4);
     QString pTime = stringList.value(5);
 
-    QString pSqlQuery = QString("insert into RECORD values(%1,%2,%3,%4,%5.%6);").arg(pHost).arg(pLoop).arg(pID).arg(pType).arg(pSts).arg(pTime);
+    QString pSqlQuery = QString("insert into RECORD values('%1',%2,%3,'%4','%5',%6);").arg(pHost).arg(pLoop).arg(pID).arg(pType).arg(pSts).arg(pTime);
     QSqlQuery pQuery(db);
     if (!pQuery.exec(pSqlQuery)) {
         return false;
@@ -141,10 +129,11 @@ bool SqlManager::insertAlarmRecord(QSqlDatabase db, QStringList stringList)
     return true;
 }
 //返回图片的缩放倍数
-qreal SqlManager::getZoomLevel(QSqlDatabase db, QString host, int index)
+qreal SqlManager::getPngsZoom(QSqlDatabase db, QString host, QString loop)
 {
     qreal pZoom = 1.0;
-    QString pSqlQuery = QString("select PNG_%1 from ZOOMLEVEL where HOST = %2;").arg(index).arg(host);
+    QString pSqlQuery = QString("select ZOOM_%1 from PNGZOOM where HOST = '%2';").arg(loop).arg(host);
+    //qDebug()<<"pSqlQuery -----> "<<pSqlQuery;
     QSqlQuery pQuery(db);
     if (pQuery.exec(pSqlQuery)) {
         if(pQuery.next()) {
@@ -156,9 +145,10 @@ qreal SqlManager::getZoomLevel(QSqlDatabase db, QString host, int index)
     return pZoom;
 }
 
-bool SqlManager::setZoomLevel(QSqlDatabase db, QString host, QString loop, QString level)
+bool SqlManager::setPngsZoom(QSqlDatabase db, QString loop, QString level, QString host)
 {
-    QString pSqlQuery = QString("update ZOOMLEVEL set ZOOM_%1 = %2 where HOST = %3;").arg(loop).arg(level).arg(host);
+    QString pSqlQuery = QString("update PNGZOOM set ZOOM_%1 = %2 where HOST = '%3';").arg(loop).arg(level).arg(host);
+    //qDebug()<<pSqlQuery;
     QSqlQuery pQuery(db);
     if (!pQuery.exec(pSqlQuery)) {
         return false;
@@ -168,10 +158,52 @@ bool SqlManager::setZoomLevel(QSqlDatabase db, QString host, QString loop, QStri
     return true;
 }
 
-bool SqlManager::insertZoomLevel(QSqlDatabase db, QString host)
+bool SqlManager::insertPngsZoom(QSqlDatabase db, QString host)
 {
-    QString sqlQuery = QString("insert into ZOOMLEVEL values('%1',1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0);").arg(host);
-    qDebug()<<"sqlQuery --->"<<sqlQuery;
+    QString sqlQuery = QString("insert into PNGZOOM values('%1',1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0);").arg(host);
+    //qDebug()<<"sqlQuery --->"<<sqlQuery;
+    QSqlQuery query(db);
+    if (!query.exec(sqlQuery)) {
+        return false;
+    }
+    query.finish();
+    query.clear();
+    return true;
+}
+
+qreal SqlManager::getViewZoom(QSqlDatabase db, QString host, QString loop)
+{
+    qreal pZoom = 1.0;
+    QString pSqlQuery = QString("select VIEW_%1 from VIEWZOOM where HOST = '%2';").arg(loop).arg(host);
+    //qDebug()<<"pSqlQuery -----> "<<pSqlQuery;
+    QSqlQuery pQuery(db);
+    if (pQuery.exec(pSqlQuery)) {
+        if(pQuery.next()) {
+            pZoom = pQuery.value(0).toReal();
+        }
+    }
+    pQuery.finish();
+    pQuery.clear();
+    return pZoom;
+}
+
+bool SqlManager::setViewZoom(QSqlDatabase db, QString loop, QString level, QString host)
+{
+    QString pSqlQuery = QString("update VIEWZOOM set VIEW_%1 = %2 where HOST = '%3';").arg(loop).arg(level).arg(host);
+    //qDebug()<<pSqlQuery;
+    QSqlQuery pQuery(db);
+    if (!pQuery.exec(pSqlQuery)) {
+        return false;
+    }
+    pQuery.finish();
+    pQuery.clear();
+    return true;
+}
+
+bool SqlManager::insertViewZoom(QSqlDatabase db, QString host)
+{
+    QString sqlQuery = QString("insert into VIEWZOOM values('%1',1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0);").arg(host);
+    //qDebug()<<"sqlQuery --->"<<sqlQuery;
     QSqlQuery query(db);
     if (!query.exec(sqlQuery)) {
         return false;
@@ -226,7 +258,7 @@ bool SqlManager::insertHostList(QSqlDatabase db, QStringList stringList)
             arg(pPort_3).arg(pPaht_3).arg(pPort_4).arg(pPath_4).\
             arg(pPort_5).arg(pPath_5).arg(pPort_6).arg(pPath_6).\
             arg(pPort_7).arg(pPath_7).arg(pPort_8).arg(pPath_8);
-    qDebug()<<"sqlQuery --->"<<sqlQuery;
+    //qDebug()<<"sqlQuery --->"<<sqlQuery;
     QSqlQuery query(db);
     if (!query.exec(sqlQuery)) {
         return false;
@@ -323,7 +355,7 @@ QList<QStringList> SqlManager::getEnableHostList(QSqlDatabase db)
 {
     QString pSqlQuery = "select NAME,HOST,PATH,ABLE,PORT_1,PATH_1,PORT_2,PATH_2,PORT_3,PATH_3,PORT_4,PATH_4,"
                         "PORT_5,PATH_5,PORT_6,PATH_6,PORT_7,PATH_7,PORT_8,PATH_8 from HOSTINFO where ABLE = 1;";
-    qDebug()<<"pSqlQuery --->"<<pSqlQuery;
+    //qDebug()<<"pSqlQuery --->"<<pSqlQuery;
     QList<QStringList> list;
     QSqlQuery query(db);
     if (query.exec(pSqlQuery)) {

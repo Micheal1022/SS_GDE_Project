@@ -13,10 +13,7 @@
 #define WIDTH   SIZE_WIDTH/12*5
 #define HEIGHT  SIZE_WIDTH/12*3
 
-#define NORMAL  0
-#define ERROR   1
-#define ALARM   2
-#define OFFLINE 3
+
 
 
 SensorItem::SensorItem(SensorItemInfo itemInfo, QObject *parent, QGraphicsItem *parent1)
@@ -34,7 +31,7 @@ SensorItem::SensorItem(SensorItemInfo itemInfo, QObject *parent, QGraphicsItem *
     setItemType(m_typeStr.toInt());
     setToolTipString();
     setCursor(Qt::PointingHandCursor);
-    setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemIsMovable);
+    //setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemIsMovable);
 
     m_stateTimer = new QTimer;
     QObject::connect(m_stateTimer,SIGNAL(timeout()),this,SLOT(slotStateTimeOut()));

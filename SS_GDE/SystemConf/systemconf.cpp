@@ -48,6 +48,7 @@ void SystemConf::initVariable()
 
 void SystemConf::confHostList(QTableWidget *tableWidget)
 {
+    tableWidget->clearContents();
     int pColumnCount = tableWidget->columnCount();
     QString pSqlQuery = "select NAME,HOST,PATH,ABLE,PORT_1,PATH_1,PORT_2,PATH_2,PORT_3,PATH_3,PORT_4,PATH_4,"
                         "PORT_5,PATH_5,PORT_6,PATH_6,PORT_7,PATH_7,PORT_8,PATH_8 from HOSTINFO;";
@@ -308,7 +309,6 @@ void SystemConf::slotBtnSaveHost()
 {
     int pRowCount = ui->tableWidget->rowCount();
     if (pRowCount > 0) {
-        delAllConf();
         QStringList pStringList;
         for (int row = 0; row < pRowCount; row++) {
             QString pName   = ui->tableWidget->item(row,S_NAME)->text();
@@ -356,13 +356,16 @@ void SystemConf::slotBtnSaveHost()
             pStringList.append(pPort_8);
             pStringList.append(pPath_8);
             QSqlDatabase db = SqlManager::openConnection();
-            bool pFlag = SqlManager::insertHostList(db,pStringList);
+            bool pHostFlag = SqlManager::insertHostList(db,pStringList);
+            bool pPngsFlag = SqlManager::insertPngsZoom(db,pHost);
+            bool pViewFlag = SqlManager::insertViewZoom(db,pHost);
             SqlManager::closeConnection(db);
-            if (!pFlag) {
+            if (false == pPngsFlag || false == pViewFlag || false == pHostFlag) {
                 MsgBox::showInformation(this,tr("保存提示"),tr("信息保存失败！"),tr("关闭"));
                 return;
             }
         }
+        confHostList(ui->tableWidget);
         MsgBox::showInformation(this,tr("保存提示"),tr("信息保存成功！"),tr("关闭"));
         emit sigSaveOk();
     }

@@ -14,6 +14,7 @@ INPUT(
 ./debug\questbox.o
 ./debug\udpthread.o
 ./debug\sensoriteminfo.o
+./debug\dbthead.o
 ./debug\qrc_image.o
 ./debug\moc_mainwindow.o
 ./debug\moc_recordinfo.o
@@ -26,4 +27,5 @@ INPUT(
 ./debug\moc_infobox.o
 ./debug\moc_questbox.o
 ./debug\moc_udpthread.o
+./debug\moc_dbthead.o
 );

@@ -6,6 +6,7 @@
 #include <QSqlQuery>
 #include <QThread>
 #include <QSqlError>
+#include "dbthead.h"
 #define POS 150
 #define SET 100
 GraphicsView::GraphicsView(QWidget *parent) :
@@ -13,7 +14,11 @@ GraphicsView::GraphicsView(QWidget *parent) :
     ui(new Ui::GraphicsView)
 {
     ui->setupUi(this);
-    qRegisterMetaType<QList<SensorItem *> >("QList<SensorItem *>");
+
+    qRegisterMetaType<QList<SensorItemInfo>>("QList<SensorItemInfo>");
+    qRegisterMetaType<QList<SensorItem *>>("QList<SensorItem *>");
+    qRegisterMetaType<QPair<qreal, qreal>>("QPair<qreal, qreal>");
+    qRegisterMetaType<QList<QPair<qreal,qreal>>>("QList<QPair<qreal,qreal>>");
     initWidget();
 }
 
@@ -35,10 +40,10 @@ GraphicsView::~GraphicsView()
 
 void GraphicsView::initWidget()
 {
-    m_zoomLevel = 0;
+    m_viewScale = 1.0;
 
-    initTabelWidget(ui->tableWidgetAlarm);
-    initTabelWidget(ui->tableWidgetError);
+    initTableWidget(ui->tableWidgetAlarm);
+    initTableWidget(ui->tableWidgetError);
 
 
     ui->tBtnSave->setEnabled(false);
@@ -52,22 +57,62 @@ void GraphicsView::initWidget()
     connect(ui->tBtnZoomOut,SIGNAL(clicked(bool)),this,SLOT(slotBtnZoomOut()));
     connect(ui->tBtnRestore,SIGNAL(clicked(bool)),this,SLOT(slotBtnRestore()));
 
+    DBThead *pDbThread = new DBThead;
+    QThread *pThread = new QThread;
+    pDbThread->moveToThread(pThread);
+    pThread->start();
+    connect(this,SIGNAL(sigNodeInfoZoom(QList<SensorItemInfo>,QList<QPair<qreal,qreal>>,QStringList,QString)),
+            pDbThread,SLOT(slotNodeInfoZoom(QList<SensorItemInfo>,QList<QPair<qreal,qreal> >,QStringList,QString)));
+
+    m_infoTimer = new QTimer;
+    connect(m_infoTimer,SIGNAL(timeout()),this,SLOT(slotInfoTimeOut()));
+    m_infoTimer->start(1000);
 
 }
 
-void GraphicsView::confView(QList<SensorItemInfo> itemInfoList, QString IP, QString port, QString &backGroundPath, QString dbPath)
+void GraphicsView::confView(QList<SensorItemInfo> itemInfoList, QString loop, QString hostName, QString hostIP, QString port, QString &backGroundPath, QString dbPath)
 {
     /*
      * 1.打开数据,获取节点的地、缩放、安装位置、初始化ItemInfo内容；
      * 2.创建场景,添加图元信息；
      * 3.添加背景图片；
      */
+    m_hostIP = hostIP;
     m_dbPaht = dbPath;
+    m_loop = loop;
+    m_hostName = hostName;
+    m_itemInfoList = itemInfoList;
     m_scene = new QGraphicsScene;
     m_scene->addPixmap(QPixmap(backGroundPath));
+
+    QStringList pInfoList;
+    pInfoList<<m_hostName<<QString::number(1)<<QString::number(1)<<QString("探测器报警")<<QString("2020/14/12 12:00:00");
+    m_alarmInfoList.append(pInfoList);  m_errorInfoList.append(pInfoList);  pInfoList.clear();
+    pInfoList<<m_hostName<<QString::number(1)<<QString::number(2)<<QString("探测器报警")<<QString("2020/14/12 12:00:00");
+    m_alarmInfoList.append(pInfoList);  m_errorInfoList.append(pInfoList);  pInfoList.clear();
+    pInfoList<<m_hostName<<QString::number(1)<<QString::number(3)<<QString("探测器报警")<<QString("2020/14/12 12:00:00");
+    m_alarmInfoList.append(pInfoList);  m_errorInfoList.append(pInfoList);  pInfoList.clear();
+    pInfoList<<m_hostName<<QString::number(1)<<QString::number(4)<<QString("探测器报警")<<QString("2020/14/12 12:00:00");
+    m_alarmInfoList.append(pInfoList);  m_errorInfoList.append(pInfoList);  pInfoList.clear();
+    pInfoList<<m_hostName<<QString::number(1)<<QString::number(5)<<QString("探测器报警")<<QString("2020/14/12 12:00:00");
+    m_alarmInfoList.append(pInfoList);  m_errorInfoList.append(pInfoList);  pInfoList.clear();
+
+    QSqlDatabase pSqlDatabase = SqlManager::openConnection();
+    qreal pViewScale = SqlManager::getViewZoom(pSqlDatabase,hostIP,loop);
+    qreal pPngsScale = SqlManager::getPngsZoom(pSqlDatabase,hostIP,loop);
+    SqlManager::closeConnection(pSqlDatabase);
+    m_viewScale = pViewScale;
+
+    //设置底图的缩放比例
+    m_scene->items().value(0)->setScale(pPngsScale);
+    //设置视窗的缩放比例
+    ui->graphicsView->scale(pViewScale,pViewScale);
+
     ui->graphicsView->setScene(m_scene);
     ui->graphicsView->setMouseTracking(true);
     ui->graphicsView->setDragMode(QGraphicsView::RubberBandDrag);
+
+
 
     //初始化ItemInfo
     int pRowNum,pColumnNum;
@@ -99,7 +144,7 @@ void GraphicsView::confView(QList<SensorItemInfo> itemInfoList, QString IP, QStr
 
     }
 
-    UdpThread *udpThread = new UdpThread(QHostAddress(IP) ,port.toUInt());
+    UdpThread *udpThread = new UdpThread(QHostAddress(hostIP) ,port.toUInt());
     QThread *thread = new QThread;
     udpThread->moveToThread(thread);
     m_threadList.append(thread);
@@ -110,21 +155,21 @@ void GraphicsView::confView(QList<SensorItemInfo> itemInfoList, QString IP, QStr
     thread->start();
 }
 
-void GraphicsView::initTabelWidget(QTableWidget *tableWidget)
+void GraphicsView::initTableWidget(QTableWidget *tableWidget)
 {
     QStringList headList;
-    headList<<tr("主机编号")<<tr("探测器编号")<<tr("事件类型")<<tr("事件时间");
+    headList<<tr("主机名称")<<tr("回路")<<tr("编号")<<tr("事件类型")<<tr("事件时间");
     tableWidget->setColumnCount(headList.size());
     tableWidget->setHorizontalHeaderLabels(headList);
     tableWidget->horizontalHeader()->setFixedHeight(25);
     //tableWidget->horizontalHeader()->setDefaultSectionSize(140);
     QString hstyleStr ="QHeaderView::section{font: 14pt '楷体'; background-color: rgb(0, 125, 165);color: white;}";
-    QString vstyleStr ="QHeaderView::section{font: 12pt '楷体'; background-color: rgb(0, 125, 165);color: white;}";
+    QString vstyleStr ="QHeaderView::section{font: 14pt '楷体'; background-color: rgb(0, 125, 165);color: white;}";
     //tableWidget->setFocusPolicy(Qt::NoFocus);
     tableWidget->verticalHeader()->setStyleSheet(vstyleStr);
     tableWidget->verticalHeader()->setFixedWidth(35);
     tableWidget->verticalHeader()->setEnabled(false);
-    tableWidget->verticalHeader()->setVisible(false);
+    tableWidget->verticalHeader()->setVisible(true);
     tableWidget->verticalHeader()->setDefaultAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
     tableWidget->horizontalHeader()->setStyleSheet(hstyleStr);
@@ -138,11 +183,13 @@ void GraphicsView::initTabelWidget(QTableWidget *tableWidget)
     tableWidget->setSelectionBehavior (QAbstractItemView::SelectRows); //设置选择行为，以行为单位
     tableWidget->setSelectionMode (QAbstractItemView::SingleSelection); //设置选择模式，选择单行
     tableWidget->setColumnWidth(0,130);
-    tableWidget->setColumnWidth(1,130);
-    tableWidget->setColumnWidth(2,200);
-    tableWidget->setColumnWidth(3,300);
+    tableWidget->setColumnWidth(1,80);
+    tableWidget->setColumnWidth(2,80);
+    tableWidget->setColumnWidth(3,150);
+    tableWidget->setColumnWidth(4,250);
 
 }
+
 
 void GraphicsView::setItem(QGraphicsScene *scene, QString loopStr, QString idStr, QString typeStr, QString stateStr)
 {
@@ -187,47 +234,35 @@ void GraphicsView::setNodeInfoZoom(QString loop, QString id, QPair<qreal, qreal>
     QSqlDatabase::removeDatabase("QSQLITE");
 }
 
-#define ZOOMSCENE
 
 void GraphicsView::slotBtnZoomIn()
 {
-#ifdef ZOOMSCENE
     //放大
     int cnt = m_scene->selectedItems().count();
     if (cnt == 1) {
         QGraphicsItem *item = m_scene->selectedItems().at(0);
-        item->setScale(0.1+item->scale());
+        item->setScale(item->scale() * 1.1);
     } else {
-        m_zoomLevel += 1.1;
+        m_viewScale *= 1.1;
         ui->graphicsView->scale(1.1,1.1);
     }
-#else
-    m_zoomLevel += 1.1;
-    ui->graphicsView->scale(1.1,1.1);
-#endif
 }
 
 void GraphicsView::slotBtnZoomOut()
 {
-#ifdef ZOOMSCENE
     //缩小
     int cnt = m_scene->selectedItems().count();
     if (cnt == 1) {
         QGraphicsItem *item = m_scene->selectedItems().at(0);
-        item->setScale(item->scale()-0.1);
+        item->setScale(item->scale()*0.9);
     } else {
         ui->graphicsView->scale(0.9,0.9);
-        m_zoomLevel -= 0.9;
+        m_viewScale *= 0.9;
     }
-#else
-    m_zoomLevel -= 0.9;
-    ui->graphicsView->scale(0.9,0.9);
-#endif
 }
 
 void GraphicsView::slotBtnRestore()
 {
-#ifdef ZOOMSCENE
     //取消所有变换
     int cnt = m_scene->selectedItems().count();
     if (cnt == 1){
@@ -235,19 +270,12 @@ void GraphicsView::slotBtnRestore()
         item->setRotation(0);
         item->setScale(1.0);
     } else {
-        m_zoomLevel = 1;
-        ui->graphicsView->resetTransform();
+        m_viewScale = 1.0;
+        //ui->graphicsView->resetTransform();
+        ui->graphicsView->scale(1.0,1.0);
     }
-#else
-    m_zoomLevel = 1;
-    ui->graphicsView->resetTransform();
-#endif
 }
 
-void GraphicsView::slotBtnRotate()
-{
-
-}
 
 //编辑模式
 void GraphicsView::slotBtnEdit()
@@ -258,8 +286,14 @@ void GraphicsView::slotBtnEdit()
     ui->tBtnRestore->setEnabled(true);
     ui->tBtnZoomOut->setEnabled(true);
     QList<QGraphicsItem *> itemList = m_scene->items();
-    foreach (QGraphicsItem *item, itemList) {
-        item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemIsMovable);
+
+    for (int ind = 0; ind < itemList.count(); ind++) {
+        if (ind < itemList.count()- 1) {
+            QGraphicsItem *item = itemList.value(ind);
+            item->setFlag(QGraphicsItem::ItemIsSelectable);
+            item->setFlag(QGraphicsItem::ItemIsFocusable);
+            item->setFlag(QGraphicsItem::ItemIsMovable);
+        }
     }
 
 }
@@ -271,25 +305,112 @@ void GraphicsView::slotBtnSave()
     ui->tBtnZoomIn->setEnabled(false);
     ui->tBtnRestore->setEnabled(false);
     ui->tBtnZoomOut->setEnabled(false);
+    QSqlDatabase pSqlDatabase = SqlManager::openConnection();
+    SqlManager::setViewZoom(pSqlDatabase,m_loop,QString::number(m_viewScale),m_hostIP);
+    SqlManager::closeConnection(pSqlDatabase);
 
+    qreal pScale;
+    QStringList pScaleList;
+    QList<QPair<qreal, qreal>> poxList;
     QList<QGraphicsItem *> itemList = m_scene->items();
     for (int i = 0; i < itemList.count(); i++) {
-
-        if (128 == i) {
-            qDebug()<<"item pos   ---> "<<itemList.value(i);
+        SensorItem* pItem = qgraphicsitem_cast<SensorItem*>(itemList.value(i));
+        if (itemList.count()- 1 == i) {
+            //查找背景图片，保存缩放等级
+            pScale = pItem->scale();
+            QSqlDatabase pSqlDatabase = SqlManager::openConnection();
+            SqlManager::setPngsZoom(pSqlDatabase,m_loop,QString::number(pScale),m_hostIP);
+            SqlManager::closeConnection(pSqlDatabase);
         } else {
-            SensorItem* pItem = qgraphicsitem_cast<SensorItem*>(itemList.value(i));
-            pItem->setFlag(QGraphicsItem::ItemIsMovable,   false);
-            pItem->setFlag(QGraphicsItem::ItemIsFocusable, false);
-            pItem->setFlag(QGraphicsItem::ItemIsSelectable,false);
-            //获取相对于场景的位置
+            //查找节点土元，保存缩放等级
             QPointF pScenePos = pItem->scenePos();
-            qreal pScale = pItem->scale();
+            pScale = pItem->scale();
             QPair<qreal,qreal> pPairPos;
             pPairPos.first = pScenePos.x();
             pPairPos.second= pScenePos.y();
-            setNodeInfoZoom(pItem->m_loopStr,pItem->m_idStr,pPairPos,QString::number(pScale),m_dbPaht);
+            poxList.append(pPairPos);
+            pScaleList.append(QString::number(pScale));
         }
+        pItem->setFlag(QGraphicsItem::ItemIsMovable,   false);
+        pItem->setFlag(QGraphicsItem::ItemIsFocusable, false);
+        pItem->setFlag(QGraphicsItem::ItemIsSelectable,false);
+    }
+    emit sigNodeInfoZoom(m_itemInfoList, poxList, pScaleList,m_dbPaht);
+}
+
+void GraphicsView::analysisData(QByteArray hostData)
+{
+    int pLoop = hostData.at(DATA_LOOP);
+    int pID   = hostData.at(DATA_ID);
+    QString pLootStr = QString::number(pLoop);
+    QString pIDStr   = QString::number(pID);
+
+    //    QString pNodeStr;
+    //    if (pID < 10) {
+    //        pNodeStr = QString("编号:%1-00%2\n").arg(QString::number(pLoop)).arg(QString::number(pID));
+    //    } else if (pID >= 10 && pID < 100) {
+    //        pNodeStr = QString("编号:%1-00%2\n").arg(QString::number(pLoop)).arg(QString::number(pID));
+    //    } else if (pID >= 100) {
+    //        pNodeStr = QString("编号:%1-00%2\n").arg(QString::number(pLoop)).arg(QString::number(pID));
+    //    }
+
+    int index;
+    QString dateTimeStr = QDateTime::currentDateTime().toString("yyyy/MM/dd hh:mm:ss");
+    QStringList pInfoList;
+    int pState =  hostData.at(DATA_STATE);
+    switch (pState) {
+    case NORMAL:
+
+        index = findItemIndex(m_itemInfoList,pLootStr,pIDStr);
+        if (index < 0) {
+            return;
+        }
+        if (true == m_itemInfoList.value(index).m_errorFlag) {
+            m_itemInfoList[index].m_errorFlag = false;
+            delStringList(m_errorInfoList,pLoop,pID,ERROR);
+        }
+        if (true == m_itemInfoList.value(index).m_alarmFlag) {
+            m_itemInfoList[index].m_alarmFlag = false;
+            delStringList(m_alarmInfoList,pLoop,pID,ALARM);
+        }
+        if (true == m_itemInfoList.value(index).m_offLineFlag) {
+            m_itemInfoList[index].m_offLineFlag = false;
+            delStringList(m_errorInfoList,pLoop,pID,OFFLINE);
+        }
+        break;
+    case ERROR:
+        index = findItemIndex(m_itemInfoList,pLootStr,pIDStr);
+        if (index < 0) {
+            return;
+        }
+        if (false == m_itemInfoList.value(index).m_errorFlag) {
+            m_itemInfoList[index].m_errorFlag = true;
+            pInfoList<<m_hostName<<QString::number(pLoop)<<QString::number(pID)<<QString("探测器故障")<<dateTimeStr;
+            m_errorInfoList.append(pInfoList);
+        }
+        break;
+    case ALARM:
+        index = findItemIndex(m_itemInfoList,pLootStr,pIDStr);
+        if (index < 0) {
+            return;
+        }
+        if (false == m_itemInfoList.value(index).m_alarmFlag) {
+            m_itemInfoList[index].m_alarmFlag = true;
+            pInfoList<<m_hostName<<QString::number(pLoop)<<QString::number(pID)<<QString("探测器报警")<<dateTimeStr;
+            m_alarmInfoList.append(pInfoList);
+        }
+        break;
+    case OFFLINE:
+        index = findItemIndex(m_itemInfoList,pLootStr,pIDStr);
+        if (index < 0) {
+            return;
+        }
+        if (false == m_itemInfoList.value(index).m_offLineFlag) {
+            m_itemInfoList[index].m_offLineFlag = true;
+            pInfoList<<m_hostName<<QString::number(pLoop)<<QString::number(pID)<<QString("探测器掉线")<<dateTimeStr;
+            m_errorInfoList.append(pInfoList);
+        }
+        break;
     }
 }
 
@@ -300,4 +421,108 @@ void GraphicsView::slotHostData(QByteArray hostData)
     QString pType    = QString::number(hostData.at(DATA_TYPE));
     QString pState   = QString::number(hostData.at(DATA_STATE));
     setItem(m_scene,pLoopStr,pIDStr,pType,pState);
+    analysisData(hostData);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+void GraphicsView::showInfoList(QTableWidget *tableWidget, QList<QStringList> infoList)
+{
+    tableWidget->clearContents();
+    int columnCount = tableWidget->columnCount();
+    //获取数据列表
+
+    tableWidget->setRowCount(infoList.count());
+    QFont ft("楷体",14);
+    QTableWidgetItem *item;
+    for (int row = 0; row < infoList.count();row++) {
+        QStringList itemStr = infoList.at(row);
+        tableWidget->setRowHeight(row,25);
+        for (int column = 0;column < columnCount;column++) {
+            item = new QTableWidgetItem;
+            item->setFont(ft);
+            item->setTextAlignment(Qt::AlignCenter);
+            item->setTextColor(QColor(0,0,0));
+            item->setText(itemStr.at(column));
+            tableWidget->setItem(row,column,item);
+        }
+    }
+}
+
+void GraphicsView::delStringList(QList<QStringList> infoList, int loop, int Id, int state)
+{
+    QString pLoopStr = QString::number(loop);
+    QString canIdStr= QString::number(Id);
+    QString pStateStr;
+
+    switch (state) {
+    case ERROR:
+        pStateStr = QString("探测器故障");
+        break;
+    case ALARM:
+        pStateStr = QString("探测器报警");
+        break;
+    case OFFLINE:
+        pStateStr = QString("探测器掉线");
+        break;
+    }
+    for( int index = 0;index < infoList.count();index++) {
+        QString loopStr  = infoList.at(index).at(1);
+        QString idStr    = infoList.at(index).at(2);
+        QString stateStr = infoList.at(index).at(3);
+        if(loopStr == pLoopStr && idStr == canIdStr && stateStr == pStateStr) {
+            infoList.removeAt(index);
+        }
+    }
+}
+
+int GraphicsView::findItemIndex(QList<SensorItemInfo> itemInfoList, QString loop, QString id)
+{
+    for (int index = 0; index < itemInfoList.count(); index++) {
+        SensorItemInfo itemInfo = itemInfoList.value(index);
+        if (loop == itemInfo.m_loopStr && id == itemInfo.m_idStr) {
+            return index;
+        }
+    }
+    return -1;
+}
+
+void GraphicsView::slotInfoTimeOut()
+{
+    showInfoList(ui->tableWidgetAlarm,m_alarmInfoList);
+    showInfoList(ui->tableWidgetError,m_errorInfoList);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
