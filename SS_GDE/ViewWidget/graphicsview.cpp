@@ -70,7 +70,8 @@ void GraphicsView::initWidget()
 
 }
 
-void GraphicsView::confView(QList<SensorItemInfo> itemInfoList, QString loop, QString hostName, QString hostIP, QString port, QString &backGroundPath, QString dbPath)
+void GraphicsView::confView(QList<SensorItemInfo> itemInfoList, QString loop, QString hostName,
+                            QString hostIP, QString port, QString &backGroundPath, QString dbPath)
 {
     /*
      * 1.打开数据,获取节点的地、缩放、安装位置、初始化ItemInfo内容；
@@ -112,8 +113,6 @@ void GraphicsView::confView(QList<SensorItemInfo> itemInfoList, QString loop, QS
     ui->graphicsView->setMouseTracking(true);
     ui->graphicsView->setDragMode(QGraphicsView::RubberBandDrag);
 
-
-
     //初始化ItemInfo
     int pRowNum,pColumnNum;
     pRowNum = pColumnNum = 0;
@@ -141,7 +140,6 @@ void GraphicsView::confView(QList<SensorItemInfo> itemInfoList, QString loop, QS
             pItem->setScale(itemInfoList.value(ind).m_zoom);
         }
         m_scene->addItem(pItem);
-
     }
 
     UdpThread *udpThread = new UdpThread(QHostAddress(hostIP) ,port.toUInt());
@@ -181,15 +179,14 @@ void GraphicsView::initTableWidget(QTableWidget *tableWidget)
 
     tableWidget->setEditTriggers(QTableWidget::NoEditTriggers);//单元格不可编
     tableWidget->setSelectionBehavior (QAbstractItemView::SelectRows); //设置选择行为，以行为单位
-    tableWidget->setSelectionMode (QAbstractItemView::SingleSelection); //设置选择模式，选择单行
-    tableWidget->setColumnWidth(0,130);
+    tableWidget->setSelectionMode (QAbstractItemView::NoSelection); //设置选择模式，选择单行
+    tableWidget->setColumnWidth(0,200);
     tableWidget->setColumnWidth(1,80);
     tableWidget->setColumnWidth(2,80);
     tableWidget->setColumnWidth(3,150);
     tableWidget->setColumnWidth(4,250);
 
 }
-
 
 void GraphicsView::setItem(QGraphicsScene *scene, QString loopStr, QString idStr, QString typeStr, QString stateStr)
 {
@@ -345,15 +342,6 @@ void GraphicsView::analysisData(QByteArray hostData)
     QString pLootStr = QString::number(pLoop);
     QString pIDStr   = QString::number(pID);
 
-    //    QString pNodeStr;
-    //    if (pID < 10) {
-    //        pNodeStr = QString("编号:%1-00%2\n").arg(QString::number(pLoop)).arg(QString::number(pID));
-    //    } else if (pID >= 10 && pID < 100) {
-    //        pNodeStr = QString("编号:%1-00%2\n").arg(QString::number(pLoop)).arg(QString::number(pID));
-    //    } else if (pID >= 100) {
-    //        pNodeStr = QString("编号:%1-00%2\n").arg(QString::number(pLoop)).arg(QString::number(pID));
-    //    }
-
     int index;
     QString dateTimeStr = QDateTime::currentDateTime().toString("yyyy/MM/dd hh:mm:ss");
     QStringList pInfoList;
@@ -423,28 +411,6 @@ void GraphicsView::slotHostData(QByteArray hostData)
     setItem(m_scene,pLoopStr,pIDStr,pType,pState);
     analysisData(hostData);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 void GraphicsView::showInfoList(QTableWidget *tableWidget, QList<QStringList> infoList)
@@ -513,13 +479,6 @@ void GraphicsView::slotInfoTimeOut()
     showInfoList(ui->tableWidgetAlarm,m_alarmInfoList);
     showInfoList(ui->tableWidgetError,m_errorInfoList);
 }
-
-
-
-
-
-
-
 
 
 

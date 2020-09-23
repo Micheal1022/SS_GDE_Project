@@ -309,8 +309,8 @@ void SystemConf::slotBtnSaveHost()
 {
     int pRowCount = ui->tableWidget->rowCount();
     if (pRowCount > 0) {
-        QStringList pStringList;
         for (int row = 0; row < pRowCount; row++) {
+            QStringList pStringList;
             QString pName   = ui->tableWidget->item(row,S_NAME)->text();
             QString pHost   = ui->tableWidget->item(row,S_HOST)->text();
             QString pPath   = ui->tableWidget->item(row,S_PATH)->text();
@@ -365,7 +365,6 @@ void SystemConf::slotBtnSaveHost()
                 return;
             }
         }
-        confHostList(ui->tableWidget);
         MsgBox::showInformation(this,tr("保存提示"),tr("信息保存成功！"),tr("关闭"));
         emit sigSaveOk();
     }

@@ -160,7 +160,7 @@ bool SqlManager::setPngsZoom(QSqlDatabase db, QString loop, QString level, QStri
 
 bool SqlManager::insertPngsZoom(QSqlDatabase db, QString host)
 {
-    QString sqlQuery = QString("insert into PNGZOOM values('%1',1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0);").arg(host);
+    QString sqlQuery = QString("replace into PNGZOOM values('%1',1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0);").arg(host);
     //qDebug()<<"sqlQuery --->"<<sqlQuery;
     QSqlQuery query(db);
     if (!query.exec(sqlQuery)) {
@@ -202,7 +202,7 @@ bool SqlManager::setViewZoom(QSqlDatabase db, QString loop, QString level, QStri
 
 bool SqlManager::insertViewZoom(QSqlDatabase db, QString host)
 {
-    QString sqlQuery = QString("insert into VIEWZOOM values('%1',1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0);").arg(host);
+    QString sqlQuery = QString("replace into VIEWZOOM values('%1',1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0);").arg(host);
     //qDebug()<<"sqlQuery --->"<<sqlQuery;
     QSqlQuery query(db);
     if (!query.exec(sqlQuery)) {
@@ -248,7 +248,7 @@ bool SqlManager::insertHostList(QSqlDatabase db, QStringList stringList)
     QString pPath_8 = stringList.value(19);
 
 
-    QString sqlQuery = QString("insert into HOSTINFO values('%1','%2','%3',%4,"
+    QString sqlQuery = QString("replace into HOSTINFO values('%1','%2','%3',%4,"
                                "%5, '%6' , %7,'%8' ,"
                                "%9, '%10',%11,'%12',"
                                "%13,'%14',%15,'%16',"

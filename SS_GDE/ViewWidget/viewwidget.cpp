@@ -6,6 +6,7 @@
 #include "graphicsview.h"
 #include "SqlManager/sqlmanager.h"
 #include <QTreeWidget>
+#include <QDebug>
 
 ViewWidget::ViewWidget(QWidget *parent) :
     QWidget(parent),
@@ -23,7 +24,6 @@ ViewWidget::ViewWidget(QWidget *parent) :
     m_LoopItemList.clear();
     QSqlDatabase db = SqlManager::openConnection();
     QList<QStringList> pHostList = SqlManager::getEnableHostList(db);
-    //qDebug()<<"pHostList ---> "<<pHostList;
     SqlManager::closeConnection(db);
     for (int ind = 0 ; ind < pHostList.count(); ind++) {
         QStringList pItemStr = pHostList.value(ind);
@@ -69,16 +69,19 @@ ViewWidget::ViewWidget(QWidget *parent) :
                 QString loop = QString::number(index/2+1);
 
                 if (0 != port.toInt() && false == path.isEmpty()) {
+                    //添加树形根节点
                     QStringList pLoopString;
                     pLoopString.append(QString("回路-%1").arg(loop));
                     QTreeWidgetItem *pLoopItem =  new QTreeWidgetItem(pTreeRootItem,pLoopString);
                     pTreeRootItem->addChild(pLoopItem);
                     m_LoopItemList.append(pLoopItem);
-                    //qDebug()<<"m_LoopItemList : "<<m_LoopItemList;
+
+                    //获取回路的节点地址
+                    SensorItemInfo itemInfo;
                     QList<SensorItemInfo> itemInfoList;
                     QList<QStringList> pNodeList = getNodeInfoList(loop,pPath);
+                    //便利每个节点
                     for (int i = 0; i < pNodeList.count(); i++) {
-                        SensorItemInfo itemInfo;
                         itemInfo.m_loopStr = pNodeList.value(i).value(N_LOOP);
                         itemInfo.m_idStr   = pNodeList.value(i).value(N_ID);
                         itemInfo.m_typeStr = QString::number(1);
@@ -111,17 +114,13 @@ ViewWidget::~ViewWidget()
 QList<QStringList> ViewWidget::getNodeInfoList(QString loop, QString path)
 {
     QSqlDatabase database;
-    if (QSqlDatabase::contains("qt_sql_default_connection")) {
-        database = QSqlDatabase::database("qt_sql_default_connection");
-    } else {
-        database = QSqlDatabase::addDatabase("QSQLITE");
-        database.setDatabaseName(path);
-    }
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName(path);
 
     if (!database.open()) {
-        qDebug()<<"Error: Failed to connect database."<<database.lastError();
+        //qDebug()<<"Error: Failed to connect database."<<database.lastError();
     } else {
-        qDebug()<<"Succeed to connect database : loop "<<loop;
+        //qDebug()<<"Succeed to connect database : loop "<<loop;
     }
 
     QList<QStringList> nodeInfoStringList;

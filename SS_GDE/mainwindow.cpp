@@ -39,13 +39,6 @@ void MainWindow::initVariable()
     m_flag  = false;
     m_colorTimer = new QTimer;
     //m_colorTimer->start(40);
-
-//    QString str = QString("编号:1-001\n"
-//                          "类型:组合式电气火灾传感器\n"
-//                          "区域:阿斯顿发生地方大所发生的");
-//    qDebug()<<"str ---> "<<str.left(8);
-//    qDebug()<<"str ---> "<<str.indexOf(QString("\n"),0);
-//    qDebug()<<"str ---> "<<str.indexOf(QString("\n"),9);
 }
 
 void MainWindow::initConnect()

@@ -110,9 +110,9 @@ border-radius:10px;
 }
 </string>
      </property>
-     <attribute name="headerCascadingSectionResizes">
-      <bool>false</bool>
-     </attribute>
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOn</enum>
+     </property>
      <column>
       <property name="text">
        <string>项目索引</string>
