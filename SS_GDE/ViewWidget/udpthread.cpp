@@ -39,6 +39,7 @@ void UdpThread::slotReadReady()
         qDebug()<<"datagram : "<<pHostData;
         if (DATASIZE == pHostData.size()) {
             if ((uchar)HEAD_AA == (uchar)pHostData.at(DATA_HEAD) && (uchar)TAIL_FF == (uchar)pHostData.at(DATA_TAIL)) {
+                qDebug()<<"emit sigHostData(pHostData);";
                 emit sigHostData(pHostData);
             }
         }

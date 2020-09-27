@@ -30,6 +30,7 @@ void QWGraphicsView::mouseDoubleClickEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
         QPoint point = event->pos();
+        //qDebug()<<"pos -----> "<<point;
         emit mouseDoubleClick(point);
     }
     QGraphicsView::mouseDoubleClickEvent(event);

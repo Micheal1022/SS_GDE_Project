@@ -13,7 +13,7 @@
 
 #define HEAD_AA     0xAA
 #define TAIL_FF     0xFF
-#define DATASIZE    8
+#define DATASIZE    6
 
 class QUdpSocket;
 class UdpThread : public QObject

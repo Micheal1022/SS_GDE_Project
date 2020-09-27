@@ -7,6 +7,7 @@
 #include <QThread>
 #include <QSqlError>
 #include "dbthead.h"
+#include <QGraphicsSceneContextMenuEvent>
 #define POS 150
 #define SET 100
 GraphicsView::GraphicsView(QWidget *parent) :
@@ -20,6 +21,7 @@ GraphicsView::GraphicsView(QWidget *parent) :
     qRegisterMetaType<QPair<qreal, qreal>>("QPair<qreal, qreal>");
     qRegisterMetaType<QList<QPair<qreal,qreal>>>("QList<QPair<qreal,qreal>>");
     initWidget();
+
 }
 
 GraphicsView::~GraphicsView()
@@ -56,6 +58,8 @@ void GraphicsView::initWidget()
     connect(ui->tBtnZoomIn, SIGNAL(clicked(bool)),this,SLOT(slotBtnZoomIn()));
     connect(ui->tBtnZoomOut,SIGNAL(clicked(bool)),this,SLOT(slotBtnZoomOut()));
     connect(ui->tBtnRestore,SIGNAL(clicked(bool)),this,SLOT(slotBtnRestore()));
+    connect(ui->tableWidgetAlarm,SIGNAL(cellDoubleClicked(int,int)),this,SLOT(slotFindItemAlarmPos(int,int)));
+    connect(ui->tableWidgetError,SIGNAL(cellDoubleClicked(int,int)),this,SLOT(slotFindItemErrorPos(int,int)));
 
     DBThead *pDbThread = new DBThead;
     QThread *pThread = new QThread;
@@ -86,17 +90,17 @@ void GraphicsView::confView(QList<SensorItemInfo> itemInfoList, QString loop, QS
     m_scene = new QGraphicsScene;
     m_scene->addPixmap(QPixmap(backGroundPath));
 
-    QStringList pInfoList;
-    pInfoList<<m_hostName<<QString::number(1)<<QString::number(1)<<QString("探测器报警")<<QString("2020/14/12 12:00:00");
-    m_alarmInfoList.append(pInfoList);  m_errorInfoList.append(pInfoList);  pInfoList.clear();
-    pInfoList<<m_hostName<<QString::number(1)<<QString::number(2)<<QString("探测器报警")<<QString("2020/14/12 12:00:00");
-    m_alarmInfoList.append(pInfoList);  m_errorInfoList.append(pInfoList);  pInfoList.clear();
-    pInfoList<<m_hostName<<QString::number(1)<<QString::number(3)<<QString("探测器报警")<<QString("2020/14/12 12:00:00");
-    m_alarmInfoList.append(pInfoList);  m_errorInfoList.append(pInfoList);  pInfoList.clear();
-    pInfoList<<m_hostName<<QString::number(1)<<QString::number(4)<<QString("探测器报警")<<QString("2020/14/12 12:00:00");
-    m_alarmInfoList.append(pInfoList);  m_errorInfoList.append(pInfoList);  pInfoList.clear();
-    pInfoList<<m_hostName<<QString::number(1)<<QString::number(5)<<QString("探测器报警")<<QString("2020/14/12 12:00:00");
-    m_alarmInfoList.append(pInfoList);  m_errorInfoList.append(pInfoList);  pInfoList.clear();
+//    QStringList pInfoList;
+//    pInfoList<<m_hostName<<QString::number(1)<<QString::number(1)<<QString("探测器报警")<<QString("2020/14/12 12:00:00");
+//    m_alarmInfoList.append(pInfoList);  m_errorInfoList.append(pInfoList);  pInfoList.clear();
+//    pInfoList<<m_hostName<<QString::number(1)<<QString::number(2)<<QString("探测器报警")<<QString("2020/14/12 12:00:00");
+//    m_alarmInfoList.append(pInfoList);  m_errorInfoList.append(pInfoList);  pInfoList.clear();
+//    pInfoList<<m_hostName<<QString::number(1)<<QString::number(3)<<QString("探测器报警")<<QString("2020/14/12 12:00:00");
+//    m_alarmInfoList.append(pInfoList);  m_errorInfoList.append(pInfoList);  pInfoList.clear();
+//    pInfoList<<m_hostName<<QString::number(1)<<QString::number(4)<<QString("探测器报警")<<QString("2020/14/12 12:00:00");
+//    m_alarmInfoList.append(pInfoList);  m_errorInfoList.append(pInfoList);  pInfoList.clear();
+//    pInfoList<<m_hostName<<QString::number(1)<<QString::number(5)<<QString("探测器报警")<<QString("2020/14/12 12:00:00");
+//    m_alarmInfoList.append(pInfoList);  m_errorInfoList.append(pInfoList);  pInfoList.clear();
 
     QSqlDatabase pSqlDatabase = SqlManager::openConnection();
     qreal pViewScale = SqlManager::getViewZoom(pSqlDatabase,hostIP,loop);
@@ -192,9 +196,10 @@ void GraphicsView::setItem(QGraphicsScene *scene, QString loopStr, QString idStr
 {
     SensorItem *pItem;
     QList<QGraphicsItem *> pItemList = scene->items();
-    for (int i = 0; i < pItemList.count(); i++) {
-        pItem = qgraphicsitem_cast<SensorItem*>(pItemList.at(i));
-        if (pItem->m_loopStr.compare(loopStr) && pItem->m_idStr.compare(idStr)) {
+
+    for (int i = 1; i < pItemList.count(); i++) {
+        pItem = qgraphicsitem_cast<SensorItem*>(pItemList.at(pItemList.count() - 1 - i));
+        if (pItem->m_loopStr == loopStr && pItem->m_idStr == idStr) {
             pItem->setItemType(typeStr.toInt());
             pItem->setItemState(stateStr.toInt());
             pItem->setToolTipString();
@@ -209,8 +214,8 @@ void GraphicsView::setNodeInfoZoom(QString loop, QString id, QPair<qreal, qreal>
         database = QSqlDatabase::database("qt_sql_default_connection");
     } else {
         database = QSqlDatabase::addDatabase("QSQLITE");
-        database.setDatabaseName(path);
     }
+    database.setDatabaseName(path);
 
     if (!database.open()) {
         qDebug() << "Error: Failed to connect database."<<database.lastError();
@@ -268,7 +273,6 @@ void GraphicsView::slotBtnRestore()
         item->setScale(1.0);
     } else {
         m_viewScale = 1.0;
-        //ui->graphicsView->resetTransform();
         ui->graphicsView->scale(1.0,1.0);
     }
 }
@@ -309,10 +313,11 @@ void GraphicsView::slotBtnSave()
     qreal pScale;
     QStringList pScaleList;
     QList<QPair<qreal, qreal>> poxList;
+    //获取item的列表，列表的顺序是最小的位置保存最上层的item;
     QList<QGraphicsItem *> itemList = m_scene->items();
     for (int i = 0; i < itemList.count(); i++) {
-        SensorItem* pItem = qgraphicsitem_cast<SensorItem*>(itemList.value(i));
-        if (itemList.count()- 1 == i) {
+        SensorItem* pItem = qgraphicsitem_cast<SensorItem*>(itemList.value(itemList.count()- 1 - i));
+        if (itemList.count()- 1 - i == 0) {
             //查找背景图片，保存缩放等级
             pScale = pItem->scale();
             QSqlDatabase pSqlDatabase = SqlManager::openConnection();
@@ -366,6 +371,7 @@ void GraphicsView::analysisData(QByteArray hostData)
             delStringList(m_errorInfoList,pLoop,pID,OFFLINE);
         }
         break;
+
     case ERROR:
         index = findItemIndex(m_itemInfoList,pLootStr,pIDStr);
         if (index < 0) {
@@ -377,6 +383,7 @@ void GraphicsView::analysisData(QByteArray hostData)
             m_errorInfoList.append(pInfoList);
         }
         break;
+
     case ALARM:
         index = findItemIndex(m_itemInfoList,pLootStr,pIDStr);
         if (index < 0) {
@@ -388,6 +395,7 @@ void GraphicsView::analysisData(QByteArray hostData)
             m_alarmInfoList.append(pInfoList);
         }
         break;
+
     case OFFLINE:
         index = findItemIndex(m_itemInfoList,pLootStr,pIDStr);
         if (index < 0) {
@@ -421,9 +429,10 @@ void GraphicsView::showInfoList(QTableWidget *tableWidget, QList<QStringList> in
 
     tableWidget->setRowCount(infoList.count());
     QFont ft("楷体",14);
+    int pRowCount = infoList.count();
     QTableWidgetItem *item;
     for (int row = 0; row < infoList.count();row++) {
-        QStringList itemStr = infoList.at(row);
+        QStringList itemStr = infoList.at(pRowCount - 1 - row);
         tableWidget->setRowHeight(row,25);
         for (int column = 0;column < columnCount;column++) {
             item = new QTableWidgetItem;
@@ -436,7 +445,7 @@ void GraphicsView::showInfoList(QTableWidget *tableWidget, QList<QStringList> in
     }
 }
 
-void GraphicsView::delStringList(QList<QStringList> infoList, int loop, int Id, int state)
+void GraphicsView::delStringList(QList<QStringList> &infoList, int loop, int Id, int state)
 {
     QString pLoopStr = QString::number(loop);
     QString canIdStr= QString::number(Id);
@@ -478,6 +487,35 @@ void GraphicsView::slotInfoTimeOut()
 {
     showInfoList(ui->tableWidgetAlarm,m_alarmInfoList);
     showInfoList(ui->tableWidgetError,m_errorInfoList);
+}
+
+void GraphicsView::slotFindItemAlarmPos(int row, int column)
+{
+    if (true == ui->tableWidgetAlarm->item(row,column)->isSelected()) {
+        QString pLoopStr = ui->tableWidgetAlarm->item(row,1)->text();
+        QString pIdStr   = ui->tableWidgetAlarm->item(row,2)->text();
+
+        int index = findItemIndex(m_itemInfoList,pLoopStr,pIdStr);
+        QPoint itemPos;
+        itemPos.setX(m_itemInfoList.at(index).m_posX);
+        itemPos.setY(m_itemInfoList.at(index).m_posY);
+    }
+}
+
+void GraphicsView::slotFindItemErrorPos(int row, int column)
+{
+    if (true == ui->tableWidgetError->item(row,column)->isSelected()) {
+        QString pLoopStr = ui->tableWidgetError->item(row,1)->text();
+        QString pIdStr   = ui->tableWidgetError->item(row,2)->text();
+
+        int index = findItemIndex(m_itemInfoList,pLoopStr,pIdStr);
+        QPointF itemPos;//item的坐标
+        itemPos.setX(m_itemInfoList.at(index).m_posX);
+        itemPos.setY(m_itemInfoList.at(index).m_posY);
+        //qDebug()<<"*********itemPos**********";
+        //qDebug()<<"m_posX    -----> "<<itemPos.x();
+        //qDebug()<<"m_posY    -----> "<<itemPos.y();
+    }
 }
 
 

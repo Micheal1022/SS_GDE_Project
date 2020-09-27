@@ -41,8 +41,8 @@ private:
     void setItem(QGraphicsScene *scene, QString loopStr, QString idStr, QString typeStr,QString stateStr);
     void setNodeInfoZoom(QString loop, QString id, QPair<qreal, qreal> pox, QString scale, QString path);
     void showInfoList(QTableWidget *tableWidget, QList<QStringList> infoList);
-    void delStringList(QList<QStringList> infoList, int loop, int Id, int state);
-    int findItemIndex(QList<SensorItemInfo> itemInfoList, QString loop,QString id);
+    void delStringList(QList<QStringList> &infoList, int loop, int Id, int state);
+    int  findItemIndex(QList<SensorItemInfo> itemInfoList, QString loop,QString id);
 signals:
     void sigNodeInfoZoom(QString loop, QString id, QPair<qreal, qreal> pox, QString scale, QString path);
     void sigNodeInfoZoom(QList<SensorItemInfo> itemInfoList, QList<QPair<qreal, qreal>> poxList, QStringList scale, QString path);
@@ -58,6 +58,8 @@ private slots:
     void slotHostData(QByteArray hostData);
 
     void slotInfoTimeOut();
+    void slotFindItemErrorPos(int row, int column);
+    void slotFindItemAlarmPos(int row, int column);
 };
 
 #endif // GRAPHICSVIEW_H

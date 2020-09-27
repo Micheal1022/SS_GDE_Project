@@ -3,7 +3,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include "sensoritem.h"
-#include "graphicsview.h"
+
 #include "SqlManager/sqlmanager.h"
 #include <QTreeWidget>
 #include <QDebug>
@@ -13,15 +13,89 @@ ViewWidget::ViewWidget(QWidget *parent) :
     ui(new Ui::ViewWidget)
 {
     ui->setupUi(this);
-    //默认展开的状态
-    ui->treeWidget->setItemsExpandable(true);
-    ui->treeWidget->expandAll();
+
+    initVariable();
+    initWidget();
+    initConnect();
+    initConfNode();
+
     /* 1.打开系统配置，查看那些IP的回路是可用的；
      * 2.创建目录树结构；
      * 3.打开数据,获取节点的地、缩放、安装位置、初始化ItemInfo内容；
      * 4.创建场景,添加图元信息；
      */
+
+}
+
+ViewWidget::~ViewWidget()
+{
+    delete ui;
+
+}
+
+QList<QStringList> ViewWidget::getNodeInfoList(QString loop, QString path)
+{
+    QSqlDatabase database;
+    if (QSqlDatabase::contains("qt_sql_default_connection"))
+        database = QSqlDatabase::database("qt_sql_default_connection");
+    else {
+        database = QSqlDatabase::addDatabase("QSQLITE");
+    }
+    database.setDatabaseName(path);
+
+
+    if (!database.open()) {
+        //qDebug()<<"Error: Failed to connect database."<<database.lastError();
+    } else {
+        //qDebug()<<"Succeed to connect database : loop "<<loop;
+    }
+
+    QList<QStringList> nodeInfoStringList;
+    QString pQuerySql = QString("select LOOP,ID,ABLE,AREA,ZOOM,POS_X,POS_Y from NODELIST where LOOP = %1 and ABLE = 1 order by ID asc;").arg(loop);
+    QSqlQuery query(database);
+    //qDebug()<<"pQuerySql ---> "<<pQuerySql;
+    if (query.exec(pQuerySql)) {
+        while (query.next()) {
+            QStringList nodeStringList;
+            nodeStringList.append(query.value(0).toString());
+            nodeStringList.append(query.value(1).toString());
+            nodeStringList.append(query.value(2).toString());
+            nodeStringList.append(query.value(3).toString());
+            nodeStringList.append(query.value(4).toString());
+            nodeStringList.append(query.value(5).toString());
+            nodeStringList.append(query.value(6).toString());
+            nodeInfoStringList.append(nodeStringList);
+        }
+    }
+    query.finish();
+    query.clear();
+    database.close();
+    //QT数据库移除
+    QSqlDatabase::removeDatabase("QSQLITE");
+    return nodeInfoStringList;
+}
+
+void ViewWidget::initWidget()
+{
+    //默认展开的状态
+    ui->treeWidget->setItemsExpandable(true);
+    ui->treeWidget->expandAll();
+}
+
+void ViewWidget::initConnect()
+{
+    connect(ui->treeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(slotItemClicked(QTreeWidgetItem*,int)));
+}
+
+void ViewWidget::initVariable()
+{
     m_LoopItemList.clear();
+    m_viewWidgetList.clear();
+}
+
+void ViewWidget::initConfNode()
+{
+
     QSqlDatabase db = SqlManager::openConnection();
     QList<QStringList> pHostList = SqlManager::getEnableHostList(db);
     SqlManager::closeConnection(db);
@@ -75,7 +149,6 @@ ViewWidget::ViewWidget(QWidget *parent) :
                     QTreeWidgetItem *pLoopItem =  new QTreeWidgetItem(pTreeRootItem,pLoopString);
                     pTreeRootItem->addChild(pLoopItem);
                     m_LoopItemList.append(pLoopItem);
-
                     //获取回路的节点地址
                     SensorItemInfo itemInfo;
                     QList<SensorItemInfo> itemInfoList;
@@ -98,56 +171,12 @@ ViewWidget::ViewWidget(QWidget *parent) :
                     GraphicsView *pView = new GraphicsView;
                     pView->confView(itemInfoList,loop,pName,pHost,port,path,pPath);
                     ui->stackedWidgetBuild->addWidget(pView);
+                    m_viewWidgetList.append(pView);
                 }
             }
         }
     }
-
-    connect(ui->treeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(slotItemClicked(QTreeWidgetItem*,int)));
 }
-
-ViewWidget::~ViewWidget()
-{
-    delete ui;
-}
-
-QList<QStringList> ViewWidget::getNodeInfoList(QString loop, QString path)
-{
-    QSqlDatabase database;
-    database = QSqlDatabase::addDatabase("QSQLITE");
-    database.setDatabaseName(path);
-
-    if (!database.open()) {
-        //qDebug()<<"Error: Failed to connect database."<<database.lastError();
-    } else {
-        //qDebug()<<"Succeed to connect database : loop "<<loop;
-    }
-
-    QList<QStringList> nodeInfoStringList;
-    QString sqlQuery = QString("select LOOP,ID,ABLE,AREA,ZOOM,POS_X,POS_Y from NODELIST where LOOP = %1 and ABLE = 1 order by ID asc;").arg(loop);
-    QSqlQuery query(database);
-    //qDebug()<<"sqlQuery ---> "<<sqlQuery;
-    if (query.exec(sqlQuery)) {
-        while (query.next()) {
-            QStringList nodeStringList;
-            nodeStringList.append(query.value(0).toString());
-            nodeStringList.append(query.value(1).toString());
-            nodeStringList.append(query.value(2).toString());
-            nodeStringList.append(query.value(3).toString());
-            nodeStringList.append(query.value(4).toString());
-            nodeStringList.append(query.value(5).toString());
-            nodeStringList.append(query.value(6).toString());
-            nodeInfoStringList.append(nodeStringList);
-        }
-    }
-    query.finish();
-    query.clear();
-    database.close();
-    //QT数据库移除
-    QSqlDatabase::removeDatabase("QSQLITE");
-    return nodeInfoStringList;
-}
-
 
 void ViewWidget::slotItemClicked(QTreeWidgetItem *item, int index)
 {
@@ -157,6 +186,19 @@ void ViewWidget::slotItemClicked(QTreeWidgetItem *item, int index)
             ui->stackedWidgetBuild->setCurrentIndex(ind);
         }
     }
+}
+
+void ViewWidget::slotConfNode()
+{
+
+    qDeleteAll(m_LoopItemList.begin(), m_LoopItemList.end());
+    m_LoopItemList.clear();
+
+    ui->treeWidget->clear();
+
+    qDeleteAll(m_viewWidgetList.begin(), m_viewWidgetList.end());
+    m_viewWidgetList.clear();
+    initConfNode();
 }
 
 

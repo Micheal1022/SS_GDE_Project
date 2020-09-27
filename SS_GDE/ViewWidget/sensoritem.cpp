@@ -6,12 +6,12 @@
 #include <QDebug>
 #include <QStyleOptionGraphicsItem>
 #include <QGraphicsSceneMouseEvent>
-#define SIZE_WIDTH  60
+#define SIZE_WIDTH  40
 #define SIZE_HEIGHT SIZE_WIDTH
-#define X_POS   SIZE_WIDTH/12*4
-#define Y_POX   SIZE_WIDTH/12*5
-#define WIDTH   SIZE_WIDTH/12*5
-#define HEIGHT  SIZE_WIDTH/12*3
+#define X_POS   SIZE_WIDTH/20*7
+#define Y_POS   SIZE_WIDTH/20*9
+#define WIDTH   SIZE_WIDTH/20*9
+#define HEIGHT  SIZE_WIDTH/20*5
 
 
 
@@ -31,10 +31,9 @@ SensorItem::SensorItem(SensorItemInfo itemInfo, QObject *parent, QGraphicsItem *
     setItemType(m_typeStr.toInt());
     setToolTipString();
     setCursor(Qt::PointingHandCursor);
-    //setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemIsMovable);
 
     m_stateTimer = new QTimer;
-    QObject::connect(m_stateTimer,SIGNAL(timeout()),this,SLOT(slotStateTimeOut()));
+    connect(m_stateTimer,SIGNAL(timeout()),this,SLOT(slotStateTimeOut()));
     m_stateTimer->start(500);
 
 
@@ -43,9 +42,7 @@ SensorItem::SensorItem(SensorItemInfo itemInfo, QObject *parent, QGraphicsItem *
 
 void SensorItem::setItemState(int state)
 {
-    m_state = state;
     m_oldState = state;
-
 }
 
 void SensorItem::setItemType(int type)
@@ -74,7 +71,8 @@ void SensorItem::setToolTipString()
 
 QRectF SensorItem::boundingRect() const
 {
-    return QRectF(0, 0, 70, 70);
+//    return QRectF(0, 0, 70, 70);
+    return QRectF(0, 0, 50, 50);
 }
 
 
@@ -102,7 +100,7 @@ void SensorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     }
     brush.setStyle(Qt::SolidPattern);
     painter->setBrush(brush);
-    QRect r(X_POS,Y_POX,WIDTH,HEIGHT);
+    QRect r(X_POS,Y_POS,WIDTH,HEIGHT);
     painter->drawRect(r);
 
     // 选中时绘制
