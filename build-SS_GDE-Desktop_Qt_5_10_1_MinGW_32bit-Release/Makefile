@@ -212,6 +212,7 @@ Makefile: ../SS_GDE/SS_GDE.pro C:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g+
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/features/qt_config.prf \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g++/qmake.conf \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/features/exclusive_builds.prf \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/features/toolchain.prf \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/features/default_pre.prf \
@@ -239,6 +240,7 @@ Makefile: ../SS_GDE/SS_GDE.pro C:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g+
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/lib/Qt5Widgets.prl \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/lib/Qt5Gui.prl \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/lib/Qt5Sql.prl \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/lib/Qt5Network.prl \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/lib/Qt5Core.prl
 	$(QMAKE) -o Makefile ..\SS_GDE\SS_GDE.pro -spec win32-g++
 C:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/features/spec_pre.prf:
@@ -392,6 +394,7 @@ C:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/features/qt_functions.prf:
 C:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/features/qt_config.prf:
 C:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/win32-g++/qmake.conf:
 C:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/features/spec_post.prf:
+.qmake.stash:
 C:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/features/exclusive_builds.prf:
 C:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/features/toolchain.prf:
 C:/Qt/Qt5.10.1/5.10.1/mingw53_32/mkspecs/features/default_pre.prf:
@@ -419,6 +422,7 @@ C:/Qt/Qt5.10.1/5.10.1/mingw53_32/lib/Qt5Svg.prl:
 C:/Qt/Qt5.10.1/5.10.1/mingw53_32/lib/Qt5Widgets.prl:
 C:/Qt/Qt5.10.1/5.10.1/mingw53_32/lib/Qt5Gui.prl:
 C:/Qt/Qt5.10.1/5.10.1/mingw53_32/lib/Qt5Sql.prl:
+C:/Qt/Qt5.10.1/5.10.1/mingw53_32/lib/Qt5Network.prl:
 C:/Qt/Qt5.10.1/5.10.1/mingw53_32/lib/Qt5Core.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ..\SS_GDE\SS_GDE.pro -spec win32-g++

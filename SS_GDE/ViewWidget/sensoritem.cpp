@@ -4,6 +4,7 @@
 #include <QCursor>
 #include <QBrush>
 #include <QDebug>
+#include <QToolTip>
 #include <QStyleOptionGraphicsItem>
 #include <QGraphicsSceneMouseEvent>
 #define SIZE_WIDTH  40
@@ -66,7 +67,9 @@ void SensorItem::setToolTipString()
     }
     QString toolTipStr2 = QString("类型:%1\n").arg(m_typeStr);
     QString toolTipStr3 = QString("区域:%1").arg(m_areaStr);
-    setToolTip(toolTipStr1+toolTipStr2+toolTipStr3);
+    QString pToolTipStr = toolTipStr1+toolTipStr2+toolTipStr3;
+    setToolTip(pToolTipStr);
+
 }
 
 QRectF SensorItem::boundingRect() const
@@ -121,7 +124,6 @@ void SensorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 
 void SensorItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug()<<"point "<<this->pos();
     QGraphicsItem::mouseMoveEvent(event);
 }
 

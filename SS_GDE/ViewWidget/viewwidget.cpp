@@ -80,6 +80,7 @@ void ViewWidget::initWidget()
     //默认展开的状态
     ui->treeWidget->setItemsExpandable(true);
     ui->treeWidget->expandAll();
+    ui->treeWidget->setColumnWidth(0,300);
 }
 
 void ViewWidget::initConnect()

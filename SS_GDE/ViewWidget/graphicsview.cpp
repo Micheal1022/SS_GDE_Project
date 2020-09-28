@@ -8,6 +8,7 @@
 #include <QSqlError>
 #include "dbthead.h"
 #include <QGraphicsSceneContextMenuEvent>
+#include "SqlManager/sqlmanager.h"
 #define POS 150
 #define SET 100
 GraphicsView::GraphicsView(QWidget *parent) :
@@ -43,6 +44,7 @@ GraphicsView::~GraphicsView()
 void GraphicsView::initWidget()
 {
     m_viewScale = 1.0;
+
 
     initTableWidget(ui->tableWidgetAlarm);
     initTableWidget(ui->tableWidgetError);
@@ -379,8 +381,20 @@ void GraphicsView::analysisData(QByteArray hostData)
         }
         if (false == m_itemInfoList.value(index).m_errorFlag) {
             m_itemInfoList[index].m_errorFlag = true;
-            pInfoList<<m_hostName<<QString::number(pLoop)<<QString::number(pID)<<QString("探测器故障")<<dateTimeStr;
+            QString pLoopStr  = QString::number(pLoop);
+            QString pIDStr    = QString::number(pID);
+            QString pStateStr = QString("探测器故障");
+            QString pAreaStr  = m_itemInfoList.value(index).m_areaStr;
+            //实时故障列表
+            pInfoList<<m_hostName<<pLoopStr<<pIDStr<<pStateStr<<dateTimeStr;
             m_errorInfoList.append(pInfoList);
+            //历史故障列表
+            pInfoList.insert(1,m_hostIP);
+            pInfoList.insert(5,pAreaStr);
+            QSqlDatabase pDbDatabase = SqlManager::openConnection();
+            SqlManager::insertAlarmRecord(pDbDatabase,pInfoList);
+            SqlManager::closeConnection(pDbDatabase);
+
         }
         break;
 
@@ -390,9 +404,22 @@ void GraphicsView::analysisData(QByteArray hostData)
             return;
         }
         if (false == m_itemInfoList.value(index).m_alarmFlag) {
-            m_itemInfoList[index].m_alarmFlag = true;
-            pInfoList<<m_hostName<<QString::number(pLoop)<<QString::number(pID)<<QString("探测器报警")<<dateTimeStr;
-            m_alarmInfoList.append(pInfoList);
+            m_itemInfoList[index].m_alarmFlag = true;          
+            QString pLoopStr  = QString::number(pLoop);
+            QString pIDStr    = QString::number(pID);
+            QString pStateStr = QString("探测器报警");
+            QString pAreaStr  = m_itemInfoList.value(index).m_areaStr;
+            //实时报警列表
+            pInfoList<<m_hostName<<pLoopStr<<pIDStr<<pStateStr<<dateTimeStr;
+            m_errorInfoList.append(pInfoList);
+            //历史报警列表
+            pInfoList.insert(1,m_hostIP);
+            pInfoList.insert(5,pAreaStr);
+            QSqlDatabase pDbDatabase = SqlManager::openConnection();
+            SqlManager::insertAlarmRecord(pDbDatabase,pInfoList);
+            SqlManager::closeConnection(pDbDatabase);
+
+
         }
         break;
 
@@ -403,8 +430,19 @@ void GraphicsView::analysisData(QByteArray hostData)
         }
         if (false == m_itemInfoList.value(index).m_offLineFlag) {
             m_itemInfoList[index].m_offLineFlag = true;
-            pInfoList<<m_hostName<<QString::number(pLoop)<<QString::number(pID)<<QString("探测器掉线")<<dateTimeStr;
+            QString pLoopStr  = QString::number(pLoop);
+            QString pIDStr    = QString::number(pID);
+            QString pStateStr = QString("探测器掉线");
+            QString pAreaStr  = m_itemInfoList.value(index).m_areaStr;
+            //实时掉线列表
+            pInfoList<<m_hostName<<pLoopStr<<pIDStr<<pStateStr<<dateTimeStr;
             m_errorInfoList.append(pInfoList);
+            //历史掉线列表
+            pInfoList.insert(1,m_hostIP);
+            pInfoList.insert(5,pAreaStr);
+            QSqlDatabase pDbDatabase = SqlManager::openConnection();
+            SqlManager::insertAlarmRecord(pDbDatabase,pInfoList);
+            SqlManager::closeConnection(pDbDatabase);
         }
         break;
     }

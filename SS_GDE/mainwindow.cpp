@@ -62,37 +62,27 @@ void MainWindow::initWidegt()
 #endif
 }
 
-//#define ICON
 QMenu *MainWindow::createSystemMenu()
 {
     QMenu *pMainMenu = new QMenu(this);
     QString nStyleSheet = "QMenu {background-color: rgb(255, 255, 255); margin: 5px;}"
-                          "QMenu::item {font: 18pt '楷体';padding: 5px 10px 5px 20px; border: 1px solid transparent;"
-                          "min-height: 30px; min-width: 110px; border-radius: 4px;}"
+                          "QMenu::item {font: 18pt '楷体';padding: 5px 10px 5px 20px; "
+                          "border: 1px solid transparent;min-height: 30px; "
+                          "min-width: 110px; border-radius: 4px;}"
                           "QMenu::separator{"
-                          "height: 2px; "
-                          "background: #FFFFFF; "
-                          "margin-left: 10px; "
-                          "margin-right: 5px;}"
-                          "QMenu::item:selected {"
-                          "color: rgb(255, 255, 255);"
+                          "height: 2px; background: #FFFFFF; "
+                          "margin-left: 10px;margin-right: 5px;}"
+                          "QMenu::item:selected {color: rgb(255, 255, 255);"
                           "background-color:rgb(0, 125, 165); "
                           "border-color: rgb(0, 125, 165);}";
 
     pMainMenu->setStyleSheet(nStyleSheet);
-#ifdef ICON
-    pMainMenu->addAction(QIcon(":/Image/run.png"),       tr("监控界面"), this, SLOT(slotViewWidget()));
-    pMainMenu->addAction(QIcon(":/Image/tools.png"),     tr("系统设置"), this, SLOT(slotSystemConf()));
-    pMainMenu->addAction(QIcon(":/Image/dataSearch.png"),tr("历史记录"), this, SLOT(slotRecordInfo()));
-    pMainMenu->addAction(QIcon(":/Image/login.png"),     tr("用户登录"), this, SLOT(slotUserLogin()));
-    pMainMenu->addAction(QIcon(":/Image/logout.png"),    tr("程序退出"), this, SLOT(slotAppQuit()));
-#else
     pMainMenu->addAction(tr("监控界面"), this, SLOT(slotViewWidget()));
     pMainMenu->addAction(tr("系统设置"), this, SLOT(slotSystemConf()));
     pMainMenu->addAction(tr("历史记录"), this, SLOT(slotRecordInfo()));
     pMainMenu->addAction(tr("用户登录"), this, SLOT(slotUserLogin()));
     pMainMenu->addAction(tr("程序退出"), this, SLOT(slotAppQuit()));
-#endif
+
     return pMainMenu;
 }
 
