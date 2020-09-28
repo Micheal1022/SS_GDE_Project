@@ -19,7 +19,7 @@ background-color: rgb(255, 255, 255);
 }
 
 QToolButton{
-font: 14pt &quot;楷体&quot;;
+font: 18pt &quot;楷体&quot;;
 color: rgb(255, 255, 255);
 border:2px solid  rgb(0, 125, 165);
 border-radius:10px;
@@ -90,27 +90,32 @@ border:1px solid  rgb(0, 125, 165);
     <number>5</number>
    </property>
    <item>
-    <widget class="QTreeWidget" name="treeWidget">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>5</number>
      </property>
-     <property name="minimumSize">
-      <size>
-       <width>220</width>
-       <height>690</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>220</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QTreeWidget{
+     <item>
+      <widget class="QTreeWidget" name="treeWidget">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>220</width>
+         <height>630</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>220</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QTreeWidget{
 font: 20pt &quot;楷体&quot;;
 border:2px solid rgb(0,125,165);
 border-radius:10px;
@@ -136,28 +141,52 @@ min-width:20;
 }
 
 </string>
-     </property>
-     <property name="horizontalScrollBarPolicy">
-      <enum>Qt::ScrollBarAsNeeded</enum>
-     </property>
-     <attribute name="headerVisible">
-      <bool>false</bool>
-     </attribute>
-     <column>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="font">
-       <font>
-        <family>楷体</family>
-        <pointsize>20</pointsize>
-       </font>
-      </property>
-      <property name="textAlignment">
-       <set>AlignCenter</set>
-      </property>
-     </column>
-    </widget>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAsNeeded</enum>
+       </property>
+       <attribute name="headerVisible">
+        <bool>false</bool>
+       </attribute>
+       <column>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="font">
+         <font>
+          <family>楷体</family>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="menutBtn">
+       <property name="minimumSize">
+        <size>
+         <width>220</width>
+         <height>55</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>220</width>
+         <height>55</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>功能菜单</string>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextBesideIcon</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QStackedWidget" name="stackedWidgetBuild">

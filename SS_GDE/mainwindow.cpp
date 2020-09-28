@@ -47,6 +47,12 @@ void MainWindow::initConnect()
     connect(m_systemTimer,SIGNAL(timeout()),this,SLOT(slotSystemTime()));
     connect(m_colorTimer,SIGNAL(timeout()),this,SLOT(slotColorTime()));
     connect(m_systemConf,SIGNAL(sigSaveOk()),m_viewWidget,SLOT(slotConfNode()));
+
+    connect(m_viewWidget,SIGNAL(sigRecordInfo()),this, SLOT(slotRecordInfo()));
+    connect(m_viewWidget,SIGNAL(sigViewWidget()),this, SLOT(slotViewWidget()));
+    connect(m_viewWidget,SIGNAL(sigSystemConf()),this, SLOT(slotSystemConf()));
+    connect(m_viewWidget,SIGNAL(sigUserLogin()), this, SLOT(slotUserLogin()));
+    connect(m_viewWidget,SIGNAL(sigAppQuit()),   this, SLOT(slotAppQuit()));
 }
 
 void MainWindow::initWidegt()
