@@ -2,12 +2,15 @@
 <ui version="4.0">
  <class>ViewWidget</class>
  <widget class="QWidget" name="ViewWidget">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1350</width>
-    <height>700</height>
+    <width>1352</width>
+    <height>702</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,11 +22,17 @@ background-color: rgb(255, 255, 255);
 }
 
 QToolButton{
-font: 18pt &quot;楷体&quot;;
+font: 20pt &quot;楷体&quot;;
 color: rgb(255, 255, 255);
 border:2px solid  rgb(0, 125, 165);
 border-radius:10px;
 background-color: rgb(0, 125, 165);
+}
+QToolButton:disabled{
+font: 20pt &quot;楷体&quot;;
+color: rgb(255, 255, 255);
+border-color: rgb(180, 180, 180);
+background-color: rgb(180, 180, 180);
 }
 
 QTabWidget::pane { /* The tab widget frame */
@@ -105,7 +114,7 @@ border:1px solid  rgb(0, 125, 165);
        <property name="minimumSize">
         <size>
          <width>220</width>
-         <height>630</height>
+         <height>380</height>
         </size>
        </property>
        <property name="maximumSize">
@@ -120,6 +129,27 @@ font: 20pt &quot;楷体&quot;;
 border:2px solid rgb(0,125,165);
 border-radius:10px;
 }
+QScrollBar:vertical{
+width:20px;
+background:rgb(0,0,0,0%);
+margin:0px,0px,0px,0px;
+padding-top:25px;   
+padding-bottom:25px;    
+}
+QScrollBar::handle:vertical{
+width:10px;
+background:rgb(0,0,0,25%);
+background:rgb(0,125,165,100%);
+border-radius:5px;
+min-height:20px;
+}
+QScrollBar::handle:vertical:hover{
+width:10px;
+background:rgb(0,125,165,80%);
+border-radius:5px;
+min-height:20;
+}
+
 QScrollBar:horizontal {
 height:20px;
 background:rgb(0,0,0,0%);
@@ -135,12 +165,15 @@ min-width:20px;
 }
 QScrollBar::handle:horizontal:hover{
 height:10px;
-background:rgb(0,0,0,50%);
+background:rgb(0,125,165,80%);
 border-radius:5px;
 min-width:20;
 }
 
 </string>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAsNeeded</enum>
        </property>
        <property name="horizontalScrollBarPolicy">
         <enum>Qt::ScrollBarAsNeeded</enum>
@@ -165,21 +198,168 @@ min-width:20;
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="menutBtn">
+      <widget class="QToolButton" name="tBtnMonitor">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="minimumSize">
         <size>
          <width>220</width>
-         <height>55</height>
+         <height>45</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
          <width>220</width>
-         <height>55</height>
+         <height>45</height>
         </size>
        </property>
        <property name="text">
-        <string>功能菜单</string>
+        <string> 监控界面</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../image.qrc">
+         <normaloff>:/Image/connect.png</normaloff>:/Image/connect.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>60</width>
+         <height>60</height>
+        </size>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextBesideIcon</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="tBtnUserLogin">
+       <property name="minimumSize">
+        <size>
+         <width>220</width>
+         <height>45</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>220</width>
+         <height>45</height>
+        </size>
+       </property>
+       <property name="text">
+        <string> 用户登录</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../image.qrc">
+         <normaloff>:/Image/login.png</normaloff>:/Image/login.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>60</width>
+         <height>60</height>
+        </size>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextBesideIcon</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="tBtnSysConf">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>220</width>
+         <height>45</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>220</width>
+         <height>45</height>
+        </size>
+       </property>
+       <property name="text">
+        <string> 系统配置</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../image.qrc">
+         <normaloff>:/Image/tools.png</normaloff>:/Image/tools.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>60</width>
+         <height>60</height>
+        </size>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextBesideIcon</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="tBtnRecord">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>220</width>
+         <height>45</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>220</width>
+         <height>45</height>
+        </size>
+       </property>
+       <property name="text">
+        <string> 历史记录</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../image.qrc">
+         <normaloff>:/Image/dataSearch.png</normaloff>:/Image/dataSearch.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>60</width>
+         <height>60</height>
+        </size>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextBesideIcon</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="tBtnQuitApp">
+       <property name="minimumSize">
+        <size>
+         <width>220</width>
+         <height>45</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>220</width>
+         <height>45</height>
+        </size>
+       </property>
+       <property name="text">
+        <string> 退出程序</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../image.qrc">
+         <normaloff>:/Image/quit.png</normaloff>:/Image/quit.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>60</width>
+         <height>60</height>
+        </size>
        </property>
        <property name="toolButtonStyle">
         <enum>Qt::ToolButtonTextBesideIcon</enum>
@@ -207,6 +387,8 @@ border-radius:10px;
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../image.qrc"/>
+ </resources>
  <connections/>
 </ui>

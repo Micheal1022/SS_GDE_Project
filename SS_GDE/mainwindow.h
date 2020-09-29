@@ -3,10 +3,14 @@
 
 #include <QMainWindow>
 #include <QTimer>
+#include <QDateTime>
+#include <QMenu>
+#include <QDebug>
+#include "MsgBox/msgbox.h"
 #include "ViewWidget/viewwidget.h"
 #include "RecordInfo/recordinfo.h"
 #include "SystemConf/systemconf.h"
-#include "UserLgoin/userlgoin.h"
+#include "UserLgoin/userlogin.h"
 namespace Ui {
 class MainWindow;
 }
@@ -25,28 +29,26 @@ private:
     ViewWidget *m_viewWidget;
     RecordInfo *m_recordInfo;
     SystemConf *m_systemConf;
-    UserLgoin  *m_userLogin;
+    UserLogin  *m_userLogin;
     QTimer *m_systemTimer;
-    QTimer *m_colorTimer;
-    int m_color;
-    int m_flag;
 
-    QMenu  *m_sysMainMenu;
+    void systemTime();
     void initVariable();
     void initConnect();
 
 private:
     void initWidegt();
-    QMenu *createSystemMenu();
+    //QMenu *createSystemMenu();
 private slots:
-    void slotSystemMenu();
     void slotViewWidget();
     void slotSystemConf();
     void slotRecordInfo();
     void slotUserLogin();
     void slotAppQuit();
     void slotSystemTime();
-    void slotColorTime();
+
+    //void slotSystemMenu();
+    //void slotColorTime();
 };
 
 #endif // MAINWINDOW_H

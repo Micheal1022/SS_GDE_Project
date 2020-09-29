@@ -43,11 +43,12 @@ void RecordInfo::initWidget()
 
 void RecordInfo::initConnect()
 {
-    connect(ui->tBtnCheck,SIGNAL(clicked(bool)),this,SLOT(slotBtnCheck()));
-    connect(ui->tBtnAllDel,SIGNAL(clicked(bool)),this,SLOT(slotBtnAllDel()));
-    connect(ui->tBtnExport,SIGNAL(clicked(bool)),this,SLOT(slotBtnExport()));
-    connect(ui->tBtnPageUp,SIGNAL(clicked(bool)),this,SLOT(slotBtnPageUp()));
+    connect(ui->tBtnCheck,   SIGNAL(clicked(bool)),this,SLOT(slotBtnCheck()));
+    connect(ui->tBtnAllDel,  SIGNAL(clicked(bool)),this,SLOT(slotBtnAllDel()));
+    connect(ui->tBtnExport,  SIGNAL(clicked(bool)),this,SLOT(slotBtnExport()));
+    connect(ui->tBtnPageUp,  SIGNAL(clicked(bool)),this,SLOT(slotBtnPageUp()));
     connect(ui->tBtnPageDown,SIGNAL(clicked(bool)),this,SLOT(slotBtnPageDown()));
+    connect(ui->tBtnBack,    SIGNAL(clicked(bool)),this,SIGNAL(sigViewWidget()));
     connect(this,SIGNAL(sigPageUp(int)),ui->tableWidget->verticalScrollBar(),SLOT(setValue(int)));
     connect(this,SIGNAL(sigPageDown(int)),ui->tableWidget->verticalScrollBar(),SLOT(setValue(int)));
 }

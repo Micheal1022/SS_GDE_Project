@@ -35,6 +35,7 @@ void SystemConf::initWidget()
 
 void SystemConf::initConnect()
 {
+    connect(ui->tBtnBack,   SIGNAL(clicked(bool)),this,SIGNAL(sigViewWidget()));
     connect(ui->tBtnAdd,    SIGNAL(clicked(bool)),this,SLOT(slotBtnAddHost()));
     connect(ui->tBtnDel,    SIGNAL(clicked(bool)),this,SLOT(slotBtnDelHost()));
     connect(ui->tBtnSave,   SIGNAL(clicked(bool)),this,SLOT(slotBtnSaveHost()));
@@ -208,6 +209,7 @@ void SystemConf::initTableWidget(QTableWidget *tableWidget)
 
 
 }
+
 
 void SystemConf::slotBtnAddHost()
 {

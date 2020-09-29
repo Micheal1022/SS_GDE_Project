@@ -81,16 +81,27 @@ void ViewWidget::initWidget()
     ui->treeWidget->setItemsExpandable(true);
     ui->treeWidget->expandAll();
     ui->treeWidget->setColumnWidth(0,300);
+
+    ui->tBtnQuitApp->setEnabled(false);
+    ui->tBtnRecord->setEnabled(false);
+    ui->tBtnSysConf->setEnabled(false);
 }
 
 void ViewWidget::initConnect()
 {
-    connect(ui->menutBtn,SIGNAL(clicked(bool)),this,SLOT(slotSystemMenu()));
+    connect(ui->tBtnMonitor,  SIGNAL(clicked(bool)),this,SIGNAL(sigViewWidget()));
+    connect(ui->tBtnRecord,   SIGNAL(clicked(bool)),this,SIGNAL(sigRecordInfo()));
+    connect(ui->tBtnSysConf,  SIGNAL(clicked(bool)),this,SIGNAL(sigSystemConf()));
+    connect(ui->tBtnQuitApp,  SIGNAL(clicked(bool)),this,SIGNAL(sigAppQuit()));
+    connect(ui->tBtnUserLogin,SIGNAL(clicked(bool)),this,SLOT(slotUserLogin()));
+
+
     connect(ui->treeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(slotItemClicked(QTreeWidgetItem*,int)));
 }
 
 void ViewWidget::initVariable()
 {
+    m_loginState = false;
     m_LoopItemList.clear();
     m_viewWidgetList.clear();
 }
@@ -180,30 +191,6 @@ void ViewWidget::initConfNode()
     }
 }
 
-QMenu *ViewWidget::createSystemMenu()
-{
-    QMenu *pMainMenu = new QMenu(this);
-    QString nStyleSheet = "QMenu {background-color: rgb(255, 255, 255); margin: 5px;}"
-                          "QMenu::item {font: 18pt '楷体';padding: 5px 10px 5px 20px; "
-                          "border: 1px solid transparent;min-height: 30px; "
-                          "min-width: 110px; border-radius: 4px;}"
-                          "QMenu::separator{"
-                          "height: 2px; background: #FFFFFF; "
-                          "margin-left: 10px;margin-right: 5px;}"
-                          "QMenu::item:selected {color: rgb(255, 255, 255);"
-                          "background-color:rgb(0, 125, 165); "
-                          "border-color: rgb(0, 125, 165);}";
-
-    pMainMenu->setStyleSheet(nStyleSheet);
-    pMainMenu->addAction(tr("监控界面"), this, SIGNAL(sigViewWidget()));
-    pMainMenu->addAction(tr("系统设置"), this, SIGNAL(sigSystemConf()));
-    pMainMenu->addAction(tr("历史记录"), this, SIGNAL(sigRecordInfo()));
-    pMainMenu->addAction(tr("用户登录"), this, SIGNAL(sigUserLogin()));
-    pMainMenu->addAction(tr("程序退出"), this, SIGNAL(sigAppQuit()));
-
-    return pMainMenu;
-}
-
 void ViewWidget::slotItemClicked(QTreeWidgetItem *item, int index)
 {
     Q_UNUSED(index)
@@ -214,21 +201,25 @@ void ViewWidget::slotItemClicked(QTreeWidgetItem *item, int index)
     }
 }
 
-void ViewWidget::slotSystemMenu()
+void ViewWidget::slotUserLoginOK()
 {
-    if(m_sysMainMenu && !m_sysMainMenu->isHidden()) {
-        delete m_sysMainMenu;
-        m_sysMainMenu = NULL;
-    }else{
-        delete m_sysMainMenu;
-        m_sysMainMenu = createSystemMenu();
-        if(m_sysMainMenu != NULL) {
-            QPoint nPos;
-            nPos.setX(7);
-            nPos.setY(m_sysMainMenu->sizeHint().height()-450);
-            nPos = ui->menutBtn->mapToGlobal(nPos);
-            m_sysMainMenu->popup(nPos);
-        }
+    m_loginState = true;
+    ui->tBtnQuitApp->setEnabled(true);
+    ui->tBtnRecord->setEnabled(true);
+    ui->tBtnSysConf->setEnabled(true);
+    ui->tBtnUserLogin->setText(" 用户注销");
+}
+
+void ViewWidget::slotUserLogin()
+{
+    if (false == m_loginState) {
+        emit sigUserLogin();
+    } else {
+        m_loginState = false;
+        ui->tBtnQuitApp->setEnabled(false);
+        ui->tBtnRecord->setEnabled(false);
+        ui->tBtnSysConf->setEnabled(false);
+        ui->tBtnUserLogin->setText(" 用户登录");
     }
 }
 

@@ -25,10 +25,10 @@ private:
     void initConnect();
     void initVariable();
     void initConfNode();
-    QMenu *m_sysMainMenu;
-    QMenu *createSystemMenu();
     QList<QTreeWidgetItem *> m_LoopItemList;
     QList<GraphicsView *> m_viewWidgetList;
+
+    int m_loginState;
 signals:
     void sigViewWidget();
     void sigSystemConf();
@@ -38,7 +38,8 @@ signals:
 
 private slots:
     void slotItemClicked(QTreeWidgetItem* item, int index);
-    void slotSystemMenu();
+    void slotUserLoginOK();
+    void slotUserLogin();
 
 public slots:
     void slotConfNode();

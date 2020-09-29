@@ -3,7 +3,6 @@ INPUT(
 ./release\mainwindow.o
 ./release\recordinfo.o
 ./release\systemconf.o
-./release\userlgoin.o
 ./release\viewwidget.o
 ./release\sensoritem.o
 ./release\qwgraphicsview.o
@@ -15,11 +14,11 @@ INPUT(
 ./release\udpthread.o
 ./release\sensoriteminfo.o
 ./release\dbthead.o
+./release\userlogin.o
 ./release\qrc_image.o
 ./release\moc_mainwindow.o
 ./release\moc_recordinfo.o
 ./release\moc_systemconf.o
-./release\moc_userlgoin.o
 ./release\moc_viewwidget.o
 ./release\moc_sensoritem.o
 ./release\moc_qwgraphicsview.o
@@ -28,4 +27,5 @@ INPUT(
 ./release\moc_questbox.o
 ./release\moc_udpthread.o
 ./release\moc_dbthead.o
+./release\moc_userlogin.o
 );

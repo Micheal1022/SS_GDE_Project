@@ -19,6 +19,7 @@ private:
     Ui::SystemConf *ui;
 signals:
     void sigSaveOk();
+    void sigViewWidget();
 private:
     void delAllConf();
     void initWidget();
@@ -27,6 +28,7 @@ private:
     void confHostList(QTableWidget *tableWidget);
     void initTableWidget(QTableWidget *tableWidget);
 private slots:
+
     void slotBtnAddHost();
     void slotBtnDelHost();
     void slotBtnSaveHost();

@@ -3,7 +3,6 @@ INPUT(
 ./debug\mainwindow.o
 ./debug\recordinfo.o
 ./debug\systemconf.o
-./debug\userlgoin.o
 ./debug\viewwidget.o
 ./debug\sensoritem.o
 ./debug\qwgraphicsview.o
@@ -15,11 +14,11 @@ INPUT(
 ./debug\udpthread.o
 ./debug\sensoriteminfo.o
 ./debug\dbthead.o
+./debug\userlogin.o
 ./debug\qrc_image.o
 ./debug\moc_mainwindow.o
 ./debug\moc_recordinfo.o
 ./debug\moc_systemconf.o
-./debug\moc_userlgoin.o
 ./debug\moc_viewwidget.o
 ./debug\moc_sensoritem.o
 ./debug\moc_qwgraphicsview.o
@@ -28,4 +27,5 @@ INPUT(
 ./debug\moc_questbox.o
 ./debug\moc_udpthread.o
 ./debug\moc_dbthead.o
+./debug\moc_userlogin.o
 );

@@ -42,6 +42,7 @@ private:
 signals:
     void sigPageUp(int step);
     void sigPageDown(int step);
+    void sigViewWidget();
 
 private slots:
     void slotBtnCheck();

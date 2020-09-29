@@ -1,9 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QDateTime>
-#include <QMenu>
-#include <QDebug>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -19,13 +17,44 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::systemTime()
+{
+    int pDay = QDate::currentDate().dayOfWeek();
+    QString pWeekStr;
+    switch (pDay) {
+    case 1:
+        pWeekStr = tr("星期一 ");
+        break;
+    case 2:
+        pWeekStr = tr("星期二 ");
+        break;
+    case 3:
+        pWeekStr = tr("星期三 ");
+        break;
+    case 4:
+        pWeekStr = tr("星期四 ");
+        break;
+    case 5:
+        pWeekStr = tr("星期五 ");
+        break;
+    case 6:
+        pWeekStr = tr("星期六 ");
+        break;
+    case 7:
+        pWeekStr = tr("星期日 ");
+        break;
+    }
+    QString pDateStr = QDateTime::currentDateTime().toString("yyyy/MM/dd hh:mm:ss ");
+    ui->lbSystemTime->setText(pWeekStr + pDateStr);
+}
+
 
 void MainWindow::initVariable()
 {
     m_viewWidget = new ViewWidget;
     m_recordInfo = new RecordInfo;
     m_systemConf = new SystemConf;
-    m_userLogin  = new UserLgoin;
+    m_userLogin  = new UserLogin;
     ui->stackedWidget->addWidget(m_viewWidget);
     ui->stackedWidget->addWidget(m_systemConf);
     ui->stackedWidget->addWidget(m_recordInfo);
@@ -33,20 +62,20 @@ void MainWindow::initVariable()
 
     m_systemTimer = new QTimer;
     m_systemTimer->start(1000);
-    ui->lbSystemTime->setText(QDateTime::currentDateTime().toString("yyyy/MM/dd hh:mm:ss "));
+    systemTime();
 
-    m_color = 165;
-    m_flag  = false;
-    m_colorTimer = new QTimer;
-    //m_colorTimer->start(40);
+
+
 }
 
 void MainWindow::initConnect()
 {
-    connect(ui->menutBtn,SIGNAL(clicked(bool)),this,SLOT(slotSystemMenu()));
     connect(m_systemTimer,SIGNAL(timeout()),this,SLOT(slotSystemTime()));
-    connect(m_colorTimer,SIGNAL(timeout()),this,SLOT(slotColorTime()));
     connect(m_systemConf,SIGNAL(sigSaveOk()),m_viewWidget,SLOT(slotConfNode()));
+
+    connect(m_systemConf,SIGNAL(sigViewWidget()),this,SLOT(slotViewWidget()));
+    connect(m_recordInfo,SIGNAL(sigViewWidget()),this,SLOT(slotViewWidget()));
+    connect(m_userLogin,SIGNAL(sigUserLoginOk()),m_viewWidget,SLOT(slotUserLoginOK()));
 
     connect(m_viewWidget,SIGNAL(sigRecordInfo()),this, SLOT(slotRecordInfo()));
     connect(m_viewWidget,SIGNAL(sigViewWidget()),this, SLOT(slotViewWidget()));
@@ -57,15 +86,78 @@ void MainWindow::initConnect()
 
 void MainWindow::initWidegt()
 {
-    //showFullScreen();
-    //setWindowFlags(Qt::FramelessWindowHint);
+#ifdef FULLSCREEN
+    showFullScreen();
+#endif
+
 #ifdef BEVONE
-    ui->lbLogoBevone->setStyleSheet("border-image: url(:/Image/Bevone.png);");
+    ui->tBtnLogo->setStyleSheet("border-image: url(:/Image/Bevone.png);");
     ui->lbCompany->setText(tr("北京北元安达电子有限公司"));
 #elif  SENSOR
-    ui->menutBtn->setStyleSheet("border-image: url(:/Image/Sensor.png);");
+    ui->tBtnLogo->setStyleSheet("border-image: url(:/Image/Sensor.png);");
     ui->lbCompany->setText(tr("西安盛赛尔电子有限公司"));
 #endif
+}
+
+void MainWindow::slotViewWidget()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::slotSystemConf()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+}
+
+void MainWindow::slotRecordInfo()
+{
+   ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::slotUserLogin()
+{
+    m_userLogin->confShow();
+    int height = geometry().height();
+    int width  = geometry().width();
+
+    int h = (height - m_userLogin->geometry().height()) / 2;
+    int w = (width  - m_userLogin->geometry().width()) / 2;
+
+    int x_pos = pos().x();
+    int y_pos = pos().y();
+    //居中显示
+    m_userLogin->move(x_pos+w,y_pos+h);
+
+}
+
+void MainWindow::slotAppQuit()
+{
+    int pRet = MsgBox::showQuestion(this,tr(" 系统提示"),tr("你确定要都退出监控软件吗？"),tr("确定"),tr("关闭"));
+    if (0 == pRet) {
+        QApplication::quit();
+    }
+}
+void MainWindow::slotSystemTime()
+{
+    systemTime();
+}
+
+/*
+void MainWindow::slotColorTime()
+{
+    if (m_flag == false) {
+        m_color += 5;
+        if (m_color == 250) {
+            m_flag = true;
+        }
+    } else {
+        m_color -= 5;
+        if (m_color == 165) {
+            m_flag = false;
+        }
+    }
+    QString styleSheetStr = QString("background-color: rgb(0, 125, %1);").arg(m_color);
+    ui->centralWidget->setStyleSheet(styleSheetStr);
 }
 
 QMenu *MainWindow::createSystemMenu()
@@ -104,65 +196,9 @@ void MainWindow::slotSystemMenu()
             QPoint nPos;
             nPos.setX(5);
             nPos.setY(m_sysMainMenu->sizeHint().height()-150);
-            nPos = ui->menutBtn->mapToGlobal(nPos);
+            nPos = ui->tBtnLogo->mapToGlobal(nPos);
             m_sysMainMenu->popup(nPos);
         }
     }
 }
-
-void MainWindow::slotViewWidget()
-{
-    ui->stackedWidget->setCurrentIndex(0);
-}
-
-void MainWindow::slotSystemConf()
-{
-    ui->stackedWidget->setCurrentIndex(1);
-}
-
-void MainWindow::slotRecordInfo()
-{
-   ui->stackedWidget->setCurrentIndex(2);
-}
-
-void MainWindow::slotUserLogin()
-{
-    m_userLogin->show();
-    int height = geometry().height();
-    int width  = geometry().width();
-
-    int h = (height - m_userLogin->geometry().height()) / 2;
-    int w = (width  - m_userLogin->geometry().width()) / 2;
-
-    int x_pos = pos().x();
-    int y_pos = pos().y();
-    m_userLogin->move(x_pos+w,y_pos+h);
-
-}
-
-void MainWindow::slotAppQuit()
-{
-    QApplication::quit();
-}
-void MainWindow::slotSystemTime()
-{
-    QDate::currentDate().dayOfWeek();
-    ui->lbSystemTime->setText(QDateTime::currentDateTime().toString("yyyy/MM/dd hh:mm:ss "));
-}
-
-void MainWindow::slotColorTime()
-{
-    if (m_flag == false) {
-        m_color += 5;
-        if (m_color == 250) {
-            m_flag = true;
-        }
-    } else {
-        m_color -= 5;
-        if (m_color == 165) {
-            m_flag = false;
-        }
-    }
-    QString styleSheetStr = QString("background-color: rgb(0, 125, %1);").arg(m_color);
-    ui->centralWidget->setStyleSheet(styleSheetStr);
-}
+*/

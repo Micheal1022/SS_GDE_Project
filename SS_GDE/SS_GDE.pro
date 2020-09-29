@@ -9,6 +9,8 @@
 DEFINES += SENSOR
 
 
+#DEFINES += FULLSCREEN
+
 QT       += core gui svg sql network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -44,7 +46,6 @@ SOURCES += \
         mainwindow.cpp \
     RecordInfo/recordinfo.cpp \
     SystemConf/systemconf.cpp \
-    UserLgoin/userlgoin.cpp \
     ViewWidget/viewwidget.cpp \
     ViewWidget/sensoritem.cpp \
     ViewWidget/qwgraphicsview.cpp \
@@ -55,13 +56,13 @@ SOURCES += \
     MsgBox/questbox.cpp \
     ViewWidget/udpthread.cpp \
     ViewWidget/sensoriteminfo.cpp \
-    ViewWidget/dbthead.cpp
+    ViewWidget/dbthead.cpp \
+    UserLgoin/userlogin.cpp
 
 HEADERS += \
         mainwindow.h \
     RecordInfo/recordinfo.h \
     SystemConf/systemconf.h \
-    UserLgoin/userlgoin.h \
     ViewWidget/viewwidget.h \
     ViewWidget/sensoritem.h \
     ViewWidget/qwgraphicsview.h \
@@ -72,17 +73,18 @@ HEADERS += \
     MsgBox/questbox.h \
     ViewWidget/udpthread.h \
     ViewWidget/sensoriteminfo.h \
-    ViewWidget/dbthead.h
+    ViewWidget/dbthead.h \
+    UserLgoin/userlogin.h
 
 FORMS += \
         mainwindow.ui \
     RecordInfo/recordinfo.ui \
     SystemConf/systemconf.ui \
-    UserLgoin/userlgoin.ui \
     ViewWidget/viewwidget.ui \
     ViewWidget/graphicsview.ui \
     MsgBox/infobox.ui \
-    MsgBox/questbox.ui
+    MsgBox/questbox.ui \
+    UserLgoin/userlogin.ui
 
 RESOURCES += \
     image.qrc
