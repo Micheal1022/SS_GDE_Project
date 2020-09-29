@@ -53,7 +53,6 @@ QList<QStringList> ViewWidget::getNodeInfoList(QString loop, QString path)
     QList<QStringList> nodeInfoStringList;
     QString pQuerySql = QString("select LOOP,ID,ABLE,AREA,ZOOM,POS_X,POS_Y from NODELIST where LOOP = %1 and ABLE = 1 order by ID asc;").arg(loop);
     QSqlQuery query(database);
-    //qDebug()<<"pQuerySql ---> "<<pQuerySql;
     if (query.exec(pQuerySql)) {
         while (query.next()) {
             QStringList nodeStringList;
@@ -225,7 +224,6 @@ void ViewWidget::slotUserLogin()
 
 void ViewWidget::slotConfNode()
 {
-
     qDeleteAll(m_LoopItemList.begin(), m_LoopItemList.end());
     m_LoopItemList.clear();
 
@@ -235,6 +233,11 @@ void ViewWidget::slotConfNode()
     m_viewWidgetList.clear();
     initConfNode();
 }
+
+
+
+
+
 
 
 

@@ -19,9 +19,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::systemTime()
 {
-    int pDay = QDate::currentDate().dayOfWeek();
     QString pWeekStr;
-    switch (pDay) {
+    switch (QDate::currentDate().dayOfWeek()) {
     case 1:
         pWeekStr = tr("星期一 ");
         break;
@@ -132,7 +131,7 @@ void MainWindow::slotUserLogin()
 
 void MainWindow::slotAppQuit()
 {
-    int pRet = MsgBox::showQuestion(this,tr(" 系统提示"),tr("你确定要都退出监控软件吗？"),tr("确定"),tr("关闭"));
+    int pRet = MsgBox::showQuestion(this,tr(" 系统提示"),tr("你确定要退出远程客户端吗？"),tr("确定"),tr("关闭"));
     if (0 == pRet) {
         QApplication::quit();
     }
@@ -143,23 +142,6 @@ void MainWindow::slotSystemTime()
 }
 
 /*
-void MainWindow::slotColorTime()
-{
-    if (m_flag == false) {
-        m_color += 5;
-        if (m_color == 250) {
-            m_flag = true;
-        }
-    } else {
-        m_color -= 5;
-        if (m_color == 165) {
-            m_flag = false;
-        }
-    }
-    QString styleSheetStr = QString("background-color: rgb(0, 125, %1);").arg(m_color);
-    ui->centralWidget->setStyleSheet(styleSheetStr);
-}
-
 QMenu *MainWindow::createSystemMenu()
 {
     QMenu *pMainMenu = new QMenu(this);

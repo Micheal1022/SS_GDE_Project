@@ -38,7 +38,6 @@ private:
 
 private:
     void initWidegt();
-    //QMenu *createSystemMenu();
 private slots:
     void slotViewWidget();
     void slotSystemConf();
@@ -47,8 +46,8 @@ private slots:
     void slotAppQuit();
     void slotSystemTime();
 
+    //QMenu *createSystemMenu();
     //void slotSystemMenu();
-    //void slotColorTime();
 };
 
 #endif // MAINWINDOW_H
