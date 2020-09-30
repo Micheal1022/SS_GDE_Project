@@ -694,7 +694,7 @@ color:rgb(0, 0, 0);
     </layout>
    </item>
    <item>
-    <widget class="QWGraphicsView" name="graphicsView">
+    <widget class="QGraphicsView" name="graphicsView">
      <property name="styleSheet">
       <string notr="true"/>
      </property>
@@ -835,13 +835,6 @@ width:25px;
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QWGraphicsView</class>
-   <extends>QGraphicsView</extends>
-   <header>ViewWidget/qwgraphicsview.h</header>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="../image.qrc"/>
  </resources>

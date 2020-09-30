@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QTimer>
-#include "qwgraphicsview.h"
+//#include "qwgraphicsview.h"
 #include <QTableWidget>
 #include "sensoriteminfo.h"
 #include "udpthread.h"

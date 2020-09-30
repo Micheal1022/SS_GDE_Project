@@ -31,7 +31,7 @@ void DBThead::slotNodeInfoZoom(QList<SensorItemInfo> itemInfoList, QList<QPair<q
         SensorItemInfo pItemInfo = itemInfoList.value(i);
         QString sqlQuery = QString("update NODELIST set ZOOM = %1,POS_X = %2,POS_Y = %3 where LOOP = %4 and ID = %5;").\
                 arg(scaleList.value(i)).arg(QString::number(pPairPos.first)).arg(QString::number(pPairPos.second)).arg(pItemInfo.m_loopStr).arg(pItemInfo.m_idStr);
-        qDebug()<<sqlQuery;
+        //qDebug()<<sqlQuery;
         query.exec(sqlQuery);
     }
     database.commit();

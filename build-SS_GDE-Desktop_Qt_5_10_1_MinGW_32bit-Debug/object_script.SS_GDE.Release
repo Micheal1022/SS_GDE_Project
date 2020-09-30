@@ -5,7 +5,6 @@ INPUT(
 ./release\systemconf.o
 ./release\viewwidget.o
 ./release\sensoritem.o
-./release\qwgraphicsview.o
 ./release\graphicsview.o
 ./release\sqlmanager.o
 ./release\infobox.o
@@ -21,7 +20,6 @@ INPUT(
 ./release\moc_systemconf.o
 ./release\moc_viewwidget.o
 ./release\moc_sensoritem.o
-./release\moc_qwgraphicsview.o
 ./release\moc_graphicsview.o
 ./release\moc_infobox.o
 ./release\moc_questbox.o

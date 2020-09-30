@@ -48,7 +48,7 @@ SOURCES += \
     SystemConf/systemconf.cpp \
     ViewWidget/viewwidget.cpp \
     ViewWidget/sensoritem.cpp \
-    ViewWidget/qwgraphicsview.cpp \
+#    ViewWidget/qwgraphicsview.cpp \
     ViewWidget/graphicsview.cpp \
     SqlManager/sqlmanager.cpp \
     MsgBox/infobox.cpp \
@@ -65,7 +65,7 @@ HEADERS += \
     SystemConf/systemconf.h \
     ViewWidget/viewwidget.h \
     ViewWidget/sensoritem.h \
-    ViewWidget/qwgraphicsview.h \
+#    ViewWidget/qwgraphicsview.h \
     ViewWidget/graphicsview.h \
     SqlManager/sqlmanager.h \
     MsgBox/infobox.h \
