@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1127</width>
-    <height>690</height>
+    <width>1744</width>
+    <height>902</height>
    </rect>
   </property>
   <property name="styleSheet">
@@ -16,14 +16,14 @@ background-color: rgb(255, 255, 255);
 }
 
 QToolButton{
-font: 14pt &quot;楷体&quot;;
+font: 14pt &quot;微软雅黑&quot;;
 color: rgb(255, 255, 255);
 border:2px solid  rgb(0, 125, 165);
 border-radius:10px;
 background-color: rgb(0, 125, 165);
 }
 QLabel{
-font: 14pt &quot;楷体&quot;;
+font: 14pt &quot;微软雅黑&quot;;
 }
 QGraphicsView{
 color: rgb(255, 255, 255);
@@ -31,7 +31,7 @@ border:1px solid  rgb(0, 125, 165);
 }
 
 QTableWidget{
-font: 14pt &quot;楷体&quot;;
+font: 14pt &quot;微软雅黑&quot;;
 gridline-color: rgb(0, 0, 0);
 border:1px solid rgb(0, 122, 165);
 border-radius:5px;
@@ -42,7 +42,7 @@ border:1px solid rgb(0, 0, 0);
 }
 
 QGroupBox{
-font: 16pt &quot;楷体&quot;;
+font: 16pt &quot;微软雅黑&quot;;
 color:rgb(0, 125, 165);
 color:rgb(0,   0,   0);
 border:1px none rgb(0, 125, 165);
@@ -144,13 +144,13 @@ color:rgb(0, 0, 0);
            <property name="minimumSize">
             <size>
              <width>40</width>
-             <height>60</height>
+             <height>50</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>40</width>
-             <height>60</height>
+             <height>50</height>
             </size>
            </property>
            <property name="text">
@@ -169,14 +169,14 @@ color:rgb(0, 0, 0);
            </property>
            <property name="minimumSize">
             <size>
-             <width>70</width>
-             <height>60</height>
+             <width>55</width>
+             <height>50</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>70</width>
-             <height>60</height>
+             <width>55</width>
+             <height>50</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -211,13 +211,13 @@ color:rgb(0, 0, 0);
            <property name="minimumSize">
             <size>
              <width>40</width>
-             <height>60</height>
+             <height>50</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>40</width>
-             <height>60</height>
+             <height>50</height>
             </size>
            </property>
            <property name="text">
@@ -236,14 +236,14 @@ color:rgb(0, 0, 0);
            </property>
            <property name="minimumSize">
             <size>
-             <width>70</width>
-             <height>60</height>
+             <width>55</width>
+             <height>50</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>70</width>
-             <height>60</height>
+             <width>55</width>
+             <height>50</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -272,13 +272,13 @@ color:rgb(0, 0, 0);
            <property name="minimumSize">
             <size>
              <width>40</width>
-             <height>60</height>
+             <height>50</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>40</width>
-             <height>60</height>
+             <height>50</height>
             </size>
            </property>
            <property name="text">
@@ -297,14 +297,14 @@ color:rgb(0, 0, 0);
            </property>
            <property name="minimumSize">
             <size>
-             <width>70</width>
-             <height>60</height>
+             <width>55</width>
+             <height>50</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>70</width>
-             <height>60</height>
+             <width>55</width>
+             <height>50</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -333,13 +333,13 @@ color:rgb(0, 0, 0);
            <property name="minimumSize">
             <size>
              <width>40</width>
-             <height>60</height>
+             <height>50</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>40</width>
-             <height>60</height>
+             <height>50</height>
             </size>
            </property>
            <property name="text">
@@ -358,14 +358,14 @@ color:rgb(0, 0, 0);
            </property>
            <property name="minimumSize">
             <size>
-             <width>70</width>
-             <height>60</height>
+             <width>55</width>
+             <height>50</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>70</width>
-             <height>60</height>
+             <width>55</width>
+             <height>50</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -402,14 +402,14 @@ color:rgb(0, 0, 0);
         <widget class="QToolButton" name="tBtnEdit">
          <property name="minimumSize">
           <size>
-           <width>90</width>
-           <height>60</height>
+           <width>100</width>
+           <height>50</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>90</width>
-           <height>60</height>
+           <width>100</width>
+           <height>50</height>
           </size>
          </property>
          <property name="text">
@@ -422,7 +422,7 @@ color:rgb(0, 0, 0);
          <property name="iconSize">
           <size>
            <width>40</width>
-           <height>30</height>
+           <height>40</height>
           </size>
          </property>
          <property name="toolButtonStyle">
@@ -434,14 +434,14 @@ color:rgb(0, 0, 0);
         <widget class="QToolButton" name="tBtnSave">
          <property name="minimumSize">
           <size>
-           <width>90</width>
-           <height>60</height>
+           <width>100</width>
+           <height>50</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>90</width>
-           <height>60</height>
+           <width>100</width>
+           <height>50</height>
           </size>
          </property>
          <property name="text">
@@ -454,7 +454,7 @@ color:rgb(0, 0, 0);
          <property name="iconSize">
           <size>
            <width>40</width>
-           <height>30</height>
+           <height>40</height>
           </size>
          </property>
          <property name="toolButtonStyle">
@@ -466,14 +466,14 @@ color:rgb(0, 0, 0);
         <widget class="QToolButton" name="tBtnRestore">
          <property name="minimumSize">
           <size>
-           <width>90</width>
-           <height>60</height>
+           <width>100</width>
+           <height>50</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>90</width>
-           <height>60</height>
+           <width>100</width>
+           <height>50</height>
           </size>
          </property>
          <property name="text">
@@ -485,8 +485,8 @@ color:rgb(0, 0, 0);
          </property>
          <property name="iconSize">
           <size>
-           <width>30</width>
-           <height>30</height>
+           <width>40</width>
+           <height>40</height>
           </size>
          </property>
          <property name="toolButtonStyle">
@@ -498,14 +498,14 @@ color:rgb(0, 0, 0);
         <widget class="QToolButton" name="tBtnZoomIn">
          <property name="minimumSize">
           <size>
-           <width>90</width>
-           <height>60</height>
+           <width>100</width>
+           <height>50</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>90</width>
-           <height>60</height>
+           <width>100</width>
+           <height>50</height>
           </size>
          </property>
          <property name="text">
@@ -530,14 +530,14 @@ color:rgb(0, 0, 0);
         <widget class="QToolButton" name="tBtnZoomOut">
          <property name="minimumSize">
           <size>
-           <width>90</width>
-           <height>60</height>
+           <width>100</width>
+           <height>50</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>90</width>
-           <height>60</height>
+           <width>100</width>
+           <height>50</height>
           </size>
          </property>
          <property name="text">
@@ -551,6 +551,137 @@ color:rgb(0, 0, 0);
           <size>
            <width>50</width>
            <height>50</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextBesideIcon</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="tBtnAlignLeft">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>120</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>左对齐</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../image.qrc">
+           <normaloff>:/Image/AlignLeft.png</normaloff>:/Image/AlignLeft.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextBesideIcon</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="tBtnAlignRight">
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>120</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>右对齐</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../image.qrc">
+           <normaloff>:/Image/AlignRight.png</normaloff>:/Image/AlignRight.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextBesideIcon</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="tBtnAlignTop">
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>120</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>顶对齐</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../image.qrc">
+           <normaloff>:/Image/AlignTop.png</normaloff>:/Image/AlignTop.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextBesideIcon</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="tBtnAlignBottom">
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>120</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>底对齐</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../image.qrc">
+           <normaloff>:/Image/AlignBottom.png</normaloff>:/Image/AlignBottom.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
           </size>
          </property>
          <property name="toolButtonStyle">

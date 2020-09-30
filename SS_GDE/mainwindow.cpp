@@ -94,7 +94,7 @@ void MainWindow::initWidegt()
     ui->lbCompany->setText(tr("北京北元安达电子有限公司"));
 #elif  SENSOR
     ui->tBtnLogo->setStyleSheet("border-image: url(:/Image/Sensor.png);");
-    ui->lbCompany->setText(tr("西安盛赛尔电子有限公司"));
+    ui->lbCompany->setText(tr("西安盛赛尔电子有限公司 "));
 #endif
 }
 

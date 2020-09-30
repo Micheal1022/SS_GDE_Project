@@ -88,7 +88,6 @@ void ViewWidget::initWidget()
 
 void ViewWidget::initConnect()
 {
-    connect(ui->tBtnMonitor,  SIGNAL(clicked(bool)),this,SIGNAL(sigViewWidget()));
     connect(ui->tBtnRecord,   SIGNAL(clicked(bool)),this,SIGNAL(sigRecordInfo()));
     connect(ui->tBtnSysConf,  SIGNAL(clicked(bool)),this,SIGNAL(sigSystemConf()));
     connect(ui->tBtnQuitApp,  SIGNAL(clicked(bool)),this,SIGNAL(sigAppQuit()));

@@ -11,7 +11,7 @@ MAKEFILE      = Makefile.Debug
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DSENSOR -DQT_DEPRECATED_WARNINGS -DQT_SVG_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
+DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DSENSOR -DFULLSCREEN -DQT_DEPRECATED_WARNINGS -DQT_SVG_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
 CFLAGS        = -fno-keep-inline-dllexport -g -Wall -W -Wextra $(DEFINES)
 CXXFLAGS      = -fno-keep-inline-dllexport -g -std=gnu++11 -Wall -W -Wextra -fexceptions -mthreads $(DEFINES)
 INCPATH       = -I..\SS_GDE -I. -IC:\Qt\Qt5.10.1\5.10.1\mingw53_32\include -IC:\Qt\Qt5.10.1\5.10.1\mingw53_32\include\QtSvg -IC:\Qt\Qt5.10.1\5.10.1\mingw53_32\include\QtWidgets -IC:\Qt\Qt5.10.1\5.10.1\mingw53_32\include\QtGui -IC:\Qt\Qt5.10.1\5.10.1\mingw53_32\include\QtANGLE -IC:\Qt\Qt5.10.1\5.10.1\mingw53_32\include\QtSql -IC:\Qt\Qt5.10.1\5.10.1\mingw53_32\include\QtNetwork -IC:\Qt\Qt5.10.1\5.10.1\mingw53_32\include\QtCore -Idebug -I. -IC:\Qt\Qt5.10.1\5.10.1\mingw53_32\mkspecs\win32-g++ 
@@ -192,7 +192,9 @@ debug/qrc_image.cpp: ../SS_GDE/image.qrc \
 		../SS_GDE/Image/offLine.png \
 		../SS_GDE/Image/errorInfo.png \
 		../SS_GDE/Image/enable.png \
+		../SS_GDE/Image/AlignBottom.png \
 		../SS_GDE/Image/delDev.png \
+		../SS_GDE/Image/AlignRight.png \
 		../SS_GDE/Image/arrow-down.png \
 		../SS_GDE/Image/normal.png \
 		../SS_GDE/Image/uncheck.png \
@@ -202,10 +204,10 @@ debug/qrc_image.cpp: ../SS_GDE/image.qrc \
 		../SS_GDE/Image/error.png \
 		../SS_GDE/Image/time.png \
 		../SS_GDE/Image/focus.png \
+		../SS_GDE/Image/AlignLeft.png \
 		../SS_GDE/Image/dataSearch.png \
 		../SS_GDE/Image/app.ico \
 		../SS_GDE/Image/login.png \
-		../SS_GDE/Image/restore.png \
 		../SS_GDE/Image/disenable.png \
 		../SS_GDE/Image/key.png \
 		../SS_GDE/Image/plan-Model.png \
@@ -217,6 +219,7 @@ debug/qrc_image.cpp: ../SS_GDE/image.qrc \
 		../SS_GDE/Image/addDev.png \
 		../SS_GDE/Image/offLineInfo.png \
 		../SS_GDE/Image/reset.png \
+		../SS_GDE/Image/AlignTop.png \
 		../SS_GDE/Image/close.png \
 		../SS_GDE/Image/tools.png \
 		../SS_GDE/Image/detector.png \
@@ -4216,13 +4219,54 @@ debug/userlogin.o: ../SS_GDE/UserLgoin/userlogin.cpp ../SS_GDE/UserLgoin/userlog
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qtouchdevice.h \
 		ui_userlogin.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QVariant \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QAction \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qaction.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qicon.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qactiongroup.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QApplication \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qapplication.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qcoreapplication.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qeventloop.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qguiapplication.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qinputmethod.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QButtonGroup \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qbuttongroup.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QHeaderView \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qheaderview.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qframe.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qabstractitemmodel.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qitemselectionmodel.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qstyleoption.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qvalidator.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qregularexpression.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qslider.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractslider.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qstyle.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtabbar.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtabwidget.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qrubberband.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QLabel \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qlabel.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QLineEdit \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qlineedit.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qtextcursor.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qtextformat.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qpen.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtGui/qtextoption.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QToolButton \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qtoolbutton.h \
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qabstractbutton.h \
 		../SS_GDE/MsgBox/msgbox.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QWidget \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/QDebug \
 		../SS_GDE/MsgBox/infobox.h \
-		../SS_GDE/MsgBox/questbox.h \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QButtonGroup \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qbuttongroup.h
+		../SS_GDE/MsgBox/questbox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\userlogin.o ..\SS_GDE\UserLgoin\userlogin.cpp
 
 debug/qrc_image.o: debug/qrc_image.cpp 

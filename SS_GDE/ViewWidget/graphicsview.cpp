@@ -17,11 +17,9 @@ GraphicsView::GraphicsView(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    qRegisterMetaType<QList<SensorItemInfo>>("QList<SensorItemInfo>");
-    qRegisterMetaType<QList<SensorItem *>>("QList<SensorItem *>");
-    qRegisterMetaType<QPair<qreal, qreal>>("QPair<qreal, qreal>");
-    qRegisterMetaType<QList<QPair<qreal,qreal>>>("QList<QPair<qreal,qreal>>");
+    initVariable();
     initWidget();
+    initConnect();
 
 }
 
@@ -43,25 +41,18 @@ GraphicsView::~GraphicsView()
 
 void GraphicsView::initWidget()
 {
-    m_viewScale = 1.0;
-
 
     initTableWidget(ui->tableWidgetAlarm);
     initTableWidget(ui->tableWidgetError);
-
 
     ui->tBtnSave->setEnabled(false);
     ui->tBtnZoomIn->setEnabled(false);
     ui->tBtnRestore->setEnabled(false);
     ui->tBtnZoomOut->setEnabled(false);
-
-    connect(ui->tBtnEdit,   SIGNAL(clicked(bool)),this,SLOT(slotBtnEdit()));
-    connect(ui->tBtnSave,   SIGNAL(clicked(bool)),this,SLOT(slotBtnSave()));
-    connect(ui->tBtnZoomIn, SIGNAL(clicked(bool)),this,SLOT(slotBtnZoomIn()));
-    connect(ui->tBtnZoomOut,SIGNAL(clicked(bool)),this,SLOT(slotBtnZoomOut()));
-    connect(ui->tBtnRestore,SIGNAL(clicked(bool)),this,SLOT(slotBtnRestore()));
-    connect(ui->tableWidgetAlarm,SIGNAL(cellDoubleClicked(int,int)),this,SLOT(slotFindItemAlarmPos(int,int)));
-    connect(ui->tableWidgetError,SIGNAL(cellDoubleClicked(int,int)),this,SLOT(slotFindItemErrorPos(int,int)));
+    ui->tBtnAlignTop->setEnabled(false);
+    ui->tBtnAlignLeft->setEnabled(false);
+    ui->tBtnAlignRight->setEnabled(false);
+    ui->tBtnAlignBottom->setEnabled(false);
 
     DBThead *pDbThread = new DBThead;
     QThread *pThread = new QThread;
@@ -74,6 +65,32 @@ void GraphicsView::initWidget()
     connect(m_infoTimer,SIGNAL(timeout()),this,SLOT(slotInfoTimeOut()));
     m_infoTimer->start(1000);
 
+}
+
+void GraphicsView::initVariable()
+{
+    m_viewScale = 1.0;
+    m_editModeFlag = false;
+    qRegisterMetaType<QList<SensorItemInfo>>("QList<SensorItemInfo>");
+    qRegisterMetaType<QList<SensorItem *>>("QList<SensorItem *>");
+    qRegisterMetaType<QPair<qreal, qreal>>("QPair<qreal, qreal>");
+    qRegisterMetaType<QList<QPair<qreal,qreal>>>("QList<QPair<qreal,qreal>>");
+}
+
+void GraphicsView::initConnect()
+{
+    connect(ui->tBtnEdit,   SIGNAL(clicked(bool)),this,SLOT(slotBtnEdit()));
+    connect(ui->tBtnSave,   SIGNAL(clicked(bool)),this,SLOT(slotBtnSave()));
+    connect(ui->tBtnZoomIn, SIGNAL(clicked(bool)),this,SLOT(slotBtnZoomIn()));
+    connect(ui->tBtnZoomOut,SIGNAL(clicked(bool)),this,SLOT(slotBtnZoomOut()));
+    connect(ui->tBtnRestore,SIGNAL(clicked(bool)),this,SLOT(slotBtnRestore()));
+    connect(ui->tableWidgetAlarm,SIGNAL(cellDoubleClicked(int,int)),this,SLOT(slotFindItemAlarmPos(int,int)));
+    connect(ui->tableWidgetError,SIGNAL(cellDoubleClicked(int,int)),this,SLOT(slotFindItemErrorPos(int,int)));
+
+    connect(ui->tBtnAlignTop,SIGNAL(clicked(bool)),this,SLOT(slotAlignTop()));
+    connect(ui->tBtnAlignLeft,SIGNAL(clicked(bool)),this,SLOT(slotAlignLeft()));
+    connect(ui->tBtnAlignRight,SIGNAL(clicked(bool)),this,SLOT(slotAlignRight()));
+    connect(ui->tBtnAlignBottom,SIGNAL(clicked(bool)),this,SLOT(slotAlignBottom()));
 }
 
 void GraphicsView::confView(QList<SensorItemInfo> itemInfoList, QString loop, QString hostName,
@@ -91,18 +108,6 @@ void GraphicsView::confView(QList<SensorItemInfo> itemInfoList, QString loop, QS
     m_itemInfoList = itemInfoList;
     m_scene = new QGraphicsScene;
     m_scene->addPixmap(QPixmap(backGroundPath));
-
-//    QStringList pInfoList;
-//    pInfoList<<m_hostName<<QString::number(1)<<QString::number(1)<<QString("探测器报警")<<QString("2020/14/12 12:00:00");
-//    m_alarmInfoList.append(pInfoList);  m_errorInfoList.append(pInfoList);  pInfoList.clear();
-//    pInfoList<<m_hostName<<QString::number(1)<<QString::number(2)<<QString("探测器报警")<<QString("2020/14/12 12:00:00");
-//    m_alarmInfoList.append(pInfoList);  m_errorInfoList.append(pInfoList);  pInfoList.clear();
-//    pInfoList<<m_hostName<<QString::number(1)<<QString::number(3)<<QString("探测器报警")<<QString("2020/14/12 12:00:00");
-//    m_alarmInfoList.append(pInfoList);  m_errorInfoList.append(pInfoList);  pInfoList.clear();
-//    pInfoList<<m_hostName<<QString::number(1)<<QString::number(4)<<QString("探测器报警")<<QString("2020/14/12 12:00:00");
-//    m_alarmInfoList.append(pInfoList);  m_errorInfoList.append(pInfoList);  pInfoList.clear();
-//    pInfoList<<m_hostName<<QString::number(1)<<QString::number(5)<<QString("探测器报警")<<QString("2020/14/12 12:00:00");
-//    m_alarmInfoList.append(pInfoList);  m_errorInfoList.append(pInfoList);  pInfoList.clear();
 
     QSqlDatabase pSqlDatabase = SqlManager::openConnection();
     qreal pViewScale = SqlManager::getViewZoom(pSqlDatabase,hostIP,loop);
@@ -167,8 +172,8 @@ void GraphicsView::initTableWidget(QTableWidget *tableWidget)
     tableWidget->setHorizontalHeaderLabels(headList);
     tableWidget->horizontalHeader()->setFixedHeight(25);
     //tableWidget->horizontalHeader()->setDefaultSectionSize(140);
-    QString hstyleStr ="QHeaderView::section{font: 14pt '楷体'; background-color: rgb(0, 125, 165);color: white;}";
-    QString vstyleStr ="QHeaderView::section{font: 14pt '楷体'; background-color: rgb(0, 125, 165);color: white;}";
+    QString hstyleStr ="QHeaderView::section{font: 12pt '微软雅黑'; background-color: rgb(0, 125, 165);color: white;}";
+    QString vstyleStr ="QHeaderView::section{font: 12pt '微软雅黑'; background-color: rgb(0, 125, 165);color: white;}";
     //tableWidget->setFocusPolicy(Qt::NoFocus);
     tableWidget->verticalHeader()->setStyleSheet(vstyleStr);
     tableWidget->verticalHeader()->setFixedWidth(35);
@@ -242,10 +247,11 @@ void GraphicsView::setNodeInfoZoom(QString loop, QString id, QPair<qreal, qreal>
 void GraphicsView::slotBtnZoomIn()
 {
     //放大
-    int cnt = m_scene->selectedItems().count();
-    if (cnt == 1) {
-        QGraphicsItem *item = m_scene->selectedItems().at(0);
-        item->setScale(item->scale() * 1.1);
+    int pSelectCount = m_scene->selectedItems().count();
+    if (pSelectCount > 0) {
+        foreach (QGraphicsItem *item, m_scene->selectedItems()) {
+            item->setScale(item->scale() * 1.1);
+        }
     } else {
         m_viewScale *= 1.1;
         ui->graphicsView->scale(1.1,1.1);
@@ -255,10 +261,11 @@ void GraphicsView::slotBtnZoomIn()
 void GraphicsView::slotBtnZoomOut()
 {
     //缩小
-    int cnt = m_scene->selectedItems().count();
-    if (cnt == 1) {
-        QGraphicsItem *item = m_scene->selectedItems().at(0);
-        item->setScale(item->scale()*0.9);
+    int pSelectCount = m_scene->selectedItems().count();
+    if (pSelectCount > 0) {
+        foreach (QGraphicsItem *item, m_scene->selectedItems()) {
+            item->setScale(item->scale()*0.9);
+        }
     } else {
         ui->graphicsView->scale(0.9,0.9);
         m_viewScale *= 0.9;
@@ -268,11 +275,12 @@ void GraphicsView::slotBtnZoomOut()
 void GraphicsView::slotBtnRestore()
 {
     //取消所有变换
-    int cnt = m_scene->selectedItems().count();
-    if (cnt == 1){
-        QGraphicsItem *item = m_scene->selectedItems().at(0);
-        item->setRotation(0);
-        item->setScale(1.0);
+    int pSelectCount = m_scene->selectedItems().count();
+    if (pSelectCount > 0){
+        foreach (QGraphicsItem *item, m_scene->selectedItems()) {
+            item->setRotation(0);
+            item->setScale(1.0);
+        }
     } else {
         m_viewScale = 1.0;
         ui->graphicsView->scale(1.0,1.0);
@@ -283,31 +291,61 @@ void GraphicsView::slotBtnRestore()
 //编辑模式
 void GraphicsView::slotBtnEdit()
 {
-    ui->tBtnEdit->setEnabled(false);
-    ui->tBtnSave->setEnabled(true);
-    ui->tBtnZoomIn->setEnabled(true);
-    ui->tBtnRestore->setEnabled(true);
-    ui->tBtnZoomOut->setEnabled(true);
-    QList<QGraphicsItem *> itemList = m_scene->items();
-
-    for (int ind = 0; ind < itemList.count(); ind++) {
-        if (ind < itemList.count()- 1) {
-            QGraphicsItem *item = itemList.value(ind);
-            item->setFlag(QGraphicsItem::ItemIsSelectable);
-            item->setFlag(QGraphicsItem::ItemIsFocusable);
-            item->setFlag(QGraphicsItem::ItemIsMovable);
+    if (false == m_editModeFlag) {
+        m_editModeFlag = true;
+        ui->tBtnEdit->setText(tr("取消"));
+        ui->tBtnSave->setEnabled(true);
+        ui->tBtnZoomIn->setEnabled(true);
+        ui->tBtnRestore->setEnabled(true);
+        ui->tBtnZoomOut->setEnabled(true);
+        ui->tBtnAlignTop->setEnabled(true);
+        ui->tBtnAlignLeft->setEnabled(true);
+        ui->tBtnAlignRight->setEnabled(true);
+        ui->tBtnAlignBottom->setEnabled(true);
+        QList<QGraphicsItem *> itemList = m_scene->items();
+        for (int ind = 0; ind < itemList.count(); ind++) {
+            if (ind < itemList.count()- 1) {
+                QGraphicsItem *item = itemList.value(ind);
+                item->setFlag(QGraphicsItem::ItemIsSelectable);
+                item->setFlag(QGraphicsItem::ItemIsFocusable);
+                item->setFlag(QGraphicsItem::ItemIsMovable);
+            }
+        }
+    } else {
+        m_editModeFlag = false;
+        ui->tBtnEdit->setText(tr("编辑"));
+        ui->tBtnSave->setEnabled(false);
+        ui->tBtnZoomIn->setEnabled(false);
+        ui->tBtnRestore->setEnabled(false);
+        ui->tBtnZoomOut->setEnabled(false);
+        ui->tBtnAlignTop->setEnabled(false);
+        ui->tBtnAlignLeft->setEnabled(false);
+        ui->tBtnAlignRight->setEnabled(false);
+        ui->tBtnAlignBottom->setEnabled(false);
+        QList<QGraphicsItem *> itemList = m_scene->items();
+        for (int ind = 0; ind < itemList.count(); ind++) {
+            if (ind < itemList.count()- 1) {
+                QGraphicsItem *item = itemList.value(ind);
+                item->setFlag(QGraphicsItem::ItemIsMovable,   false);
+                item->setFlag(QGraphicsItem::ItemIsFocusable, false);
+                item->setFlag(QGraphicsItem::ItemIsSelectable,false);
+            }
         }
     }
-
 }
 //保存编辑
 void GraphicsView::slotBtnSave()
 {
-    ui->tBtnEdit->setEnabled(true);
+    ui->tBtnEdit->setText(tr("编辑"));
+    //ui->tBtnEdit->setEnabled(true);
     ui->tBtnSave->setEnabled(false);
     ui->tBtnZoomIn->setEnabled(false);
     ui->tBtnRestore->setEnabled(false);
     ui->tBtnZoomOut->setEnabled(false);
+    ui->tBtnAlignTop->setEnabled(false);
+    ui->tBtnAlignLeft->setEnabled(false);
+    ui->tBtnAlignRight->setEnabled(false);
+    ui->tBtnAlignBottom->setEnabled(false);
     QSqlDatabase pSqlDatabase = SqlManager::openConnection();
     SqlManager::setViewZoom(pSqlDatabase,m_loop,QString::number(m_viewScale),m_hostIP);
     SqlManager::closeConnection(pSqlDatabase);
@@ -404,7 +442,7 @@ void GraphicsView::analysisData(QByteArray hostData)
             return;
         }
         if (false == m_itemInfoList.value(index).m_alarmFlag) {
-            m_itemInfoList[index].m_alarmFlag = true;          
+            m_itemInfoList[index].m_alarmFlag = true;
             QString pLoopStr  = QString::number(pLoop);
             QString pIDStr    = QString::number(pID);
             QString pStateStr = QString("探测器报警");
@@ -466,7 +504,7 @@ void GraphicsView::showInfoList(QTableWidget *tableWidget, QList<QStringList> in
     //获取数据列表
 
     tableWidget->setRowCount(infoList.count());
-    QFont ft("楷体",14);
+    QFont ft("微软雅黑",12);
     int pRowCount = infoList.count();
     QTableWidgetItem *item;
     for (int row = 0; row < infoList.count();row++) {
@@ -537,6 +575,86 @@ void GraphicsView::slotFindItemAlarmPos(int row, int column)
         QPoint itemPos;
         itemPos.setX(m_itemInfoList.at(index).m_posX);
         itemPos.setY(m_itemInfoList.at(index).m_posY);
+    }
+}
+
+void GraphicsView::slotAlignTop()
+{
+    if (m_scene->selectedItems().count()) {
+        QList<QGraphicsItem *> itemList = m_scene->selectedItems();
+        qreal pPosYmin = m_scene->selectedItems().at(0)->pos().y();
+        //查找最小值
+        for (int ind = 0; ind < itemList.count(); ind++) {
+            QGraphicsItem *item = itemList.value(ind);
+            qreal pItemPosY = item->pos().y();
+            if (pPosYmin > pItemPosY) {
+                pPosYmin = pItemPosY;
+            }
+        }
+        //设置左对齐X轴坐标
+        for (int ind = 0; ind < itemList.count(); ind++) {
+            itemList.value(ind)->setY(pPosYmin);
+        }
+    }
+}
+
+void GraphicsView::slotAlignBottom()
+{
+    if (m_scene->selectedItems().count()) {
+        QList<QGraphicsItem *> itemList = m_scene->selectedItems();
+        qreal pPosYmax = m_scene->selectedItems().at(0)->pos().y();
+        //查找最小值
+        for (int ind = 0; ind < itemList.count(); ind++) {
+            QGraphicsItem *item = itemList.value(ind);
+            qreal pItemPosY = item->pos().y();
+            if (pPosYmax < pItemPosY) {
+                pPosYmax = pItemPosY;
+            }
+        }
+        //设置左对齐X轴坐标
+        for (int ind = 0; ind < itemList.count(); ind++) {
+            itemList.value(ind)->setY(pPosYmax);
+        }
+    }
+}
+
+void GraphicsView::slotAlignLeft()
+{
+    if (m_scene->selectedItems().count()) {
+        QList<QGraphicsItem *> itemList = m_scene->selectedItems();
+        qreal pPosXmin = m_scene->selectedItems().at(0)->pos().x();
+        //查找最小值
+        for (int ind = 0; ind < itemList.count(); ind++) {
+            QGraphicsItem *item = itemList.value(ind);
+            qreal pItemPosX = item->pos().x();
+            if (pPosXmin > pItemPosX) {
+                pPosXmin = pItemPosX;
+            }
+        }
+        //设置左对齐X轴坐标
+        for (int ind = 0; ind < itemList.count(); ind++) {
+            itemList.value(ind)->setX(pPosXmin);
+        }
+    }
+}
+
+void GraphicsView::slotAlignRight()
+{
+    if (m_scene->selectedItems().count()) {
+        QList<QGraphicsItem *> itemList = m_scene->selectedItems();
+        qreal pPosXmax = m_scene->selectedItems().at(0)->pos().x();
+        //查找最小值
+        for (int ind = 0; ind < itemList.count(); ind++) {
+            QGraphicsItem *item = itemList.value(ind);
+            qreal pItemPosX = item->pos().x();
+            if (pPosXmax < pItemPosX) {
+                pPosXmax = pItemPosX;
+            }
+        }
+        //设置左对齐X轴坐标
+        for (int ind = 0; ind < itemList.count(); ind++) {
+            itemList.value(ind)->setX(pPosXmax);
+        }
     }
 }
 

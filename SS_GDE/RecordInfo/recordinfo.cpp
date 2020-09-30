@@ -62,7 +62,7 @@ void RecordInfo::initVariable()
 
 void RecordInfo::initTableWidget(QTableWidget *tableWidget)
 {
-    QString styleStr = "QHeaderView::section{font: 15pt '楷体';background-color:rgb(0, 125, 165);color: white;}";
+    QString styleStr = "QHeaderView::section{font: 12pt '微软雅黑';background-color:rgb(0, 125, 165);color: white;}";
     tableWidget->horizontalHeader()->setStyleSheet(styleStr);
     tableWidget->verticalHeader()->setStyleSheet(styleStr);
     tableWidget->verticalHeader()->setDefaultAlignment(Qt::AlignRight | Qt::AlignVCenter);
@@ -121,7 +121,7 @@ void RecordInfo::showRecordList(QTableWidget *tableWidget, QString querySql)
     }
 
     tableWidget->setRowCount(m_rowCount);
-    QFont ft("楷体",14);
+    QFont ft("微软雅黑",12);
     QTableWidgetItem *item;
     for (int row = 0; row < nodeList.count(); row++) {
         QStringList itemStr = nodeList.at(row);

@@ -36,12 +36,15 @@
         <file>Image/normal.png</file>
         <file>Image/offLine.png</file>
         <file>Image/detector.png</file>
-        <file>Image/restore.png</file>
         <file>Image/edit.png</file>
         <file>Image/save.png</file>
         <file>Image/plan-Model.png</file>
         <file>Image/addDev.png</file>
         <file>Image/delDev.png</file>
         <file>Image/app.ico</file>
+        <file>Image/AlignBottom.png</file>
+        <file>Image/AlignLeft.png</file>
+        <file>Image/AlignRight.png</file>
+        <file>Image/AlignTop.png</file>
     </qresource>
 </RCC>

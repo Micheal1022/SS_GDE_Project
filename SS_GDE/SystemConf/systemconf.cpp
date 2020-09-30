@@ -166,7 +166,7 @@ void SystemConf::confHostList(QTableWidget *tableWidget)
 
 void SystemConf::initTableWidget(QTableWidget *tableWidget)
 {
-    QString styleStr = "QHeaderView::section{font: 14pt '楷体';background-color:rgb(0, 125, 165);color: white;}";
+    QString styleStr = "QHeaderView::section{font: 12pt '微软雅黑';background-color:rgb(0, 125, 165);color: white;}";
     tableWidget->horizontalHeader()->setStyleSheet(styleStr);
     tableWidget->verticalHeader()->setStyleSheet(styleStr);
     tableWidget->verticalHeader()->setDefaultAlignment(Qt::AlignRight | Qt::AlignVCenter);
@@ -214,7 +214,7 @@ void SystemConf::initTableWidget(QTableWidget *tableWidget)
 void SystemConf::slotBtnAddHost()
 {
     ui->tableWidget->setRowCount(ui->tableWidget->rowCount()+1);
-    QFont ft("楷体",14);
+    QFont ft("微软雅黑",12);
     QTableWidgetItem *item;
     for (int column = 0;column < ui->tableWidget->columnCount();column++) {
         item = new QTableWidgetItem;

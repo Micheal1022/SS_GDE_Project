@@ -9,7 +9,7 @@
 DEFINES += SENSOR
 
 
-#DEFINES += FULLSCREEN
+DEFINES += FULLSCREEN
 
 QT       += core gui svg sql network
 

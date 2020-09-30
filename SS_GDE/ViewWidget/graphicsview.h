@@ -26,7 +26,10 @@ private:
     Ui::GraphicsView *ui;
     QGraphicsScene *m_scene;
     void initWidget();
+    void initVariable();
+    void initConnect();
     void initTableWidget(QTableWidget *tableWidget);
+    bool m_editModeFlag;
     qreal m_viewScale;
     QString m_dbPaht;
     QString m_loop;
@@ -46,7 +49,6 @@ private:
 signals:
     void sigNodeInfoZoom(QString loop, QString id, QPair<qreal, qreal> pox, QString scale, QString path);
     void sigNodeInfoZoom(QList<SensorItemInfo> itemInfoList, QList<QPair<qreal, qreal>> poxList, QStringList scale, QString path);
-protected:
 
 private slots:
 
@@ -60,6 +62,11 @@ private slots:
     void slotInfoTimeOut();
     void slotFindItemErrorPos(int row, int column);
     void slotFindItemAlarmPos(int row, int column);
+
+    void slotAlignTop();
+    void slotAlignLeft();
+    void slotAlignRight();
+    void slotAlignBottom();
 };
 
 #endif // GRAPHICSVIEW_H
