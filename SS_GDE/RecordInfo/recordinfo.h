@@ -1,6 +1,7 @@
 #ifndef RECORDINFO_H
 #define RECORDINFO_H
 
+#include <QTimer>
 #include <QWidget>
 #include <QTableWidget>
 namespace Ui {
@@ -33,6 +34,7 @@ private:
     int m_rowCount;
     int m_pageCount;
     int m_pageNumber;
+    QTimer *m_dateTimer;
     void initWidget();
     void initConnect();
     void initVariable();
@@ -45,11 +47,14 @@ signals:
     void sigViewWidget();
 
 private slots:
+    void slotBtnManual();
+    void slotBtnAuto();
     void slotBtnCheck();
     void slotBtnPageUp();
     void slotBtnAllDel();
     void slotBtnExport();
     void slotBtnPageDown();
+    void slotDateTimeOut();
 
 };
 

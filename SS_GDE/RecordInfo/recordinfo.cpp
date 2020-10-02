@@ -36,6 +36,7 @@ RecordInfo::~RecordInfo()
 
 void RecordInfo::initWidget()
 {
+    ui->tBtnManual->setEnabled(false);
     ui->tBtnPageUp->setEnabled(false);
     ui->tBtnPageDown->setEnabled(false);
     initTableWidget(ui->tableWidget);
@@ -43,10 +44,13 @@ void RecordInfo::initWidget()
 
 void RecordInfo::initConnect()
 {
+    connect(ui->tBtnAuto,    SIGNAL(clicked(bool)),this,SLOT(slotBtnAuto()));
+    connect(ui->tBtnManual,  SIGNAL(clicked(bool)),this,SLOT(slotBtnManual()));
     connect(ui->tBtnCheck,   SIGNAL(clicked(bool)),this,SLOT(slotBtnCheck()));
     connect(ui->tBtnAllDel,  SIGNAL(clicked(bool)),this,SLOT(slotBtnAllDel()));
     connect(ui->tBtnExport,  SIGNAL(clicked(bool)),this,SLOT(slotBtnExport()));
     connect(ui->tBtnPageUp,  SIGNAL(clicked(bool)),this,SLOT(slotBtnPageUp()));
+    connect(m_dateTimer,     SIGNAL(timeout()),    this,SLOT(slotDateTimeOut()));
     connect(ui->tBtnPageDown,SIGNAL(clicked(bool)),this,SLOT(slotBtnPageDown()));
     connect(ui->tBtnBack,    SIGNAL(clicked(bool)),this,SIGNAL(sigViewWidget()));
     connect(this,SIGNAL(sigPageUp(int)),ui->tableWidget->verticalScrollBar(),SLOT(setValue(int)));
@@ -58,6 +62,8 @@ void RecordInfo::initVariable()
     m_rowCount = 0;
     m_pageCount = 0;
     m_pageNumber = 0;
+    m_dateTimer = new QTimer;
+    m_dateTimer->start(1000);
 }
 
 void RecordInfo::initTableWidget(QTableWidget *tableWidget)
@@ -71,7 +77,8 @@ void RecordInfo::initTableWidget(QTableWidget *tableWidget)
     tableWidget->horizontalHeader()->setStretchLastSection(true);
     tableWidget->horizontalHeader()->setHighlightSections(false);
 
-    //tableWidget->setEditTriggers(QTableWidget::NoEditTriggers);//单元格不可编
+    tableWidget->setFocusPolicy(Qt::NoFocus);
+    tableWidget->setEditTriggers(QTableWidget::NoEditTriggers);//单元格不可编
     tableWidget->setSelectionBehavior (QAbstractItemView::SelectRows); //设置选择行为，以行为单位
     tableWidget->setSelectionMode (QAbstractItemView::SingleSelection); //设置选择模式，选择单行
     tableWidget->setStyleSheet("QTableWidget::item:selected {color: rgb(255, 255, 255);background-color: rgb(0,  125, 165);}");
@@ -97,10 +104,10 @@ void RecordInfo::initTableWidget(QTableWidget *tableWidget)
 QString RecordInfo::confQuerySql()
 {
     QString pQuerySql = "select NAME,HOST,LOOP,ID,TYPE,STS,TIME,AREA from RECORD where ";
-    QString pStartTime = QString::number(ui->dateEditStart->dateTime().toTime_t());
-    QString pStopTime  = QString::number(ui->dateEditStop->dateTime().toTime_t());
+    QString pStartTime = QString::number(ui->dateTimeEditStart->dateTime().toTime_t());
+    QString pStopTime  = QString::number(ui->dateTimeEditStop->dateTime().toTime_t());
     pQuerySql += QString("TIME between %1 and %2 order by TIME desc;").arg(pStartTime).arg(pStopTime);
-    //qDebug()<<"pQuerySql ---> "<<pQuerySql;
+    qDebug()<<"pQuerySql ---> "<<pQuerySql;
     return pQuerySql;
 }
 
@@ -125,14 +132,15 @@ void RecordInfo::showRecordList(QTableWidget *tableWidget, QString querySql)
     QTableWidgetItem *item;
     for (int row = 0; row < nodeList.count(); row++) {
         QStringList itemStr = nodeList.at(row);
-        QString pName,pHost,pLoop,pID,pType,pSts,pTime;
-        pName = itemStr.at(R_NAME);
-        pHost = itemStr.at(R_HOST);
-        pLoop = itemStr.at(R_LOOP);
-        pID   = itemStr.at(R_ID);
-        pType = itemStr.at(R_TYPE);
-        pSts  = itemStr.at(R_STS);
-        pTime = itemStr.at(R_TIME);
+
+        QString pName = itemStr.at(R_NAME);
+        QString pHost = itemStr.at(R_HOST);
+        QString pLoop = itemStr.at(R_LOOP);
+        QString pID   = itemStr.at(R_ID);
+        QString pType = itemStr.at(R_TYPE);
+        QString pSts  = itemStr.at(R_STS);
+        QString pTime = itemStr.at(R_TIME);
+        QString pArea = itemStr.at(R_AREA);
         tableWidget->setRowHeight(row,29);
         for (int column = 0;column < pColumnCount; column++) {
             item = new QTableWidgetItem;
@@ -141,7 +149,7 @@ void RecordInfo::showRecordList(QTableWidget *tableWidget, QString querySql)
             item->setTextColor(Qt::black);
             switch (column) {
             case R_NAME:
-
+                item->setText(pName);
                 break;
             case R_HOST://主机地址
                 item->setText(pHost);
@@ -153,7 +161,15 @@ void RecordInfo::showRecordList(QTableWidget *tableWidget, QString querySql)
                 item->setText(pID);
                 break;
             case R_TYPE://探测器类型
-                item->setText(pType);
+                switch (pType.toInt()) {
+                case 1:
+                    item->setText(tr("组合式电气火灾探测器"));
+                    break;
+                case 2:
+                    item->setText(tr("一体式电气火灾探测器"));
+                    break;
+                }
+
                 break;
             case R_STS://事件类型
                 item->setText(pSts);
@@ -162,11 +178,30 @@ void RecordInfo::showRecordList(QTableWidget *tableWidget, QString querySql)
                 item->setText(QDateTime::fromTime_t(pTime.toUInt()).toString("yyyy/MM/dd hh:mm:ss"));
                 break;
             case R_AREA://安装区域
+                item->setText(pArea);
                 break;
             }
             tableWidget->setItem(row,column,item);
         }
     }
+}
+
+void RecordInfo::slotBtnManual()
+{
+    m_dateTimer->stop();
+    ui->tBtnAuto->setEnabled(true);
+    ui->tBtnManual->setEnabled(false);
+    ui->dateTimeEditStop->setEnabled(true);
+    ui->dateTimeEditStart->setEnabled(true);
+}
+
+void RecordInfo::slotBtnAuto()
+{
+    m_dateTimer->start();
+    ui->tBtnAuto->setEnabled(false);
+    ui->tBtnManual->setEnabled(true);
+    ui->dateTimeEditStop->setEnabled(false);
+    ui->dateTimeEditStart->setEnabled(false);
 }
 
 void RecordInfo::slotBtnCheck()
@@ -252,6 +287,12 @@ void RecordInfo::slotBtnPageDown()
     } else {
         m_pageNumber = m_pageCount - 1;
     }
+}
+
+void RecordInfo::slotDateTimeOut()
+{
+    QDateTime pDateTime = QDateTime::currentDateTime();
+    ui->dateTimeEditStop->setDateTime(pDateTime);
 }
 
 void RecordInfo::slotBtnPageUp()

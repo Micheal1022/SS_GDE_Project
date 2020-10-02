@@ -15,7 +15,11 @@ DBThead::DBThead(QObject *parent) : QObject(parent)
 void DBThead::slotNodeInfoZoom(QList<SensorItemInfo> itemInfoList, QList<QPair<qreal, qreal> > poxList, QStringList scaleList, QString path)
 {
     QSqlDatabase database;
-    database = QSqlDatabase::addDatabase("QSQLITE");
+    if (QSqlDatabase::contains("qt_sql_default_connection")) {
+        database = QSqlDatabase::database("qt_sql_default_connection");
+    } else {
+        database = QSqlDatabase::addDatabase("QSQLITE");
+    }
     database.setDatabaseName(path);
 
     if (!database.open()) {

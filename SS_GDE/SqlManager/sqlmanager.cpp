@@ -112,14 +112,18 @@ SqlManager::~SqlManager()
 
 bool SqlManager::insertAlarmRecord(QSqlDatabase db, QStringList stringList)
 {
-    QString pHost = stringList.value(0);
-    QString pLoop = stringList.value(1);
-    QString pID   = stringList.value(2);
-    QString pType = stringList.value(3);
-    QString pSts  = stringList.value(4);
-    QString pTime = stringList.value(5);
+    QString pName = stringList.value(0);
+    QString pHost = stringList.value(1);
+    QString pLoop = stringList.value(2);
+    QString pID   = stringList.value(3);
+    QString pType = stringList.value(4);
+    QString pSts  = stringList.value(5);
+    QString pTime = stringList.value(6);
+    QString pArea = stringList.value(7);
 
-    QString pSqlQuery = QString("insert into RECORD values('%1',%2,%3,'%4','%5',%6);").arg(pHost).arg(pLoop).arg(pID).arg(pType).arg(pSts).arg(pTime);
+    QString pSqlQuery = QString("insert into RECORD values('%1','%2',%3,%4,%5,'%6',%7,'%8');").arg(pName).arg(pHost).arg(pLoop).\
+            arg(pID).arg(pType).arg(pSts).arg(pTime).arg(pArea);
+    qDebug()<<"pSqlQuery -----> "<<pSqlQuery;
     QSqlQuery pQuery(db);
     if (!pQuery.exec(pSqlQuery)) {
         return false;

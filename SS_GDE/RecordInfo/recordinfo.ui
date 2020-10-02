@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1442</width>
-    <height>707</height>
+    <width>1731</width>
+    <height>690</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -42,9 +42,10 @@ border-radius:5px;
 background-color: rgb(255, 255, 255);
 }
 QTableWidgetItem{
+outline:0px;
 border:1px solid rgb(0, 0, 0);
 }
-QDateEdit{
+QDateTimeEdit{
 font: 18pt &quot;微软雅黑&quot;;
 border-radius:5px;
 border:1px solid rgb(0, 125, 165);
@@ -97,7 +98,7 @@ border-radius:10px;
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,3,1,3">
+      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,0,1,0,0,0">
        <property name="spacing">
         <number>5</number>
        </property>
@@ -131,7 +132,7 @@ border-radius:10px;
         </widget>
        </item>
        <item>
-        <widget class="QDateEdit" name="dateEditStart">
+        <widget class="QDateTimeEdit" name="dateTimeEditStart">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -140,13 +141,13 @@ border-radius:10px;
          </property>
          <property name="minimumSize">
           <size>
-           <width>180</width>
+           <width>300</width>
            <height>60</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>180</width>
+           <width>300</width>
            <height>60</height>
           </size>
          </property>
@@ -164,7 +165,7 @@ border-radius:10px;
           </datetime>
          </property>
          <property name="displayFormat">
-          <string>yyyy/MM/dd</string>
+          <string>yyyy/MM/dd hh:mm:ss</string>
          </property>
         </widget>
        </item>
@@ -198,7 +199,7 @@ border-radius:10px;
         </widget>
        </item>
        <item>
-        <widget class="QDateEdit" name="dateEditStop">
+        <widget class="QDateTimeEdit" name="dateTimeEditStop">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -207,13 +208,13 @@ border-radius:10px;
          </property>
          <property name="minimumSize">
           <size>
-           <width>180</width>
+           <width>300</width>
            <height>60</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>180</width>
+           <width>300</width>
            <height>60</height>
           </size>
          </property>
@@ -224,14 +225,63 @@ border-radius:10px;
           <enum>QAbstractSpinBox::PlusMinus</enum>
          </property>
          <property name="displayFormat">
-          <string>yyyy/MM/dd</string>
+          <string>yyyy/MM/dd hh:mm:ss</string>
          </property>
-         <property name="date">
-          <date>
-           <year>2020</year>
-           <month>8</month>
-           <day>1</day>
-          </date>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="tBtnManual">
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>120</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>手动调时</string>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextBesideIcon</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="tBtnAuto">
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>120</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>自动调时</string>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextBesideIcon</enum>
          </property>
         </widget>
        </item>
