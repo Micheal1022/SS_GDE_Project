@@ -151,7 +151,10 @@ void GraphicsView::confView(QList<SensorItemInfo> itemInfoList, QString loop, QS
             pItem->setScale(itemInfoList.value(ind).m_zoom);
         }
         m_scene->addItem(pItem);
+        //m_itemList.append(pItem);
     }
+
+    m_selectItemList = m_scene->items();
 
     UdpThread *udpThread = new UdpThread(QHostAddress(hostIP) ,port.toUInt());
     QThread *thread = new QThread;
@@ -201,11 +204,11 @@ void GraphicsView::initTableWidget(QTableWidget *tableWidget)
 
 void GraphicsView::setItem(QGraphicsScene *scene, QString loopStr, QString idStr, QString typeStr, QString stateStr)
 {
+    Q_UNUSED(scene)
     SensorItem *pItem;
-    QList<QGraphicsItem *> pItemList = scene->items();
-
-    for (int i = 1; i < pItemList.count(); i++) {
-        pItem = qgraphicsitem_cast<SensorItem*>(pItemList.at(pItemList.count() - 1 - i));
+    for (int i = 1; i < m_selectItemList.count(); i++) {
+        int index = m_selectItemList.count() - 1 - i;
+        pItem = qgraphicsitem_cast<SensorItem*>(m_selectItemList.at(index));
         if (pItem->m_loopStr == loopStr && pItem->m_idStr == idStr) {
             pItem->setItemType(typeStr.toInt());
             pItem->setItemState(stateStr.toInt());
@@ -383,7 +386,7 @@ void GraphicsView::slotBtnSave()
 void GraphicsView::analysisData(QByteArray hostData)
 {
     int pLoop = hostData.at(DATA_LOOP);
-    int pID   = hostData.at(DATA_ID);
+    int pID   = (uchar)hostData.at(DATA_ID);
     int pType = hostData.at(DATA_TYPE);
     QString pLoopStr = QString::number(pLoop);
     QString pIDStr   = QString::number(pID);
@@ -392,53 +395,187 @@ void GraphicsView::analysisData(QByteArray hostData)
     int index;
     QString pDateTimeStr = QDateTime::currentDateTime().toString("yyyy/MM/dd hh:mm:ss");
     QString pAlarmTime = QString::number(QDateTime::currentDateTime().toTime_t());
-    QStringList pInfoList;
+    QStringList pInfoList,pAlarmList;
     int pState =  hostData.at(DATA_STATE);
     switch (pState) {
-    case NORMAL:
+    case N_NORMAL:
 
         index = findItemIndex(m_itemInfoList,pLoopStr,pIDStr);
         if (index < 0) {
             return;
         }
+        if (true == m_itemInfoList.value(index).m_powerLostFlag) {
+            m_itemInfoList[index].m_powerLostFlag = false;
+            delStringList(m_alarmInfoList,pLoop,pID,N_POWERLOST);
+        }
+        if (true == m_itemInfoList.value(index).m_overVolFlag) {
+            m_itemInfoList[index].m_overVolFlag = false;
+            delStringList(m_errorInfoList,pLoop,pID,N_OVERVOL);
+        }
+        if (true == m_itemInfoList.value(index).m_overCurFlag) {
+            m_itemInfoList[index].m_overCurFlag = false;
+            delStringList(m_errorInfoList,pLoop,pID,N_OVERCUR);
+        }
+        if (true == m_itemInfoList.value(index).m_lackVolFlag) {
+            m_itemInfoList[index].m_lackVolFlag = false;
+            delStringList(m_errorInfoList,pLoop,pID,N_LACKVOL);
+        }
+        if (true == m_itemInfoList.value(index).m_lackPhaFlag) {
+            m_itemInfoList[index].m_lackPhaFlag = false;
+            delStringList(m_errorInfoList,pLoop,pID,N_LACKPHA);
+        }
+        if (true == m_itemInfoList.value(index).m_errorPhaFlag) {
+            m_itemInfoList[index].m_errorPhaFlag = false;
+            delStringList(m_errorInfoList,pLoop,pID,N_ERRORPHA);
+        }
         if (true == m_itemInfoList.value(index).m_errorFlag) {
             m_itemInfoList[index].m_errorFlag = false;
-            delStringList(m_errorInfoList,pLoop,pID,ERROR);
+            delStringList(m_errorInfoList,pLoop,pID,N_ERROR);
         }
         if (true == m_itemInfoList.value(index).m_alarmFlag) {
             m_itemInfoList[index].m_alarmFlag = false;
-            delStringList(m_alarmInfoList,pLoop,pID,ALARM);
+            delStringList(m_alarmInfoList,pLoop,pID,N_ALARM);
         }
         if (true == m_itemInfoList.value(index).m_offLineFlag) {
             m_itemInfoList[index].m_offLineFlag = false;
-            delStringList(m_errorInfoList,pLoop,pID,OFFLINE);
+            delStringList(m_errorInfoList,pLoop,pID,N_OFFLINE);
         }
         break;
-
-    case ERROR:
+    case N_POWERLOST:
+        index = findItemIndex(m_itemInfoList,pLoopStr,pIDStr);
+        if (index < 0) {
+            return;
+        }
+        if (false == m_itemInfoList.value(index).m_powerLostFlag) {
+            m_itemInfoList[index].m_powerLostFlag = true;
+            QString pStateStr = tr("电源中断");
+            QString pAreaStr  = m_itemInfoList.value(index).m_areaStr;
+            //实时故障列表
+            pInfoList<<m_hostName<<pLoopStr<<pIDStr<<pStateStr<<pDateTimeStr;
+            m_alarmInfoList.append(pInfoList);
+            //历史故障列表
+            pAlarmList<<m_hostName<<m_hostIP<<pLoopStr<<pIDStr<<pTypeStr<<pStateStr<<pAlarmTime<<pAreaStr;
+            QSqlDatabase pDbDatabase = SqlManager::openConnection();
+            SqlManager::insertAlarmRecord(pDbDatabase,pAlarmList);
+            SqlManager::closeConnection(pDbDatabase);
+        }
+        break;
+    case N_OVERVOL:
+        index = findItemIndex(m_itemInfoList,pLoopStr,pIDStr);
+        if (index < 0) {
+            return;
+        }
+        if (false == m_itemInfoList.value(index).m_overVolFlag) {
+            m_itemInfoList[index].m_overVolFlag = true;
+            QString pStateStr = tr("过压故障");
+            QString pAreaStr  = m_itemInfoList.value(index).m_areaStr;
+            //实时故障列表
+            pInfoList<<m_hostName<<pLoopStr<<pIDStr<<pStateStr<<pDateTimeStr;
+            m_errorInfoList.append(pInfoList);
+            //历史故障列表
+            pAlarmList<<m_hostName<<m_hostIP<<pLoopStr<<pIDStr<<pTypeStr<<pStateStr<<pAlarmTime<<pAreaStr;
+            QSqlDatabase pDbDatabase = SqlManager::openConnection();
+            SqlManager::insertAlarmRecord(pDbDatabase,pAlarmList);
+            SqlManager::closeConnection(pDbDatabase);
+        }
+        break;
+    case N_OVERCUR:
+        index = findItemIndex(m_itemInfoList,pLoopStr,pIDStr);
+        if (index < 0) {
+            return;
+        }
+        if (false == m_itemInfoList.value(index).m_overCurFlag) {
+            m_itemInfoList[index].m_overCurFlag = true;
+            QString pStateStr = tr("过流故障");
+            QString pAreaStr  = m_itemInfoList.value(index).m_areaStr;
+            //实时故障列表
+            pInfoList<<m_hostName<<pLoopStr<<pIDStr<<pStateStr<<pDateTimeStr;
+            m_errorInfoList.append(pInfoList);
+            //历史故障列表
+            pAlarmList<<m_hostName<<m_hostIP<<pLoopStr<<pIDStr<<pTypeStr<<pStateStr<<pAlarmTime<<pAreaStr;
+            QSqlDatabase pDbDatabase = SqlManager::openConnection();
+            SqlManager::insertAlarmRecord(pDbDatabase,pAlarmList);
+            SqlManager::closeConnection(pDbDatabase);
+        }
+        break;
+    case N_LACKVOL:
+        index = findItemIndex(m_itemInfoList,pLoopStr,pIDStr);
+        if (index < 0) {
+            return;
+        }
+        if (false == m_itemInfoList.value(index).m_lackVolFlag) {
+            m_itemInfoList[index].m_lackVolFlag = true;
+            QString pStateStr = tr("欠压故障");
+            QString pAreaStr  = m_itemInfoList.value(index).m_areaStr;
+            //实时故障列表
+            pInfoList<<m_hostName<<pLoopStr<<pIDStr<<pStateStr<<pDateTimeStr;
+            m_errorInfoList.append(pInfoList);
+            //历史故障列表
+            pAlarmList<<m_hostName<<m_hostIP<<pLoopStr<<pIDStr<<pTypeStr<<pStateStr<<pAlarmTime<<pAreaStr;
+            QSqlDatabase pDbDatabase = SqlManager::openConnection();
+            SqlManager::insertAlarmRecord(pDbDatabase,pAlarmList);
+            SqlManager::closeConnection(pDbDatabase);
+        }
+        break;
+    case N_LACKPHA:
+        index = findItemIndex(m_itemInfoList,pLoopStr,pIDStr);
+        if (index < 0) {
+            return;
+        }
+        if (false == m_itemInfoList.value(index).m_lackPhaFlag) {
+            m_itemInfoList[index].m_lackPhaFlag = true;
+            QString pStateStr = tr("缺相故障");
+            QString pAreaStr  = m_itemInfoList.value(index).m_areaStr;
+            //实时故障列表
+            pInfoList<<m_hostName<<pLoopStr<<pIDStr<<pStateStr<<pDateTimeStr;
+            m_errorInfoList.append(pInfoList);
+            //历史故障列表
+            pAlarmList<<m_hostName<<m_hostIP<<pLoopStr<<pIDStr<<pTypeStr<<pStateStr<<pAlarmTime<<pAreaStr;
+            QSqlDatabase pDbDatabase = SqlManager::openConnection();
+            SqlManager::insertAlarmRecord(pDbDatabase,pAlarmList);
+            SqlManager::closeConnection(pDbDatabase);
+        }
+        break;
+    case N_ERRORPHA:
+        index = findItemIndex(m_itemInfoList,pLoopStr,pIDStr);
+        if (index < 0) {
+            return;
+        }
+        if (false == m_itemInfoList.value(index).m_errorPhaFlag) {
+            m_itemInfoList[index].m_errorPhaFlag = true;
+            QString pStateStr = tr("错相故障");
+            QString pAreaStr  = m_itemInfoList.value(index).m_areaStr;
+            //实时故障列表
+            pInfoList<<m_hostName<<pLoopStr<<pIDStr<<pStateStr<<pDateTimeStr;
+            m_errorInfoList.append(pInfoList);
+            //历史故障列表
+            pAlarmList<<m_hostName<<m_hostIP<<pLoopStr<<pIDStr<<pTypeStr<<pStateStr<<pAlarmTime<<pAreaStr;
+            QSqlDatabase pDbDatabase = SqlManager::openConnection();
+            SqlManager::insertAlarmRecord(pDbDatabase,pAlarmList);
+            SqlManager::closeConnection(pDbDatabase);
+        }
+        break;
+    case N_ERROR:
         index = findItemIndex(m_itemInfoList,pLoopStr,pIDStr);
         if (index < 0) {
             return;
         }
         if (false == m_itemInfoList.value(index).m_errorFlag) {
             m_itemInfoList[index].m_errorFlag = true;
-            QString pStateStr = QString("探测器故障");
+            QString pStateStr = tr("探测器故障");
             QString pAreaStr  = m_itemInfoList.value(index).m_areaStr;
             //实时故障列表
-            pInfoList<<m_hostName<<pLoopStr<<pIDStr<<pTypeStr<<pStateStr<<pDateTimeStr;
+            pInfoList<<m_hostName<<pLoopStr<<pIDStr<<pStateStr<<pDateTimeStr;
             m_errorInfoList.append(pInfoList);
             //历史故障列表
-            pInfoList.insert(1,m_hostIP);
-            pInfoList.replace(6,pAlarmTime);
-            pInfoList.append(pAreaStr);
+            pAlarmList<<m_hostName<<m_hostIP<<pLoopStr<<pIDStr<<pTypeStr<<pStateStr<<pAlarmTime<<pAreaStr;
             QSqlDatabase pDbDatabase = SqlManager::openConnection();
-            SqlManager::insertAlarmRecord(pDbDatabase,pInfoList);
+            SqlManager::insertAlarmRecord(pDbDatabase,pAlarmList);
             SqlManager::closeConnection(pDbDatabase);
-
         }
         break;
 
-    case ALARM:
+    case N_ALARM:
         index = findItemIndex(m_itemInfoList,pLoopStr,pIDStr);
         if (index < 0) {
             return;
@@ -448,38 +585,32 @@ void GraphicsView::analysisData(QByteArray hostData)
             QString pStateStr = QString("探测器报警");
             QString pAreaStr  = m_itemInfoList.value(index).m_areaStr;
             //实时报警列表
-            pInfoList<<m_hostName<<pLoopStr<<pIDStr<<pTypeStr<<pStateStr<<pDateTimeStr;
+            pInfoList<<m_hostName<<pLoopStr<<pIDStr<<pStateStr<<pDateTimeStr;
             m_alarmInfoList.append(pInfoList);
             //历史报警列表
-            pInfoList.insert(1,m_hostIP);
-            pInfoList.replace(6,pAlarmTime);
-            pInfoList.append(pAreaStr);
+            pAlarmList<<m_hostName<<m_hostIP<<pLoopStr<<pIDStr<<pTypeStr<<pStateStr<<pAlarmTime<<pAreaStr;
             QSqlDatabase pDbDatabase = SqlManager::openConnection();
-            SqlManager::insertAlarmRecord(pDbDatabase,pInfoList);
+            SqlManager::insertAlarmRecord(pDbDatabase,pAlarmList);
             SqlManager::closeConnection(pDbDatabase);
-
-
         }
         break;
 
-    case OFFLINE:
+    case N_OFFLINE:
         index = findItemIndex(m_itemInfoList,pLoopStr,pIDStr);
         if (index < 0) {
             return;
         }
         if (false == m_itemInfoList.value(index).m_offLineFlag) {
             m_itemInfoList[index].m_offLineFlag = true;
-            QString pStateStr = QString("探测器掉线");
+            QString pStateStr = QString("通讯故障");
             QString pAreaStr  = m_itemInfoList.value(index).m_areaStr;
             //实时掉线列表
-            pInfoList<<m_hostName<<pLoopStr<<pIDStr<<pTypeStr<<pStateStr<<pDateTimeStr;
+            pInfoList<<m_hostName<<pLoopStr<<pIDStr<<pStateStr<<pDateTimeStr;
             m_errorInfoList.append(pInfoList);
             //历史掉线列表
-            pInfoList.insert(1,m_hostIP);
-            pInfoList.replace(6,pAlarmTime);
-            pInfoList.append(pAreaStr);
+            pAlarmList<<m_hostName<<m_hostIP<<pLoopStr<<pIDStr<<pTypeStr<<pStateStr<<pAlarmTime<<pAreaStr;
             QSqlDatabase pDbDatabase = SqlManager::openConnection();
-            SqlManager::insertAlarmRecord(pDbDatabase,pInfoList);
+            SqlManager::insertAlarmRecord(pDbDatabase,pAlarmList);
             SqlManager::closeConnection(pDbDatabase);
         }
         break;
@@ -489,7 +620,7 @@ void GraphicsView::analysisData(QByteArray hostData)
 void GraphicsView::slotHostData(QByteArray hostData)
 {
     QString pLoopStr = QString::number(hostData.at(DATA_LOOP));
-    QString pIDStr   = QString::number(hostData.at(DATA_ID));
+    QString pIDStr   = QString::number((uchar)hostData.at(DATA_ID));
     QString pType    = QString::number(hostData.at(DATA_TYPE));
     QString pState   = QString::number(hostData.at(DATA_STATE));
     setItem(m_scene,pLoopStr,pIDStr,pType,pState);
@@ -528,14 +659,32 @@ void GraphicsView::delStringList(QList<QStringList> &infoList, int loop, int Id,
     QString pStateStr;
 
     switch (state) {
-    case ERROR:
-        pStateStr = QString("探测器故障");
+    case N_POWERLOST:
+        pStateStr = tr("电源中断");
         break;
-    case ALARM:
-        pStateStr = QString("探测器报警");
+    case N_OVERVOL:
+        pStateStr = tr("过压故障");
         break;
-    case OFFLINE:
-        pStateStr = QString("探测器掉线");
+    case N_OVERCUR:
+        pStateStr = tr("过流故障");
+        break;
+    case N_LACKVOL:
+        pStateStr = tr("欠压故障");
+        break;
+    case N_LACKPHA:
+        pStateStr = tr("缺相故障");
+        break;
+    case N_ERRORPHA:
+        pStateStr = tr("错相故障");
+        break;
+    case N_ERROR:
+        pStateStr = tr("探测器故障");
+        break;
+    case N_ALARM:
+        pStateStr = tr("探测器报警");
+        break;
+    case N_OFFLINE:
+        pStateStr = tr("通讯故障");
         break;
     }
     for( int index = 0;index < infoList.count();index++) {

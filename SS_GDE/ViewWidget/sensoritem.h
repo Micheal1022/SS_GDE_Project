@@ -8,10 +8,6 @@
 #include <QTimer>
 #include "sensoriteminfo.h"
 
-#define NORMAL  0
-#define ERROR   1
-#define ALARM   2
-#define OFFLINE 3
 
 class SensorItem :public QObject , public QGraphicsItem
 {

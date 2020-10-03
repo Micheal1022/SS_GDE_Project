@@ -74,7 +74,8 @@ HEADERS += \
     ViewWidget/udpthread.h \
     ViewWidget/sensoriteminfo.h \
     ViewWidget/dbthead.h \
-    UserLgoin/userlogin.h
+    UserLgoin/userlogin.h \
+    includes.h
 
 FORMS += \
         mainwindow.ui \

@@ -7,6 +7,7 @@
 #include <QToolTip>
 #include <QStyleOptionGraphicsItem>
 #include <QGraphicsSceneMouseEvent>
+#include "includes.h"
 #define SIZE_WIDTH  40
 #define SIZE_HEIGHT SIZE_WIDTH
 #define X_POS   SIZE_WIDTH/20*7
@@ -20,9 +21,9 @@
 SensorItem::SensorItem(SensorItemInfo itemInfo, QObject *parent, QGraphicsItem *parent1)
     :QObject(parent),QGraphicsItem(parent1)
 {
-    m_state = 0;
+    m_state = 100;
     m_times = 0;
-    m_oldState = 0;
+    m_oldState = 1;
     m_loopStr = itemInfo.m_loopStr;
     m_idStr   = itemInfo.m_idStr;
     m_typeStr = itemInfo.m_typeStr;
@@ -48,10 +49,28 @@ void SensorItem::setItemState(int state)
 
 void SensorItem::setItemType(int type)
 {
-    if (1 == type) {
-        m_typeStr = tr("组合式电气火灾探测器");
-    } else if (2 == type) {
-
+    if (type == MOD_L1T4) {
+        m_typeStr = tr("L1T4");
+    } else if (type == MOD_L12T4) {
+        m_typeStr = tr("L12T4");
+    } else if (type == MOD_2VA) {
+        m_typeStr = tr("2VA");
+    } else if (type == MOD_VA) {
+        m_typeStr = tr("VA");
+    } else if (type == MOD_A) {
+        m_typeStr = tr("A");
+    } else if (type == MOD_3V) {
+        m_typeStr = tr("3V");
+    } else if (type == MOD_2V) {
+        m_typeStr = tr("2V");
+    } else if (type == MOD_V) {
+        m_typeStr = tr("V");
+    } else if (type == MOD_6V3A) {
+        m_typeStr = tr("6V3A");
+    } else if (type == MOD_6V) {
+        m_typeStr = tr("6V");
+    } else if (type == MOD_3A) {
+        m_typeStr = tr("3A");
     }
 }
 
@@ -74,7 +93,6 @@ void SensorItem::setToolTipString()
 
 QRectF SensorItem::boundingRect() const
 {
-//    return QRectF(0, 0, 70, 70);
     return QRectF(0, 0, 50, 50);
 }
 
@@ -90,13 +108,25 @@ void SensorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     painter->drawPixmap(rect,pixmap);
     //绘制矩形区域
     QBrush brush;
-    if (NORMAL == m_state) {
+    if (m_state == N_NORMAL) {
         brush.setColor(Qt::green);
-    } else if (ERROR == m_state) {
+    } else if (m_state == N_ERROR) {
         brush.setColor(Qt::yellow);
-    } else if (ALARM == m_state) {
+    } else if (m_state == N_POWERLOST) {
         brush.setColor(Qt::red);
-    } else if (OFFLINE == m_state) {
+    } else if (m_state == N_OVERVOL) {
+        brush.setColor(Qt::yellow);
+    } else if (m_state == N_OVERCUR) {
+        brush.setColor(Qt::yellow);
+    } else if (m_state == N_LACKVOL) {
+        brush.setColor(Qt::yellow);
+    } else if (m_state == N_LACKPHA) {
+        brush.setColor(Qt::yellow);
+    } else if (m_state == N_ERRORPHA) {
+        brush.setColor(Qt::yellow);
+    } else if (m_state == N_ALARM) {
+        brush.setColor(Qt::red);
+    } else if (m_state == N_OFFLINE) {
         brush.setColor(Qt::gray);
     } else {
         brush.setColor(QColor(0xA0,0xA0,0xA4,0));
@@ -131,7 +161,7 @@ void SensorItem::slotStateTimeOut()
 {
     m_times++;
     if (m_times == 1) {
-        m_state = 5;
+        m_state = 100;
     } else if (m_times == 2) {
         m_state = m_oldState;
         m_times = 0;

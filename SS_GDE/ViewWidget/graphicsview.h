@@ -40,6 +40,8 @@ private:
     QList<QStringList> m_alarmInfoList;//报警列表
     QList<QThread *> m_threadList;
     QList<SensorItemInfo> m_itemInfoList;
+    QList<QGraphicsItem *> m_selectItemList;
+
     void analysisData(QByteArray hostData);
     void setItem(QGraphicsScene *scene, QString loopStr, QString idStr, QString typeStr,QString stateStr);
     void setNodeInfoZoom(QString loop, QString id, QPair<qreal, qreal> pox, QString scale, QString path);

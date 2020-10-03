@@ -3,17 +3,7 @@
 
 #include <QObject>
 #include <QHostAddress>
-
-#define DATA_HEAD   0
-#define DATA_LOOP   1
-#define DATA_ID     2
-#define DATA_TYPE   3
-#define DATA_STATE  4
-#define DATA_TAIL   5
-
-#define HEAD_AA     0xAA
-#define TAIL_FF     0xFF
-#define DATASIZE    6
+#include "includes.h"
 
 class QUdpSocket;
 class UdpThread : public QObject

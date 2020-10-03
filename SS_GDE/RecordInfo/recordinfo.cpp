@@ -7,15 +7,8 @@
 #include <QFile>
 #include <QFileDialog>
 #include "MsgBox/msgbox.h"
+#include "includes.h"
 
-#define R_NAME  0
-#define R_HOST  1
-#define R_LOOP  2
-#define R_ID    3
-#define R_TYPE  4
-#define R_STS   5
-#define R_TIME  6
-#define R_AREA  7
 #define ROWS    20
 #define STEP    ROWS
 
@@ -88,16 +81,16 @@ void RecordInfo::initTableWidget(QTableWidget *tableWidget)
     tableWidget->setColumnCount(headList.count());
     tableWidget->setHorizontalHeaderLabels(headList);
     tableWidget->horizontalHeader()->setFixedHeight(30);
-    tableWidget->verticalHeader()->setFixedWidth(30);
+    tableWidget->verticalHeader()->setFixedWidth(50);
 
-    tableWidget->setColumnWidth(0, 200);
-    tableWidget->setColumnWidth(1, 200);
-    tableWidget->setColumnWidth(2, 120);
-    tableWidget->setColumnWidth(3, 120);
-    tableWidget->setColumnWidth(4, 200);
-    tableWidget->setColumnWidth(5, 200);
-    tableWidget->setColumnWidth(6, 300);
-    tableWidget->setColumnWidth(7, 300);
+    tableWidget->setColumnWidth(R_NAME, 200);
+    tableWidget->setColumnWidth(R_HOST, 200);
+    tableWidget->setColumnWidth(R_LOOP, 120);
+    tableWidget->setColumnWidth(R_IDNO, 120);
+    tableWidget->setColumnWidth(R_TYPE, 200);
+    tableWidget->setColumnWidth(R_STATE,200);
+    tableWidget->setColumnWidth(R_TIME, 300);
+    tableWidget->setColumnWidth(R_AREA, 300);
 
 }
 
@@ -107,7 +100,6 @@ QString RecordInfo::confQuerySql()
     QString pStartTime = QString::number(ui->dateTimeEditStart->dateTime().toTime_t());
     QString pStopTime  = QString::number(ui->dateTimeEditStop->dateTime().toTime_t());
     pQuerySql += QString("TIME between %1 and %2 order by TIME desc;").arg(pStartTime).arg(pStopTime);
-    qDebug()<<"pQuerySql ---> "<<pQuerySql;
     return pQuerySql;
 }
 
@@ -136,9 +128,9 @@ void RecordInfo::showRecordList(QTableWidget *tableWidget, QString querySql)
         QString pName = itemStr.at(R_NAME);
         QString pHost = itemStr.at(R_HOST);
         QString pLoop = itemStr.at(R_LOOP);
-        QString pID   = itemStr.at(R_ID);
+        QString pID   = itemStr.at(R_IDNO);
         QString pType = itemStr.at(R_TYPE);
-        QString pSts  = itemStr.at(R_STS);
+        QString pState= itemStr.at(R_STATE);
         QString pTime = itemStr.at(R_TIME);
         QString pArea = itemStr.at(R_AREA);
         tableWidget->setRowHeight(row,29);
@@ -157,22 +149,21 @@ void RecordInfo::showRecordList(QTableWidget *tableWidget, QString querySql)
             case R_LOOP://回路
                 item->setText(pLoop);
                 break;
-            case R_ID://地址
+            case R_IDNO://地址
                 item->setText(pID);
                 break;
             case R_TYPE://探测器类型
                 switch (pType.toInt()) {
-                case 1:
+                case MOD_L12T4:
                     item->setText(tr("组合式电气火灾探测器"));
                     break;
-                case 2:
+                case MOD_L1T4:
                     item->setText(tr("一体式电气火灾探测器"));
                     break;
                 }
-
                 break;
-            case R_STS://事件类型
-                item->setText(pSts);
+            case R_STATE://事件类型
+                item->setText(pState);
                 break;
             case R_TIME://事件时间
                 item->setText(QDateTime::fromTime_t(pTime.toUInt()).toString("yyyy/MM/dd hh:mm:ss"));
