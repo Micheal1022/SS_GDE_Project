@@ -127,7 +127,7 @@ border-image: url(:/Image/Sensor.png);
 color: rgb(255, 255, 255);</string>
         </property>
         <property name="text">
-         <string>电气火灾远程客户端</string>
+         <string>图形显示软件</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignHCenter|Qt::AlignTop</set>

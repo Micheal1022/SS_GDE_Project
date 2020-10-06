@@ -83,6 +83,7 @@ void RecordInfo::initTableWidget(QTableWidget *tableWidget)
     tableWidget->horizontalHeader()->setFixedHeight(30);
     tableWidget->verticalHeader()->setFixedWidth(50);
 
+
     tableWidget->setColumnWidth(R_NAME, 200);
     tableWidget->setColumnWidth(R_HOST, 200);
     tableWidget->setColumnWidth(R_LOOP, 120);
@@ -106,6 +107,7 @@ QString RecordInfo::confQuerySql()
 void RecordInfo::showRecordList(QTableWidget *tableWidget, QString querySql)
 {
     tableWidget->clearContents();
+    tableWidget->setRowCount(0);
     int pColumnCount = tableWidget->columnCount();
     //获取数据列表
     QSqlDatabase db = SqlManager::openConnection();
@@ -117,6 +119,10 @@ void RecordInfo::showRecordList(QTableWidget *tableWidget, QString querySql)
     m_pageCount = m_rowCount / ROWS;
     if ((m_rowCount % ROWS) > 0) {
         m_pageCount += 1;
+    }
+    //如果页数大于1则可用
+    if (m_rowCount > 1) {
+        ui->tBtnPageDown->setEnabled(true);
     }
 
     tableWidget->setRowCount(m_rowCount);

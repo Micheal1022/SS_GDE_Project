@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1731</width>
+    <width>1732</width>
     <height>690</height>
    </rect>
   </property>
@@ -50,21 +50,26 @@ font: 18pt &quot;微软雅黑&quot;;
 border-radius:5px;
 border:1px solid rgb(0, 125, 165);
 }
-/*
-QDateEdit::up-button{
-top:2px;
-right:2px;
-width: 40px;
-height:25px;
+QScrollBar:vertical{
+width:20px;
+background:rgb(0,0,0,0%);
+margin:0px,0px,0px,0px;
+padding-top:25px;   
+padding-bottom:25px;    
 }
-QDateEdit::down-button {
-right:2px;
-width: 40px;
-height:25px;             
-bottom:2px;
+QScrollBar::handle:vertical{
+width:10px;
+background:rgb(0,0,0,25%);
+background:rgb(0,125,165,100%);
+border-radius:5px;
+min-height:20px;
 }
-/*
-</string>
+QScrollBar::handle:vertical:hover{
+width:10px;
+background:rgb(0,125,165,80%);
+border-radius:5px;
+min-height:20;
+}</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" stretch="10,1">
    <property name="spacing">
@@ -91,7 +96,10 @@ border-radius:10px;
 }</string>
      </property>
      <property name="verticalScrollBarPolicy">
-      <enum>Qt::ScrollBarAlwaysOff</enum>
+      <enum>Qt::ScrollBarAsNeeded</enum>
+     </property>
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAsNeeded</enum>
      </property>
     </widget>
    </item>

@@ -417,7 +417,7 @@ color:rgb(0, 0, 0);
           <string>编辑</string>
          </property>
          <property name="icon">
-          <iconset resource="../image.qrc">
+          <iconset>
            <normaloff>:/Image/edit.png</normaloff>:/Image/edit.png</iconset>
          </property>
          <property name="iconSize">
@@ -449,7 +449,7 @@ color:rgb(0, 0, 0);
           <string>保存</string>
          </property>
          <property name="icon">
-          <iconset resource="../image.qrc">
+          <iconset>
            <normaloff>:/Image/save.png</normaloff>:/Image/save.png</iconset>
          </property>
          <property name="iconSize">
@@ -481,7 +481,7 @@ color:rgb(0, 0, 0);
           <string>恢复</string>
          </property>
          <property name="icon">
-          <iconset resource="../image.qrc">
+          <iconset>
            <normaloff>:/Image/reset.png</normaloff>:/Image/reset.png</iconset>
          </property>
          <property name="iconSize">
@@ -513,7 +513,7 @@ color:rgb(0, 0, 0);
           <string>放大</string>
          </property>
          <property name="icon">
-          <iconset resource="../image.qrc">
+          <iconset>
            <normaloff>:/Image/zoomin.png</normaloff>:/Image/zoomin.png</iconset>
          </property>
          <property name="iconSize">
@@ -545,7 +545,7 @@ color:rgb(0, 0, 0);
           <string>缩小</string>
          </property>
          <property name="icon">
-          <iconset resource="../image.qrc">
+          <iconset>
            <normaloff>:/Image/zoomout.png</normaloff>:/Image/zoomout.png</iconset>
          </property>
          <property name="iconSize">
@@ -580,7 +580,7 @@ color:rgb(0, 0, 0);
           <string>左对齐</string>
          </property>
          <property name="icon">
-          <iconset resource="../image.qrc">
+          <iconset>
            <normaloff>:/Image/AlignLeft.png</normaloff>:/Image/AlignLeft.png</iconset>
          </property>
          <property name="iconSize">
@@ -612,7 +612,7 @@ color:rgb(0, 0, 0);
           <string>右对齐</string>
          </property>
          <property name="icon">
-          <iconset resource="../image.qrc">
+          <iconset>
            <normaloff>:/Image/AlignRight.png</normaloff>:/Image/AlignRight.png</iconset>
          </property>
          <property name="iconSize">
@@ -644,7 +644,7 @@ color:rgb(0, 0, 0);
           <string>顶对齐</string>
          </property>
          <property name="icon">
-          <iconset resource="../image.qrc">
+          <iconset>
            <normaloff>:/Image/AlignTop.png</normaloff>:/Image/AlignTop.png</iconset>
          </property>
          <property name="iconSize">
@@ -676,7 +676,7 @@ color:rgb(0, 0, 0);
           <string>底对齐</string>
          </property>
          <property name="icon">
-          <iconset resource="../image.qrc">
+          <iconset>
            <normaloff>:/Image/AlignBottom.png</normaloff>:/Image/AlignBottom.png</iconset>
          </property>
          <property name="iconSize">
@@ -836,8 +836,6 @@ width:25px;
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../image.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

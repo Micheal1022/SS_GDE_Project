@@ -1,0 +1,15 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\dbeditwidget.o
+./release\dbsendwidget.o
+./release\infobox.o
+./release\msgbox.o
+./release\questbox.o
+./release\qrc_image.o
+./release\moc_mainwindow.o
+./release\moc_dbeditwidget.o
+./release\moc_dbsendwidget.o
+./release\moc_infobox.o
+./release\moc_questbox.o
+);
