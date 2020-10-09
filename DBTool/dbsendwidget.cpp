@@ -44,11 +44,12 @@ void DBSendWidget::initConnect()
 void DBSendWidget::slotOpenFile()
 {
     fileName = QFileDialog::getOpenFileName(this);
-    qDebug()<<"fileName : "<<fileName;
-    if(!fileName.isEmpty())
-    {
+    if(!fileName.isEmpty()) {
+        totalBytes = 0;
+        bytesWritten = 0;
         ui->tBtnOpenFile->setEnabled(true);
         QString currentFileName = fileName.right(fileName.size() - fileName.lastIndexOf('/')-1);
+        ui->progressBar->setValue(0);
         ui->clientStatusLabel->setText(tr("打开文件: %1").arg(currentFileName));
         ui->tBtnSendFile->setEnabled(true);
     }

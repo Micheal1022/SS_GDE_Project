@@ -2789,7 +2789,8 @@ debug/sensoritem.o: ../SS_GDE/ViewWidget/sensoritem.cpp ../SS_GDE/ViewWidget/sen
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qframe.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtCore/qabstractitemmodel.h \
 		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/QGraphicsSceneMouseEvent \
-		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qgraphicssceneevent.h
+		C:/Qt/Qt5.10.1/5.10.1/mingw53_32/include/QtWidgets/qgraphicssceneevent.h \
+		../SS_GDE/includes.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\sensoritem.o ..\SS_GDE\ViewWidget\sensoritem.cpp
 
 debug/graphicsview.o: ../SS_GDE/ViewWidget/graphicsview.cpp ../SS_GDE/ViewWidget/graphicsview.h \

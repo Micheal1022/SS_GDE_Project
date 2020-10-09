@@ -62,11 +62,8 @@ background-color: rgb(0, 255, 0);
      <height>50</height>
     </rect>
    </property>
-   <property name="inputMask">
-    <string>000.000.000.000</string>
-   </property>
    <property name="text">
-    <string>192.168.112.245</string>
+    <string>192.168.45.128</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
