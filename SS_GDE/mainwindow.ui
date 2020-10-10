@@ -107,7 +107,7 @@ border-image: url(:/Image/Sensor.png);
         <property name="maximumSize">
          <size>
           <width>366</width>
-          <height>40</height>
+          <height>50</height>
          </size>
         </property>
         <property name="font">
