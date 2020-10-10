@@ -31,6 +31,8 @@ public:
     QLabel *label_3;
     QLineEdit *lineEditPwd;
     QLabel *label;
+    QLabel *label_2;
+    QLabel *label_4;
 
     void setupUi(QDialog *UserLogin)
     {
@@ -74,7 +76,7 @@ public:
 ""));
         tBtnAdmin = new QToolButton(UserLogin);
         tBtnAdmin->setObjectName(QStringLiteral("tBtnAdmin"));
-        tBtnAdmin->setGeometry(QRect(80, 80, 271, 50));
+        tBtnAdmin->setGeometry(QRect(80, 80, 270, 50));
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -131,6 +133,20 @@ public:
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(20, 15, 384, 46));
         label->setAlignment(Qt::AlignCenter);
+        label_2 = new QLabel(UserLogin);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setGeometry(QRect(80, 85, 270, 50));
+        label_2->setStyleSheet(QString::fromUtf8("font: 20pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"color: rgb(255, 255, 255);\n"
+"border:2px solid rgb(0, 122, 165);\n"
+"border-radius:10px;\n"
+"background-color: rgb(0, 125, 165);"));
+        label_2->setAlignment(Qt::AlignCenter);
+        label_4 = new QLabel(UserLogin);
+        label_4->setObjectName(QStringLiteral("label_4"));
+        label_4->setGeometry(QRect(360, 265, 50, 30));
+        label_4->setStyleSheet(QString::fromUtf8("font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";"));
+        label_4->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
         retranslateUi(UserLogin);
 
@@ -148,6 +164,8 @@ public:
         lineEditPwd->setText(QString());
         lineEditPwd->setPlaceholderText(QApplication::translate("UserLogin", " \350\257\267\350\276\223\345\205\245\345\257\206\347\240\201......", nullptr));
         label->setText(QApplication::translate("UserLogin", "\350\257\267\350\276\223\345\205\245\347\224\250\346\210\267\347\231\273\345\275\225\345\257\206\347\240\201!!!", nullptr));
+        label_2->setText(QApplication::translate("UserLogin", "\347\224\250\346\210\267\347\231\273\345\275\225", nullptr));
+        label_4->setText(QApplication::translate("UserLogin", "V1.0", nullptr));
     } // retranslateUi
 
 };
