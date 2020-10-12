@@ -29,10 +29,10 @@ RecordInfo::~RecordInfo()
 
 void RecordInfo::initWidget()
 {
-    ui->tBtnManual->setEnabled(false);
+    initTableWidget(ui->tableWidget);
+    ui->tBtnAuto->setEnabled(false);
     ui->tBtnPageUp->setEnabled(false);
     ui->tBtnPageDown->setEnabled(false);
-    initTableWidget(ui->tableWidget);
 }
 
 void RecordInfo::initConnect()
